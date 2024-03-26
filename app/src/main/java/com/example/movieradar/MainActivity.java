@@ -14,9 +14,11 @@ import android.widget.TextView;
 
 
 import com.example.movieradar.API.APIString;
+import com.example.movieradar.API.Filters;
 import com.example.movieradar.API.MovieApiTask;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
 //                    startActivity(new Intent(MainActivity.this, Catalogus.class));
                     Log.i(LOG_TAG, "catalogus button clicked");
                     return true;
-                } else if (id == R.id.menuFilmList) {
+                } else if (id == R.id.menuPersonal) {
 //                    startActivity(new Intent(MainActivity.this, Persoonlijk.class));
                     Log.i(LOG_TAG, "Persoonlijk button clicked");
                     return true;
@@ -95,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         mTextViewPop5 = findViewById(R.id.tvMainPopularMovie5);
         mTextViewPop6 = findViewById(R.id.tvMainPopularMovie6);
 
+        //Vraag API vor popular movies, handel deze af als POPULAR_MOVIES
         loadMoviesFromAPI(APIString.getPopularUrl(), POPULAR_MOVIES);
     }
 
@@ -130,6 +133,12 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         mTextViewPop5.setText(movies.get(4).getTitle());
         mTextViewPop6.setText(movies.get(5).getTitle());
         //Laad plaatjes in
+        Picasso.get().load(APIString.getBackdropUrl(movies.get(0).getPoster_path())).into(mImagePop1);
+        Picasso.get().load(APIString.getBackdropUrl(movies.get(1).getPoster_path())).into(mImagePop2);
+        Picasso.get().load(APIString.getBackdropUrl(movies.get(2).getPoster_path())).into(mImagePop3);
+        Picasso.get().load(APIString.getBackdropUrl(movies.get(3).getPoster_path())).into(mImagePop4);
+        Picasso.get().load(APIString.getBackdropUrl(movies.get(4).getPoster_path())).into(mImagePop5);
+        Picasso.get().load(APIString.getBackdropUrl(movies.get(5).getPoster_path())).into(mImagePop6);
 
     }
 }

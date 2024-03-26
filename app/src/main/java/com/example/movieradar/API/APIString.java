@@ -7,6 +7,7 @@ public class APIString {
     private static final String BASE_URL = "https://api.themoviedb.org/3";
     private static final String API_KEY = "731b0900535ff5476ae98c326ef7413c";
     private static final String POPULAR_URL_COMPLETE = "https://api.themoviedb.org/3/trending/movie/day?language=en-US&api_key=731b0900535ff5476ae98c326ef7413c";
+    private static final String BASE_IMG_URL = "https://image.tmdb.org/t/p/w780/";
 
     private StringBuilder mBuilder;
     private boolean isFiltered = false;
@@ -62,13 +63,19 @@ public class APIString {
     }
 
     public void sort(SortType sortType) {
-        appendSeparator();
-        mBuilder.append("sort_by=").append(sortType.getValue());
-        isSorted = true;
+        if(!isSorted) {
+            appendSeparator();
+            mBuilder.append("sort_by=").append(sortType.getValue());
+            isSorted = true;
+        }
     }
 
     public static String getPopularUrl(){
         return POPULAR_URL_COMPLETE;
+    }
+
+    public static String getBackdropUrl(String extra){
+        return BASE_IMG_URL+extra;
     }
 
 }

@@ -11,12 +11,13 @@ public enum SortType {
     VOTE_AVERAGE_DESC("vote_average.desc");
     ;
 
-    private final String value;
+    private final String VALUE;
     SortType(String s) {
-        this.value = s;
+        this.VALUE = s;
     }
 
     public String getValue() {
-        return this.value;
+        return this.VALUE;
     }
 }
+
