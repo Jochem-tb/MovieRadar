@@ -2,81 +2,68 @@ package com.example.movieradar;
 
 import android.util.Log;
 
-import java.util.logging.Filter;
-
 public class APIString {
-    private String mReturn = "";
+    private static final String LOG_TAG = "APIString";
+    private static final String BASE_URL = "https://api.themoviedb.org/3";
+    private static final String API_KEY = "731b0900535ff5476ae98c326ef7413c";
 
-    private String LOG_TAG = "APIString";
-    private String URL = "https://api.themoviedb.org/3";
-    private String DISCOVER = "/search/movie";
-    private String DISCOVER_FILTER = "/search/movie?";
-    private String FINISH_KEY = "?api_key=731b0900535ff5476ae98c326ef7413c";
-    private String FINISH_KEY_WITH_FILTER = "api_key=731b0900535ff5476ae98c326ef7413c";
-    private Boolean isFiltered = false;
-    private Boolean isSorted = false;
+    private StringBuilder mBuilder;
+    private boolean isFiltered = false;
+    private boolean isSorted = false;
 
-    public APIString(){
-        this.mReturn = this.mReturn+URL;
+    public APIString() {
+        mBuilder = new StringBuilder(BASE_URL);
     }
 
-    public String finish(){
-        if(isFiltered==false){
-            Log.i(LOG_TAG,mReturn+FINISH_KEY);
-            return mReturn+FINISH_KEY;
-        }
-        else{
-            Log.i(LOG_TAG,FINISH_KEY_WITH_FILTER);
-            return mReturn+FINISH_KEY_WITH_FILTER;
-        }
-
+    public void search(String query) {
+        appendSeparator();
+        mBuilder.append("/search/movie");
+        addQueryParam("query", query);
     }
 
-    public void isAdult(Boolean bool){
-        if(isSorted == false) {
-            if(isFiltered == false){
-            mReturn = mReturn+DISCOVER_FILTER;
+    public void isAdult(boolean isAdult) {
+        addQueryParam("include_adult", String.valueOf(isAdult));
+    }
+
+    public void setPage(int page) {
+        addQueryParam("page", String.valueOf(page));
+    }
+
+    public void finish() {
+        addQueryParam("api_key", API_KEY);
+        Log.i(LOG_TAG, mBuilder.toString());
+    }
+
+    public String getApiString() {
+        return mBuilder.toString();
+    }
+
+    private void addQueryParam(String key, String value) {
+        appendSeparator();
+        mBuilder.append(key).append("=").append(value);
+    }
+
+    private void appendSeparator() {
+        if (mBuilder.indexOf("?") == -1) {
+            mBuilder.append("?");
+        } else {
+            mBuilder.append("&");
+        }
+    }
+
+    public void filter(Filters filterType, String filter) {
+        if (!isFiltered) {
+            appendSeparator();
+            mBuilder.append("/search/movie?");
             isFiltered = true;
-            }
-            mReturn=mReturn+Filters.include_adult+"+"+bool+"&";
-    }}
-
-    public void filter(Filters filterType, String filter){
-        if(isSorted == false) {
-            if (!isFiltered) {
-                mReturn += DISCOVER_FILTER;
-                isFiltered = true;
-            }
-            String temp = null;
-            switch (filterType) {
-                case include_adult:
-                    temp = Filters.include_adult.toString();
-                    break;
-                case with_genres:
-                    temp = Filters.with_genres.toString();
-                    break;
-                case with_keywords:
-                    temp = Filters.with_keywords.toString();
-                    break;
-                case with_release_type:
-                    temp = Filters.with_release_type.toString();
-                    break;
-                case year:
-                    temp = Filters.year.toString();
-                    break;
-                default:
-                    break;
-            }
-            if (temp != null) {
-                mReturn = mReturn + temp + "+" + filter + "&";
-            }
         }
+        mBuilder.append(filterType.name()).append("=").append(filter);
     }
 
     public void sort(SortType sortType) {
-        if (isSorted == false){
-            mReturn = mReturn + "sort_by=" + sortType.getValue() + "&";
+        appendSeparator();
+        mBuilder.append("sort_by=").append(sortType.getValue());
         isSorted = true;
     }
-    }
+
 }

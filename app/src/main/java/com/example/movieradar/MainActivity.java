@@ -16,14 +16,12 @@ public class MainActivity extends AppCompatActivity {
         EditText ev2 = findViewById(R.id.id2);
         EditText ev3 = findViewById(R.id.id3);
 
-        APIString str1 = new APIString();
-        APIString str2 = new APIString();
-        APIString str3 = new APIString();
-        str1.filter(Filters.with_genres,"Action");
-        str2.filter(Filters.year,"2000");
-        str3.isAdult(true);
-        ev1.setText(str1.finish());
-        ev2.setText(str2.finish());
-        ev3.setText(str3.finish());
+        APIString str = new APIString();
+        str.search("spiderman");
+        str.isAdult(true);
+        str.setPage(1);
+        str.sort(SortType.POPULARITY_DESC);
+        str.finish();
+        ev1.setText(str.getApiString());
     }
 }
