@@ -47,6 +47,8 @@ public class MovieApiTask extends AsyncTask<String, Void, ArrayList<Movie>> {
     // Interface voor Listener
     public interface OnNewMovieListener {
         void onMovieAvailable(ArrayList<Movie> movies);
+
+        void OnNewMovieListener(ArrayList<Movie> movies);
     }
 
     //Constructor voor listener
@@ -83,23 +85,23 @@ public class MovieApiTask extends AsyncTask<String, Void, ArrayList<Movie>> {
     protected void onPostExecute(ArrayList<Movie> movies) {
         super.onPostExecute(movies);
         Log.i(LOG_TAG, "onPostExecute");
-        // Teruggeven van de movies naar de aanroepende activiteit
-        Toast.makeText(context, "Geladen movies: " + movies.size(), Toast.LENGTH_SHORT).show();
-        listener.onMovieAvailable(movies);
+
     }
 
     private ArrayList<Movie> jsonParseResponse(Response response) {
         Log.i(LOG_TAG, "jsonParseResponse");
+        Log.i("ResponseString", String.valueOf(response));
         ArrayList<Movie> movieArrayList = new ArrayList<>();
         ArrayList<Genre> genreArrayList = new ArrayList<>();
-        boolean adultBool;
 
         try {
-            JSONObject jsonObject = new JSONObject(String.valueOf(response));
+            String jsonResponse = response.body().string(); // Extract response body as String
+            Log.i(LOG_TAG,jsonResponse);
+            JSONObject jsonObject = new JSONObject(jsonResponse);
             JSONArray results = jsonObject.getJSONArray(JSON_RESULTS);
             for (int i = 0; i < results.length(); i++) {
-                JSONObject movie = (JSONObject) results.get(i);
-                String adult = movie.getString(JSON_ADULT);
+                JSONObject movie = results.getJSONObject(i); // No need to cast, already JSONObject
+                boolean adult = movie.getBoolean(JSON_ADULT);
                 String backdropPath = movie.getString(JSON_BACKDROP_PATH);
                 String id = movie.getString(JSON_ID);
                 String title = movie.getString(JSON_TITLE);
@@ -119,17 +121,10 @@ public class MovieApiTask extends AsyncTask<String, Void, ArrayList<Movie>> {
                 boolean video = movie.getBoolean(JSON_VIDEO);
                 double voteAverage = movie.getDouble(JSON_VOTE_AVERAGE);
                 int voteCount = movie.getInt(JSON_VOTE_COUNT);
-                if(adult.equals("false")){
-                    adultBool = false;
-                }
-                else{
-                    adultBool = true;
-                }
-
 
                 movieArrayList.add(new Movie(
                         Integer.valueOf(id),
-                        adultBool,
+                        adult,
                         backdropPath,
                         genreArrayList,
                         originalLanguage,
@@ -142,10 +137,8 @@ public class MovieApiTask extends AsyncTask<String, Void, ArrayList<Movie>> {
                         (float)voteAverage,
                         voteCount
                 ));
-
             }
-
-    } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             throw new RuntimeException(e);
         }
         return movieArrayList;
