@@ -5,4 +5,5 @@
     <string name="catalogus">Catalogus</string>
     <string name="persoonlijk">Persoonlijk</string>
     <string name="popular_movie">Populaire Movie</string>
+    <string name="movie_poster">Movie Poster</string>
 </resources>

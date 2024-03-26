@@ -23,8 +23,11 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNewMovieListener {
 
     private final String LOG_TAG = "MainActivity";
+    public static final String MOVIE = "MainActivity";
     private final int POPULAR_MOVIES = 1;
     private final int RANDOM_MOVIES = 2;
+
+    private MovieListAdapter Adapter;
 
     private ArrayList<Movie> mMovieList = new ArrayList<>();
 
@@ -48,11 +51,13 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
 
         RecyclerView rvMainMovieList = findViewById(R.id.rvMainMovieList);
         rvMainMovieList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-//        Adapter = new MovieListAdapter(this, movieList);
-//        rvMainMovieList.setAdapter(Adapter);
+        Adapter = new MovieListAdapter(this, mMovieList);
+        rvMainMovieList.setAdapter(Adapter);
 
         BottomNavigationView btmNavView = findViewById(R.id.btmNavViewMain);
         btmNavView.setSelectedItemId(R.id.menuHomeScreen);
+
+        //GetMovies....
 
         //NavBar functionality
         btmNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -132,4 +137,6 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         //Laad plaatjes in
 
     }
+
+    //TODO: Method om recyclerview te vullen
 }
