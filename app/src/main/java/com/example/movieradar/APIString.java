@@ -1,5 +1,7 @@
 package com.example.movieradar;
 
+import android.util.Log;
+
 import java.util.logging.Filter;
 
 public class APIString {
@@ -7,8 +9,8 @@ public class APIString {
 
     private String LOG_TAG = "APIString";
     private String URL = "https://api.themoviedb.org/3";
-    private String DISCOVER = "/discover/movie";
-    private String DISCOVER_FILTER = "/discover/movie?";
+    private String DISCOVER = "/search/movie";
+    private String DISCOVER_FILTER = "/search/movie?";
     private String FINISH_KEY = "?api_key=731b0900535ff5476ae98c326ef7413c";
     private String FINISH_KEY_WITH_FILTER = "api_key=731b0900535ff5476ae98c326ef7413c";
     private Boolean isFiltered = false;
@@ -20,9 +22,11 @@ public class APIString {
 
     public String finish(){
         if(isFiltered==false){
+            Log.i(LOG_TAG,mReturn+FINISH_KEY);
             return mReturn+FINISH_KEY;
         }
         else{
+            Log.i(LOG_TAG,FINISH_KEY_WITH_FILTER);
             return mReturn+FINISH_KEY_WITH_FILTER;
         }
 
