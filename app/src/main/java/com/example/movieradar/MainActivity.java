@@ -12,18 +12,15 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-<<<<<<< Updated upstream
 
-=======
 import com.example.movieradar.API.APIString;
 import com.example.movieradar.API.MovieApiTask;
->>>>>>> Stashed changes
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNewMovieListener {
 
     private final String LOG_TAG = "MainActivity";
     private final int POPULAR_MOVIES = 1;
@@ -61,24 +58,6 @@ public class MainActivity extends AppCompatActivity {
         btmNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-<<<<<<< Updated upstream
-                    int id = menuItem.getItemId();
-                    //Heb geprobeerd met switch/case maar geeft errors
-                    if (id == R.id.menuHomeScreen) {
-                        startActivity(new Intent(MainActivity.this, MainActivity.class));
-                        Log.i(LOG_TAG, "HomeScreen button clicked");
-                        return true;
-                    } else if (id == R.id.menuFilmList) {
-                        startActivity(new Intent(MainActivity.this, Catalogus.class));
-                        Log.i(LOG_TAG, "catalogus button clicked");
-                        return true;
-                    } else if (id == R.id.menuFilmList) {
-                        startActivity(new Intent(MainActivity.this, Persoonlijk.class));
-                        Log.i(LOG_TAG, "Persoonlijk button clicked");
-                        return true;
-                    } else {
-                        return false;
-=======
                 int id = menuItem.getItemId();
                 // Heb geprobeerd met switch/case maar geeft errors
                 if (id == R.id.menuHomeScreen) {
@@ -95,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 } else {
                     return false;
->>>>>>> Stashed changes
                 }
             }
         });
@@ -139,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void OnNewMovieListener(ArrayList<Movie> movies) {
+    public void OnNewMovieListener(ArrayList<Movie> movies){
 
     }
 
