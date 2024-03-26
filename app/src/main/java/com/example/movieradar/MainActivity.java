@@ -1,45 +1,60 @@
 package com.example.movieradar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.EditText;
+import android.view.MenuItem;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNewMovieListener {
+
+    private final String LOG_TAG = "MainActivity";
+    private ArrayList<Movie> movieList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText ev1 = findViewById(R.id.id1);
-        EditText ev2 = findViewById(R.id.id2);
-        EditText ev3 = findViewById(R.id.id3);
+        RecyclerView rvMainMovieList = findViewById(R.id.rvMainMovieList);
+        rvMainMovieList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        Adapter = new MovieListAdapter(this, movieList);
+        rvMainMovieList.setAdapter(Adapter);
 
-        APIString str = new APIString();
-        str.search("spiderman");
-        str.isAdult(true);
-        str.setPage(1);
-        str.sort(SortType.POPULARITY_DESC);
-        str.finish();
-        ev1.setText(str.getApiString());
+        BottomNavigationView btmNavView = findViewById(R.id.btmNavViewMain);
+        btmNavView.setSelectedItemId(R.id.menuHomeScreen);
 
-        MovieApiTask task = new MovieApiTask(this);
-        task.execute("https://api.themoviedb.org/3/trending/movie/week?language=en-US&api_key=731b0900535ff5476ae98c326ef7413c");
-    }
-
-    @Override
-    public void onMovieAvailable(ArrayList<Movie> movies) {
-        for (int i = 0; i < movies.size(); i++) {
-            Log.i("MAIN",movies.get(i).toString());
-        }
-    }
-
-    @Override
-    public void OnNewMovieListener(ArrayList<Movie> movies) {
-
+        // NavBar functionality
+        btmNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                // Heb geprobeerd met switch/case maar geeft errors
+                if (id == R.id.menuHomeScreen) {
+                    startActivity(new Intent(MainActivity.this, MainActivity.class));
+                    Log.i(LOG_TAG, "HomeScreen button clicked");
+                    return true;
+                } else if (id == R.id.menuFilmList) {
+                    startActivity(new Intent(MainActivity.this, Catalogus.class));
+                    Log.i(LOG_TAG, "catalogus button clicked");
+                    return true;
+                } else if (id == R.id.menuFilmList) {
+                    startActivity(new Intent(MainActivity.this, Persoonlijk.class));
+                    Log.i(LOG_TAG, "Persoonlijk button clicked");
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
     }
 }
