@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MovieRadar</string>
+    <string name="Genre_1">Genre</string>
+    <string name="Genre_2">Genre</string>
+    <string name="Genre_3">Genre</string>
+
+
 </resources>
