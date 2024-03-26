@@ -3,7 +3,7 @@ package com.example.movieradar;
 import android.util.Log;
 
 public class APIString {
-    private static final String LOG_TAG = "APIString";
+    private final String LOG_TAG = "APIString";
     private static final String BASE_URL = "https://api.themoviedb.org/3";
     private static final String API_KEY = "731b0900535ff5476ae98c326ef7413c";
 
