@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">MovieRadar</string>
+    <string name="home">Home</string>
+    <string name="catalogus">Catalogus</string>
+    <string name="person">Persoonlijk</string>
+    <string name="roomLabel">Zaal:</string>
+    <string name="seatLabel">Stoel:</string>
+    <string name="rowLabel">Rij:</string>
+    <string name="moreButton">Meer...</string>
+    <string name="ticketLabel">Ticket(s)</string>
     <string name="Inlog">Inloggen</string>
     <string name="EmailUser">Emailadres/Gebruikersnaam</string>
     <string name="Password">Wachtwoord</string>
@@ -8,7 +16,4 @@
     <string name="Username">Gebruikersnaam</string>
     <string name="Birthdate">Geboortedatum</string>
     <string name="Register">Registreren</string>
-
-
-
 </resources>

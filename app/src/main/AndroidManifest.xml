@@ -13,7 +13,7 @@
         android:theme="@style/Theme.MovieRadar"
         tools:targetApi="31">
         <activity
-            android:name=".Persoonlijk"
+            android:name=".PersonActivity"
             android:exported="true">
 
 
