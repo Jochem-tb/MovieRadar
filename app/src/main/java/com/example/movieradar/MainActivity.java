@@ -26,7 +26,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNewMovieListener {
 
     private final String LOG_TAG = "MainActivity";
-    public static final String MOVIE = "MainActivity";
     private final int POPULAR_MOVIES = 1;
     private final int RANDOM_MOVIES = 2;
 

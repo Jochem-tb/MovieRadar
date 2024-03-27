@@ -75,12 +75,19 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
+            Log.d(LOG_TAG, "ListItem onClick: "+position);
 
+            //Movie op de huidige positie in de intent krijgen
             Movie selectedMovie = mMovieList.get(position);
 
-            //Intent intent = new Intent(v.getContext(), MovieDetails.class);
-            //intent.putExtra(MainActivity.MOVIE, selectedMovie);
-            //v.getContext().startActivity(intent);
+            // Nieuwe intent maken om MovieDetailActivity te openen
+            Intent intent = new Intent(v.getContext(), MovieDetailActivity.class);
+
+            // MovieGegevens in intent stoppen
+            intent.putExtra(Movie.getKey(), selectedMovie);
+
+            //Activiteit starten
+            v.getContext().startActivity(intent);
 
         }
     }

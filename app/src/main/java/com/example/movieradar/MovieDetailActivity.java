@@ -102,15 +102,15 @@ public class MovieDetailActivity extends AppCompatActivity {
         });
     }
 
-//    // Methode voor toolbar-itemklikken
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        // Toolbar-itemklikken afhandelen
-//        if (item.getItemId() == android.R.id.home) {
-//            // Geef baclbutton functionaliteit
-//            onBackPressed();
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+    // Methode voor toolbar-itemklikken
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Toolbar-itemklikken afhandelen
+        if (item.getItemId() == android.R.id.home) {
+            // Geef backbutton functionaliteit
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 }
