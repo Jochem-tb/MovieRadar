@@ -143,15 +143,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         Picasso.get().load(APIString.getBackdropUrl(movies.get(4).getPoster_path())).into(mImagePop5);
         Picasso.get().load(APIString.getBackdropUrl(movies.get(5).getPoster_path())).into(mImagePop6);
         //Set onclickListener
-        mImagePop1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "OnLcick", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(v.getContext(), MovieDetailActivity.class);
-//                i.putExtra(Movie.getKey(), movies.get(0));
-                v.getContext().startActivity(i);
-            }
-        });
+        //TODO Implement OnClick
 
     }
 }

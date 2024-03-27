@@ -43,7 +43,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         mMovieGenre = findViewById(R.id.tv_detail_var_genre);
         mMoviePegi = findViewById(R.id.tv_detail_var_pegi);
         mMovieTime = findViewById(R.id.tv_detail_var_time);
-        mMovieRating = findViewById(R.id.tv_detail_stat_rating);
+        mMovieRating = findViewById(R.id.tv_detail_var_rating);
         mMovieDetails = findViewById(R.id.tv_var_moviedetails);
 
         mMovieBackground = findViewById(R.id.iv_detail_poster);
@@ -55,7 +55,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         //Movie data invullen
         if(mMovie != null){
             toolbar.setTitle(mMovie.getTitle());
-            mMovieTime.setText(mMovie.getRuntime());
+            mMovieTime.setText(String.valueOf(mMovie.getRuntime()));
             mMovieRating.setText(String.valueOf(mMovie.getVote_average()));
             Picasso.get().load(APIString.getBackdropUrl(mMovie.getBackdrop_path())).into(mMovieBackground);
         }
