@@ -3,4 +3,9 @@
     <string name="home">Home</string>
     <string name="catalogus">Catalogus</string>
     <string name="person">Persoonlijk</string>
+    <string name="roomLabel">Zaal:</string>
+    <string name="seatLabel">Stoel:</string>
+    <string name="rowLabel">Rij:</string>
+    <string name="moreButton">Meer...</string>
+    <string name="ticketLabel">Ticket(s)</string>
 </resources>
