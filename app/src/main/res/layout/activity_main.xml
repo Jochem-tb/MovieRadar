@@ -12,8 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:background="@color/orange"
+        android:paddingBottom="10sp"
         android:text="@string/movieradar"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="40sp" />
 
 
@@ -200,6 +203,7 @@
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_nav_menu" />
+        android:background="@color/orange"
+        app:menu="@menu/bottom_nav_menu"/>
 
 </RelativeLayout>
