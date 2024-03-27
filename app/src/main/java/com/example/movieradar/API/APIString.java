@@ -7,7 +7,7 @@ public class APIString {
     private static final String BASE_URL = "https://api.themoviedb.org/3";
     private static final String API_KEY = "731b0900535ff5476ae98c326ef7413c";
     private static final String POPULAR_URL_COMPLETE = "https://api.themoviedb.org/3/trending/movie/day?language=en-US&api_key=731b0900535ff5476ae98c326ef7413c";
-    private static final String BASE_IMG_URL = "https://iamge.tmdb.org/t/p/w780/";
+    private static final String BASE_IMG_URL = "https://image.tmdb.org/t/p/w780/";
 
     private StringBuilder mBuilder;
     private boolean isFiltered = false;

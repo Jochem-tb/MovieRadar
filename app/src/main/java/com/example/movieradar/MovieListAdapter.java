@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.MovieListViewHolder> {
 
     private final String LOG_TAG = "MovieListAdapter";
-    private ArrayList<Movie> mMovieList = new ArrayList<>();
+    private ArrayList<Movie> mMovieList;
     private LayoutInflater inflater;
 
     public MovieListAdapter(Context context, ArrayList<Movie> movieList) {

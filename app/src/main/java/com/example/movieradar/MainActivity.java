@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         mTextViewPop6 = findViewById(R.id.tvMainPopularMovie6);
 
         loadMoviesFromAPI(APIString.getPopularUrl(), POPULAR_MOVIES);
+        loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
     }
 
     private void loadMoviesFromAPI(String APIUrl, int apiIdentifier) {
@@ -112,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
                 setPopularMoviesHome(movies);
                 break;
             case RANDOM_MOVIES:
+                loadRecyclerView(movies);
                 break;
             default:
                 break;
@@ -132,8 +134,9 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         mTextViewPop5.setText(movies.get(4).getTitle());
         mTextViewPop6.setText(movies.get(5).getTitle());
         //Laad plaatjes in
+    }
 
-        //rv invullen
+    public void loadRecyclerView(ArrayList<Movie> movies) {
         mMovieList.clear();
         mMovieList.addAll(movies);
         mAdapter.setMovieList(mMovieList);
