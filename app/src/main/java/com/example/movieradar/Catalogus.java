@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -20,9 +21,12 @@ public class Catalogus extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.catalogus);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tbCatalogus);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         btmNavView = findViewById(R.id.btmNavViewMain);
-        btmNavView.setSelectedItemId(R.id.menuHomeScreen);
+        /*btmNavView.setSelectedItemId(R.id.catalogus);
 
         //NavBar functionality
         btmNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -48,5 +52,6 @@ public class Catalogus extends AppCompatActivity {
                 }
             }
         });
+         */
     }
 }
