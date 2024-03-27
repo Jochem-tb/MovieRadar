@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 //                        startActivity(new Intent(MainActivity.this, CatalogusActivity.class));
                         Log.i(LOG_TAG, "Catalogus button clicked");
                         return true;
-                    } else if (id == R.id.menuFilmList) {
+                    } else if (id == R.id.menuPersonal) {
 //                        startActivity(new Intent(MainActivity.this, PersonActivity.class));
                         Log.i(LOG_TAG, "Person button clicked");
                         return true;
