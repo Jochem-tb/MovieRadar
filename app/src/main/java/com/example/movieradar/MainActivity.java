@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         Picasso.get().load(APIString.getBackdropUrl(movies.get(5).getPoster_path())).into(mImagePop6);
     }
 
-
+    //Vul recyclerview in
     public void loadRecyclerView(ArrayList<Movie> movies) {
         mMovieList.clear();
         mMovieList.addAll(movies);
