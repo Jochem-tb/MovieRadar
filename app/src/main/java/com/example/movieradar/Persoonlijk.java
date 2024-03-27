@@ -36,7 +36,7 @@ public class Persoonlijk extends AppCompatActivity {
 
 
         // on below line we are initializing our variables.
-        Button pickDateBtn = findViewById(idBtnPickDate);
+        ImageView pickDateBtn = findViewById(idBtnPickDate);
         selectedDateTV = findViewById(R.id.idTVSelectedDate);
 
         // on below line we are adding click listener for our pick date button
@@ -52,7 +52,7 @@ public class Persoonlijk extends AppCompatActivity {
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // on below line we are creating a variable for date picker dialog.
-            @SuppressLint("SetTextI18n") DatePickerDialog datePickerDialog = new DatePickerDialog(
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
                     // on below line we are passing context.
                     Persoonlijk.this,
                     (view, year1, monthOfYear, dayOfMonth) -> {
