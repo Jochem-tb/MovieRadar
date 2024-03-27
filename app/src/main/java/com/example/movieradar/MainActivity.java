@@ -9,8 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.movieradar.API.APIString;
@@ -110,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
     public void onMovieAvailable(ArrayList<Movie> movies, int apiIdentifier) {
         switch (apiIdentifier){
             case POPULAR_MOVIES:
+                mMovieList = movies;
                 setPopularMoviesHome(movies);
                 break;
             case RANDOM_MOVIES:
@@ -139,6 +142,16 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         Picasso.get().load(APIString.getBackdropUrl(movies.get(3).getPoster_path())).into(mImagePop4);
         Picasso.get().load(APIString.getBackdropUrl(movies.get(4).getPoster_path())).into(mImagePop5);
         Picasso.get().load(APIString.getBackdropUrl(movies.get(5).getPoster_path())).into(mImagePop6);
+        //Set onclickListener
+        mImagePop1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "OnLcick", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(v.getContext(), MovieDetailActivity.class);
+//                i.putExtra(Movie.getKey(), movies.get(0));
+                v.getContext().startActivity(i);
+            }
+        });
 
     }
 }

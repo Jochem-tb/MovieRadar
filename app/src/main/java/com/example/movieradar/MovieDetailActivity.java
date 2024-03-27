@@ -1,14 +1,30 @@
 package com.example.movieradar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.movieradar.API.APIString;
+import com.squareup.picasso.Picasso;
+
 public class MovieDetailActivity extends AppCompatActivity {
     private final String LOG_TAG = "MovieDetailActivity";
     private Movie mMovie;
+
+    TextView mMovieGenre;
+    TextView mMoviePegi;
+    TextView mMovieTime;
+    TextView mMovieRating;
+    TextView mMovieDetails;
+    ImageView mMovieBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +39,40 @@ public class MovieDetailActivity extends AppCompatActivity {
         // Terugknop inschakelen
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        mMovieGenre = findViewById(R.id.tv_detail_var_genre);
+        mMoviePegi = findViewById(R.id.tv_detail_var_pegi);
+        mMovieTime = findViewById(R.id.tv_detail_var_time);
+        mMovieRating = findViewById(R.id.tv_detail_stat_rating);
+        mMovieDetails = findViewById(R.id.tv_var_moviedetails);
+
+        mMovieBackground = findViewById(R.id.iv_detail_poster);
+
+        //Data uit intent halen
+        Intent intent = getIntent();
+        mMovie = (Movie) intent.getSerializableExtra(Movie.getKey());
+
+        //Movie data invullen
+        if(mMovie != null){
+            toolbar.setTitle(mMovie.getTitle());
+            mMovieTime.setText(mMovie.getRuntime());
+            mMovieRating.setText(String.valueOf(mMovie.getVote_average()));
+            Picasso.get().load(APIString.getBackdropUrl(mMovie.getBackdrop_path())).into(mMovieBackground);
+        }
+
+        //Button listerners
+        //TODO not implemented yet
     }
+
+    // Methode voor toolbar-itemklikken
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        // Toolbar-itemklikken afhandelen
+        if (item.getItemId() == android.R.id.home) {
+            // Geef baclbutton functionaliteit
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

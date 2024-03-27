@@ -75,14 +75,14 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tw_stat_genre"
+                    android:id="@+id/tv_detail_stat_genre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/detailpagina_genre" />
 
                 <TextView
-                    android:id="@+id/tv_var_genre"
+                    android:id="@+id/tv_detail_var_genre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
@@ -95,14 +95,14 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_stat_time"
+                    android:id="@+id/tv_detail_stat_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/detailpagina_time" />
 
                 <TextView
-                    android:id="@+id/tv_var_time"
+                    android:id="@+id/tv_detail_var_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
@@ -115,14 +115,14 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_stat_pegi"
+                    android:id="@+id/tv_detail_stat_pegi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/detailpagina_pegi" />
 
                 <TextView
-                    android:id="@+id/tv_var_pegi"
+                    android:id="@+id/tv_detail_var_pegi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
@@ -135,14 +135,14 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_stat_rating"
+                    android:id="@+id/tv_detail_stat_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/detailpagina_rating" />
 
                 <TextView
-                    android:id="@+id/tv_var_rating"
+                    android:id="@+id/tv_detail_var_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
