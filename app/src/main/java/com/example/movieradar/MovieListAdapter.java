@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.movieradar.API.APIString;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,16 +23,19 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     private ArrayList<Movie> mMovieList = new ArrayList<>();
     private LayoutInflater inflater;
 
-    public MovieListAdapter(Context context, ArrayList<Movie> MovieList) {
+    public MovieListAdapter(Context context, ArrayList<Movie> movieList) {
         inflater = LayoutInflater.from(context);
-        this.mMovieList = MovieList;
+        this.mMovieList = movieList;
+        Log.i(LOG_TAG, "MovieListAdapter");
     }
 
     @NonNull
     @Override
     public MovieListAdapter.MovieListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View ItemView = inflater.inflate(R.layout.movie_list_item, parent, false);
-        return new MovieListAdapter.MovieListViewHolder(ItemView, this);
+        Log.i(LOG_TAG, "OnCreateViewHolder");
+        return new MovieListViewHolder(ItemView, this);
+
     }
 
     @Override
@@ -40,18 +44,23 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
         Movie movie = mMovieList.get(position);
 
         holder.tvMovieListItem.setText(movie.getTitle());
+        Picasso.get().load(APIString.getBackdropUrl(mMovieList.get(position).getPoster_path())).into(holder.ivMovieListItem);
+        Log.i(LOG_TAG, "OnBindViewHolder");
+    }
 
-        String url = movie.getPoster_path();
-        Picasso.get().load(url).into(holder.ivMovieListItem);
+    public void setMovieList(ArrayList<Movie> movies) {
+
+        this.mMovieList = movies;
+        this.notifyDataSetChanged();
+        Log.i(LOG_TAG, "setMovieList");
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return (mMovieList != null) ? mMovieList.size(): 0;
     }
 
     public class MovieListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         public TextView tvMovieListItem;
         public ImageView ivMovieListItem;
         public MovieListViewHolder(@NonNull View itemView, MovieListAdapter movieListAdapter) {
@@ -60,6 +69,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
             ivMovieListItem = itemView.findViewById(R.id.ivMovieListPoster);
 
             itemView.setOnClickListener(this);
+            Log.i(LOG_TAG, "MovieListViewHolder");
         }
 
         @Override

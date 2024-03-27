@@ -27,10 +27,9 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
     private final int POPULAR_MOVIES = 1;
     private final int RANDOM_MOVIES = 2;
 
-    private MovieListAdapter Adapter;
-
+    private MovieListAdapter mAdapter;
     private ArrayList<Movie> mMovieList = new ArrayList<>();
-
+    RecyclerView rvMainMovieList;
     ImageView mImagePop1;
     ImageView mImagePop2;
     ImageView mImagePop3;
@@ -49,10 +48,10 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView rvMainMovieList = findViewById(R.id.rvMainMovieList);
+        rvMainMovieList = findViewById(R.id.rvMainMovieList);
         rvMainMovieList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        Adapter = new MovieListAdapter(this, mMovieList);
-        rvMainMovieList.setAdapter(Adapter);
+        mAdapter = new MovieListAdapter(this, mMovieList);
+        rvMainMovieList.setAdapter(mAdapter);
 
         BottomNavigationView btmNavView = findViewById(R.id.btmNavViewMain);
         btmNavView.setSelectedItemId(R.id.menuHomeScreen);
@@ -137,7 +136,8 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         //rv invullen
         mMovieList.clear();
         mMovieList.addAll(movies);
-        Adapter.notifyDataSetChanged();
+        mAdapter.setMovieList(mMovieList);
+        mAdapter.notifyDataSetChanged();
         Log.i(LOG_TAG, "Movies added to recyclerview");
     }
 }
