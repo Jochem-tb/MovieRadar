@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private final String LOG_TAG = "MainActivity";
-    private ArrayList<Movie> movieList;
+//    private ArrayList<Movie> movieList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView rvMainMovieList = findViewById(R.id.rvMainMovieList);
         rvMainMovieList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        Adapter = new MovieListAdapter(this, movieList);
-        rvMainMovieList.setAdapter(Adapter);
+//        Adapter = new MovieListAdapter(this, movieList);
+//        rvMainMovieList.setAdapter(Adapter);
 
         BottomNavigationView btmNavView = findViewById(R.id.btmNavViewMain);
         btmNavView.setSelectedItemId(R.id.menuHomeScreen);
@@ -45,12 +45,12 @@ public class MainActivity extends AppCompatActivity {
                         Log.i(LOG_TAG, "HomeScreen button clicked");
                         return true;
                     } else if (id == R.id.menuFilmList) {
-                        startActivity(new Intent(MainActivity.this, Catalogus.class));
-                        Log.i(LOG_TAG, "catalogus button clicked");
+//                        startActivity(new Intent(MainActivity.this, CatalogusActivity.class));
+                        Log.i(LOG_TAG, "Catalogus button clicked");
                         return true;
                     } else if (id == R.id.menuFilmList) {
-                        startActivity(new Intent(MainActivity.this, Persoonlijk.class));
-                        Log.i(LOG_TAG, "Persoonlijk button clicked");
+//                        startActivity(new Intent(MainActivity.this, PersonActivity.class));
+                        Log.i(LOG_TAG, "Person button clicked");
                         return true;
                     } else {
                         return false;
