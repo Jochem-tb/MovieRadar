@@ -9,9 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 import com.example.movieradar.API.APIString;
 import com.example.movieradar.API.Filters;
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         BottomNavigationView btmNavView = findViewById(R.id.btmNavViewMain);
         btmNavView.setSelectedItemId(R.id.menuHomeScreen);
 
-        //NavBar functionality
+        // NavBar functionality
         btmNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -69,11 +70,11 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
                     Log.i(LOG_TAG, "HomeScreen button clicked");
                     return true;
                 } else if (id == R.id.menuFilmList) {
-//                    startActivity(new Intent(MainActivity.this, Catalogus.class));
+                    // startActivity(new Intent(MainActivity.this, Catalogus.class));
                     Log.i(LOG_TAG, "catalogus button clicked");
                     return true;
                 } else if (id == R.id.menuPersonal) {
-//                    startActivity(new Intent(MainActivity.this, Persoonlijk.class));
+                    // startActivity(new Intent(MainActivity.this, Persoonlijk.class));
                     Log.i(LOG_TAG, "Persoonlijk button clicked");
                     return true;
                 } else {
@@ -82,8 +83,8 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
             }
         });
 
-        //Koppeling ID --> xml objecten aan Java variables
-        //ImageViews
+        // Koppeling ID --> xml objecten aan Java variables
+        // ImageViews
         mImagePop1 = findViewById(R.id.ivMainPopularMovie1);
         mImagePop2 = findViewById(R.id.ivMainPopularMovie2);
         mImagePop3 = findViewById(R.id.ivMainPopularMovie3);
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         mImagePop5 = findViewById(R.id.ivMainPopularMovie5);
         mImagePop6 = findViewById(R.id.ivMainPopularMovie6);
 
-        //Bijbehorende TextViews
+        // Bijbehorende TextViews
         mTextViewPop1 = findViewById(R.id.tvMainPopularMovie1);
         mTextViewPop2 = findViewById(R.id.tvMainPopularMovie2);
         mTextViewPop3 = findViewById(R.id.tvMainPopularMovie3);
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         mTextViewPop5 = findViewById(R.id.tvMainPopularMovie5);
         mTextViewPop6 = findViewById(R.id.tvMainPopularMovie6);
 
-        //Vraag API vor popular movies, handel deze af als POPULAR_MOVIES
+        // Vraag API vor popular movies, handel deze af als POPULAR_MOVIES
         loadMoviesFromAPI(APIString.getPopularUrl(), POPULAR_MOVIES);
         loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
     }
@@ -111,8 +112,9 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
 
     @Override
     public void onMovieAvailable(ArrayList<Movie> movies, int apiIdentifier) {
-        switch (apiIdentifier){
+        switch (apiIdentifier) {
             case POPULAR_MOVIES:
+                mMovieList = movies;
                 setPopularMoviesHome(movies);
                 break;
             case RANDOM_MOVIES:
@@ -124,19 +126,19 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
     }
 
     @Override
-    public void OnNewMovieListener(ArrayList<Movie> movies){
+    public void OnNewMovieListener(ArrayList<Movie> movies) {
 
     }
 
-    public void setPopularMoviesHome(ArrayList<Movie> movies){
-        //Zet de Titel onder Poster
+    public void setPopularMoviesHome(ArrayList<Movie> movies) {
+        // Zet de Titel onder Poster
         mTextViewPop1.setText(movies.get(0).getTitle());
         mTextViewPop2.setText(movies.get(1).getTitle());
         mTextViewPop3.setText(movies.get(2).getTitle());
         mTextViewPop4.setText(movies.get(3).getTitle());
         mTextViewPop5.setText(movies.get(4).getTitle());
         mTextViewPop6.setText(movies.get(5).getTitle());
-        //Laad plaatjes in
+        // Laad plaatjes in
         Picasso.get().load(APIString.getBackdropUrl(movies.get(0).getPoster_path())).into(mImagePop1);
         Picasso.get().load(APIString.getBackdropUrl(movies.get(1).getPoster_path())).into(mImagePop2);
         Picasso.get().load(APIString.getBackdropUrl(movies.get(2).getPoster_path())).into(mImagePop3);
@@ -144,8 +146,10 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         Picasso.get().load(APIString.getBackdropUrl(movies.get(4).getPoster_path())).into(mImagePop5);
         Picasso.get().load(APIString.getBackdropUrl(movies.get(5).getPoster_path())).into(mImagePop6);
     }
+    // Set onclickListener
+    // TODO Implement OnClick
 
-    //Vul recyclerview in
+    // Vul recyclerview in
     public void loadRecyclerView(ArrayList<Movie> movies) {
         mMovieList.clear();
         mMovieList.addAll(movies);

@@ -4,12 +4,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Movie {
+public class Movie implements Serializable {
+    public static final String KEY = "MovieKey";
     private int id;
     private int imdb_id;
     private Boolean adult;
@@ -28,6 +30,10 @@ public class Movie {
     private Boolean video;
     private float vote_average;
     private int vote_count;
+
+    public static String getKey(){
+        return KEY;
+    }
 
     public Movie(int id, Boolean adult, String backdrop_path,  ArrayList genres, String original_language, String overview, Double popularity, String poster_path, String release_date, String title, Boolean video, float vote_average, int vote_count) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
