@@ -10,6 +10,6 @@
         android:icon="@drawable/ic_catalogus_foreground"/>
     <item
         android:id="@+id/menuPersonal"
-        android:title="@string/persoonlijk"
-        android:icon="@drawable/ic_persoonlijk_foreground" />
+        android:title="@string/person"
+        android:icon="@drawable/ic_person_foreground" />
 </menu>
