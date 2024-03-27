@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -25,6 +28,10 @@ public class MovieDetailActivity extends AppCompatActivity {
     TextView mMovieRating;
     TextView mMovieDetails;
     ImageView mMovieBackground;
+
+    Button mFavoriteButton;
+    Button mTrailerButton;
+    Button mBuyTicketButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +64,36 @@ public class MovieDetailActivity extends AppCompatActivity {
             toolbar.setTitle(mMovie.getTitle());
             mMovieTime.setText(String.valueOf(mMovie.getRuntime()));
             mMovieRating.setText(String.valueOf(mMovie.getVote_average()));
+            mMovieDetails.setText(mMovie.getOverview());
             Picasso.get().load(APIString.getBackdropUrl(mMovie.getBackdrop_path())).into(mMovieBackground);
         }
 
         //Button listerners
-        //TODO not implemented yet
+        mFavoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),"Favorite Button Kort", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mFavoriteButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(v.getContext(),"Favorite Button Lang", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+        mTrailerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),"Trailer Button Kort", Toast.LENGTH_SHORT).show();
+            }
+        });
+        mBuyTicketButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),"Koop Ticket Button", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     // Methode voor toolbar-itemklikken
