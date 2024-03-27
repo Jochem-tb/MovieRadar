@@ -57,8 +57,6 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         BottomNavigationView btmNavView = findViewById(R.id.btmNavViewMain);
         btmNavView.setSelectedItemId(R.id.menuHomeScreen);
 
-        //GetMovies....
-
         //NavBar functionality
         btmNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -136,7 +134,10 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         mTextViewPop6.setText(movies.get(5).getTitle());
         //Laad plaatjes in
 
+        //rv invullen
+        mMovieList.clear();
+        mMovieList.addAll(movies);
+        Adapter.notifyDataSetChanged();
+        Log.i(LOG_TAG, "Movies added to recyclerview");
     }
-
-    //TODO: Method om recyclerview te vullen
 }

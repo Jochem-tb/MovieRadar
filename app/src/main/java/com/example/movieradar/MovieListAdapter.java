@@ -2,6 +2,7 @@ package com.example.movieradar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,9 +37,11 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
     @Override
     public void onBindViewHolder(@NonNull MovieListViewHolder holder, int position) {
 
-        holder.tvMovieListItem.setText(mMovieList.get(0).getTitle());
+        Movie movie = mMovieList.get(position);
 
-        String url = mMovieList.get(0).getTitle();
+        holder.tvMovieListItem.setText(movie.getTitle());
+
+        String url = movie.getPoster_path();
         Picasso.get().load(url).into(holder.ivMovieListItem);
     }
 
