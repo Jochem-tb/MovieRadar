@@ -8,4 +8,12 @@
     <string name="rowLabel">Rij:</string>
     <string name="moreButton">Meer...</string>
     <string name="ticketLabel">Ticket(s)</string>
+    <string name="Inlog">Inloggen</string>
+    <string name="EmailUser">Emailadres/Gebruikersnaam</string>
+    <string name="Password">Wachtwoord</string>
+    <string name="PasswordForgot">Wachtwoord vergeten?</string>
+    <string name="Emailadress">Emailadres</string>
+    <string name="Username">Gebruikersnaam</string>
+    <string name="Birthdate">Geboortedatum</string>
+    <string name="Register">Registreren</string>
 </resources>
