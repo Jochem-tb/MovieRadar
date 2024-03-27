@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.movieradar.API.APIString;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MovieDetailActivity extends AppCompatActivity {
     private final String LOG_TAG = "MovieDetailActivity";
     private Movie mMovie;
@@ -29,8 +31,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     TextView mMovieDetails;
     ImageView mMovieBackground;
 
-    Button mFavoriteButton;
-    Button mTrailerButton;
+    CircleImageView mFavoriteButton;
+    CircleImageView  mTrailerButton;
     Button mBuyTicketButton;
 
     @Override
@@ -54,6 +56,10 @@ public class MovieDetailActivity extends AppCompatActivity {
         mMovieDetails = findViewById(R.id.tv_var_moviedetails);
 
         mMovieBackground = findViewById(R.id.iv_detail_poster);
+
+        mFavoriteButton = findViewById(R.id.bt_detail_favorite);
+        mTrailerButton = findViewById(R.id.bt_detail_trailer);
+        mBuyTicketButton = findViewById(R.id.bt_detail_buy);
 
         //Data uit intent halen
         Intent intent = getIntent();
