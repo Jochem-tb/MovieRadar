@@ -25,11 +25,13 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNewMovieListener {
 
     private final String LOG_TAG = "MainActivity";
+    public static final String MOVIE = "MainActivity";
     private final int POPULAR_MOVIES = 1;
     private final int RANDOM_MOVIES = 2;
 
+    private MovieListAdapter mAdapter;
     private ArrayList<Movie> mMovieList = new ArrayList<>();
-
+    RecyclerView rvMainMovieList;
     ImageView mImagePop1;
     ImageView mImagePop2;
     ImageView mImagePop3;
@@ -48,10 +50,10 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView rvMainMovieList = findViewById(R.id.rvMainMovieList);
+        rvMainMovieList = findViewById(R.id.rvMainMovieList);
         rvMainMovieList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-//        Adapter = new MovieListAdapter(this, movieList);
-//        rvMainMovieList.setAdapter(Adapter);
+        mAdapter = new MovieListAdapter(this, mMovieList);
+        rvMainMovieList.setAdapter(mAdapter);
 
         BottomNavigationView btmNavView = findViewById(R.id.btmNavViewMain);
         btmNavView.setSelectedItemId(R.id.menuHomeScreen);
@@ -99,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
 
         //Vraag API vor popular movies, handel deze af als POPULAR_MOVIES
         loadMoviesFromAPI(APIString.getPopularUrl(), POPULAR_MOVIES);
+        loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
     }
 
     private void loadMoviesFromAPI(String APIUrl, int apiIdentifier) {
@@ -113,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
                 setPopularMoviesHome(movies);
                 break;
             case RANDOM_MOVIES:
+                loadRecyclerView(movies);
                 break;
             default:
                 break;
@@ -139,6 +143,14 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         Picasso.get().load(APIString.getBackdropUrl(movies.get(3).getPoster_path())).into(mImagePop4);
         Picasso.get().load(APIString.getBackdropUrl(movies.get(4).getPoster_path())).into(mImagePop5);
         Picasso.get().load(APIString.getBackdropUrl(movies.get(5).getPoster_path())).into(mImagePop6);
+    }
 
+
+    public void loadRecyclerView(ArrayList<Movie> movies) {
+        mMovieList.clear();
+        mMovieList.addAll(movies);
+        mAdapter.setMovieList(mMovieList);
+        mAdapter.notifyDataSetChanged();
+        Log.i(LOG_TAG, "Movies added to recyclerview");
     }
 }

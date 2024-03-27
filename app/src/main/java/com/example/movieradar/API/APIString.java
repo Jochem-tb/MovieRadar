@@ -74,7 +74,9 @@ public class APIString {
         return POPULAR_URL_COMPLETE;
     }
 
+
     public static String getBackdropUrl(String extra){
+
         return BASE_IMG_URL+extra;
     }
 
