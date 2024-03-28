@@ -11,4 +11,5 @@
     <string name="detailpagina_rating">Rating:</string>
     <string name="detailpagina_pegi">Pegi:</string>
     <string name="detailpagina_time">Tijd:</string>
+    <string name="add_movie_to_list_title">Voeg toe aan lijsten:</string>
 </resources>

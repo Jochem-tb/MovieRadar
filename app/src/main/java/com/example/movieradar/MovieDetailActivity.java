@@ -2,6 +2,7 @@ package com.example.movieradar;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -16,17 +17,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.movieradar.API.APIString;
+import com.example.movieradar.API.MovieApiTask;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MovieDetailActivity extends AppCompatActivity {
+public class MovieDetailActivity extends AppCompatActivity{
     private final String LOG_TAG = "MovieDetailActivity";
+    private String YOUTUBE_VIDEO_ID;
     private Movie mMovie;
 
     TextView mMovieGenre;
@@ -71,7 +76,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         //Data uit intent halen
         Intent intent = getIntent();
-        mMovie = (Movie) intent.getSerializableExtra(Movie.getKey());
+        mMovie = (Movie) intent.getSerializableExtra(Movie.getShareKey());
 
         //Movie data invullen
         if (mMovie != null) {
@@ -82,12 +87,14 @@ public class MovieDetailActivity extends AppCompatActivity {
             Picasso.get().load(APIString.getBackdropUrl(mMovie.getBackdrop_path())).into(mMovieBackground);
         }
 
+        YOUTUBE_VIDEO_ID = String.valueOf(mMovie.getKey());
+
 
         listDialog = setupListDialogView();
         setupLongButtonListener(listDialog);
         setupNormalButtonListerners();
 
-
+        loadMovieDetails(mMovie.getId());
     }
 
     private void setupLongButtonListener(AlertDialog listDialog) {
@@ -127,7 +134,6 @@ public class MovieDetailActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //TODO apply changes op lijsten & database
                         //Op moment logging voor Checked of not checked
                         for (int i = 0; i < checkboxContainer.getChildCount(); i++) {
                             View view = checkboxContainer.getChildAt(i);
@@ -166,20 +172,53 @@ public class MovieDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(),"Favorite Button Kort", Toast.LENGTH_SHORT).show();
+
             }
         });
         mTrailerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Trailer Button Kort", Toast.LENGTH_SHORT).show();
-            }
-        });
+              Log.d(LOG_TAG, "Trailer Key: " + mMovie.getKey());
+              playTrailer(mMovie.getKey());
+        }
+    });
+
         mBuyTicketButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(),"Koop Ticket Button", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void playTrailer(String trailerId) {
+        Log.i(LOG_TAG, "playTrailer");
+        String videoUrl = "https://www.youtube.com/watch?v=" + trailerId;
+
+        // Open de YouTube app of browser
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl));
+        startActivity(intent);
+    }
+
+    private void loadMovieDetails(int movieId) {
+        Log.i(LOG_TAG, "loadMovieDetails");
+        String apiUrl = APIString.generateMovieUrl(movieId);
+
+        // Execute AsyncTask to make the API call
+        new MovieApiTask(new MovieApiTask.OnNewMovieListener() {
+            @Override
+            public void onMovieAvailable(ArrayList<Movie> movies, int apiIdentifier) {
+                // Check if the API call returns valid movie details
+                if (movies != null && !movies.isEmpty()) {
+                    // Update mMovie with the fetched details
+                    mMovie = movies.get(0);
+                    Log.d(LOG_TAG, "mMovie changed by API");
+                    // Check if videos are available for the movie
+                } else {
+                    Toast.makeText(MovieDetailActivity.this, "Failed to fetch movie details", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, 52).execute(apiUrl);
     }
 
     // Methode voor toolbar-itemklikken

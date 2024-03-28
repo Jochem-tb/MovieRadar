@@ -120,30 +120,29 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
                 loadRecyclerView(movies);
                 break;
             default:
+                loadRecyclerView(movies);
                 break;
         }
     }
 
-    @Override
-    public void OnNewMovieListener(ArrayList<Movie> movies) {
-
-    }
 
     public void setPopularMoviesHome(ArrayList<Movie> movies) {
         // Zet de Titel onder Poster
-        mTextViewPop1.setText(movies.get(0).getTitle());
-        mTextViewPop2.setText(movies.get(1).getTitle());
-        mTextViewPop3.setText(movies.get(2).getTitle());
-        mTextViewPop4.setText(movies.get(3).getTitle());
-        mTextViewPop5.setText(movies.get(4).getTitle());
-        mTextViewPop6.setText(movies.get(5).getTitle());
-        // Laad plaatjes in
-        Picasso.get().load(APIString.getBackdropUrl(movies.get(0).getPoster_path())).into(mImagePop1);
-        Picasso.get().load(APIString.getBackdropUrl(movies.get(1).getPoster_path())).into(mImagePop2);
-        Picasso.get().load(APIString.getBackdropUrl(movies.get(2).getPoster_path())).into(mImagePop3);
-        Picasso.get().load(APIString.getBackdropUrl(movies.get(3).getPoster_path())).into(mImagePop4);
-        Picasso.get().load(APIString.getBackdropUrl(movies.get(4).getPoster_path())).into(mImagePop5);
-        Picasso.get().load(APIString.getBackdropUrl(movies.get(5).getPoster_path())).into(mImagePop6);
+        if (movies != null && !movies.isEmpty()) {
+            mTextViewPop1.setText(movies.get(0).getTitle());
+            mTextViewPop2.setText(movies.get(1).getTitle());
+            mTextViewPop3.setText(movies.get(2).getTitle());
+            mTextViewPop4.setText(movies.get(3).getTitle());
+            mTextViewPop5.setText(movies.get(4).getTitle());
+            mTextViewPop6.setText(movies.get(5).getTitle());
+            // Laad plaatjes in
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(0).getPoster_path())).into(mImagePop1);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(1).getPoster_path())).into(mImagePop2);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(2).getPoster_path())).into(mImagePop3);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(3).getPoster_path())).into(mImagePop4);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(4).getPoster_path())).into(mImagePop5);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(5).getPoster_path())).into(mImagePop6);
+        }
     }
     // Set onclickListener
     // TODO Implement OnClick

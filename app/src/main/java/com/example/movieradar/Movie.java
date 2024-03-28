@@ -1,20 +1,23 @@
 package com.example.movieradar;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Movie implements Serializable {
-    public static final String KEY = "MovieKey";
+    public static final String SHARE_KEY = "MovieKey";
+//    @JsonProperty("id")
     private int id;
     private int imdb_id;
+    private String key;
     private Boolean adult;
+//    @JsonProperty("backdrop_path")
     private String backdrop_path;
     private Long budget;
     private ArrayList<Genre> genres;
@@ -26,14 +29,16 @@ public class Movie implements Serializable {
     private Long revenue;
     private int runtime;
     private String status;
+//    @JsonProperty("title")
     private String title;
     private Boolean video;
     private float vote_average;
     private int vote_count;
 
-    public static String getKey(){
-        return KEY;
+    public static String getShareKey(){
+        return SHARE_KEY;
     }
+    public Movie(){}
 
     public Movie(int id, Boolean adult, String backdrop_path,  ArrayList genres, String original_language, String overview, Double popularity, String poster_path, String release_date, String title, Boolean video, float vote_average, int vote_count) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -54,6 +59,14 @@ public class Movie implements Serializable {
         this.video = video;
         this.vote_average = vote_average;
         this.vote_count = vote_count;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public int getId() {
@@ -199,4 +212,6 @@ public class Movie implements Serializable {
     public void setVote_count(int vote_count) {
         this.vote_count = vote_count;
     }
+
+
 }
