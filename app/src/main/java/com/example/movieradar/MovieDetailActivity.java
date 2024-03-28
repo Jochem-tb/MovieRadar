@@ -40,7 +40,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     CircleImageView mTrailerButton;
     Button mBuyTicketButton;
 
-    LinearLayout checkboxContainter;
+    LinearLayout checkboxContainer;
     AlertDialog listDialog;
 
     @Override
@@ -107,7 +107,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         View listDialog = LayoutInflater.from(this).inflate(R.layout.list_adding_dialog_layout, null);
 
         //checkboxContainter koppelen aan id
-        checkboxContainter = listDialog.findViewById(R.id.checkbox_container);
+        checkboxContainer = listDialog.findViewById(R.id.checkbox_container);
 
         //Ophalen van hoeveelheid lijsten, waar gebruiker toegang tot heeft.
 //        getNumLists();
@@ -118,7 +118,7 @@ public class MovieDetailActivity extends AppCompatActivity {
             CheckBox checkBox = new CheckBox(this);
             //TODO Methode voor ophalen lijst namen
             checkBox.setText("LIJST NAAM " + (i + 1));
-            checkboxContainter.addView(checkBox);
+            checkboxContainer.addView(checkBox);
         }
 
         //Aanmaken & tonen va Dialog
@@ -127,8 +127,22 @@ public class MovieDetailActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getBaseContext(), String.valueOf(which), Toast.LENGTH_SHORT).show();
                         //TODO apply changes op lijsten & database
+                        //Op moment logging voor Checked of not checked
+                        for (int i = 0; i < checkboxContainer.getChildCount(); i++) {
+                            View view = checkboxContainer.getChildAt(i);
+                            if (view instanceof CheckBox) {
+                                CheckBox checkBox = (CheckBox) view;
+                                if (checkBox.isChecked()) {
+                                    Log.d(LOG_TAG, "Checkbox " + (i + 1) + " is checked");
+                                    // TODO: Apply logic for checked checkboxes
+                                } else {
+                                    Log.d(LOG_TAG, "Checkbox " + (i + 1) + " is not checked");
+                                    // TODO: Apply logic for unchecked checkboxes
+                                }
+                            }
+                        }
+
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
