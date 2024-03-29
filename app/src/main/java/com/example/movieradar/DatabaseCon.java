@@ -24,7 +24,7 @@ public class DatabaseCon {
             return connection;
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("An ERROR has occured, trying to connect to the database:");
-            e.printStackTrace(); // Als er een exeptie optreed, mooi afhandelen.
+            e.printStackTrace(); // Als er een exceptie optreed, mooi afhandelen.
             return null;
         }
     }

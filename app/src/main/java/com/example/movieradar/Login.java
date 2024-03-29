@@ -3,6 +3,7 @@ package com.example.movieradar;
 import static com.example.movieradar.R.id.BirthdateButton;
 
 import android.app.DatePickerDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,13 +14,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieradar.R.id;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Login extends AppCompatActivity {
+public class Login extends AppCompatActivity, AsyncTask<Void, Void, Connection> {
 
     private TextView EmailUserField;
     private TextView PasswordField;
@@ -30,6 +33,8 @@ public class Login extends AppCompatActivity {
     private TextView PassField;
     private Button InlogButton;
     private Button RegisterButton;
+
+    public ArrayList crud = new ArrayList<>();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,18 +83,24 @@ public class Login extends AppCompatActivity {
         InlogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CheckLoginAuthentication((String) EmailUserField.getText(), (String) PasswordField.getText());
+                DatabaseTask task = new DatabaseTask("Login", crud);
+                task.execute();
             }
         });
+
+        crud.add("INSERT INTO MR-Gebruiker(EmailAdres,Gebruikersnaam,Wachtwoord,Geboortedatum) VALUES (" +
+                EmailField.getText() + "," +
+                UserField.getText() + "," +
+                PassField.getText() + "," +
+                BirthdateView.getText() + ")");
+        crud.add()
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    DatabaseCon.sendCommand(DatabaseCon.createConnection(),"INSERT INTO MR-Gebruiker(EmailAdres,Gebruikersnaam,Wachtwoord,Geboortedatum) VALUES (" +
-                            EmailField.getText() + "," +
-                            UserField.getText() + "," +
-                            PassField.getText() + "," +
-                            BirthdateView.getText() + ")");
+                    DatabaseTask task = new DatabaseTask("Insert", crud);
+                    task.execute();
+
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
@@ -97,15 +108,6 @@ public class Login extends AppCompatActivity {
         });
 
     }
-    boolean CheckLoginAuthentication (String User, String Password){
-        try {
-            ResultSet rs = DatabaseCon.createConnection().prepareStatement("SELECT * FROM MR-Gebruiker WHERE Gebruikersnaam='" + User + "' AND Wachtwoord='" + Password + "'").executeQuery();
 
-            return rs.next();
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
 }
 
