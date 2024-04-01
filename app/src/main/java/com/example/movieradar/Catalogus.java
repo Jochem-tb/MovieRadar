@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -25,8 +27,15 @@ public class Catalogus extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        btmNavView = findViewById(R.id.btmNavViewMain);
-        /*btmNavView.setSelectedItemId(R.id.catalogus);
+        RecyclerView rvCatalogus = findViewById(R.id.rvCatalogus);
+        CatalogusAdapter catalogusAdapter = new CatalogusAdapter(this, adapterList());
+        rvCatalogus.setAdapter(catalogusAdapter);
+        rvCatalogus.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+        /*btmNavView = findViewById(R.id.btmNavViewMain);
+        btmNavView.setSelectedItemId(R.id.catalogus);
 
         //NavBar functionality
         btmNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

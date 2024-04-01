@@ -10,19 +10,23 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tbCatalogus"
-        app:title=""
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:background="@color/orange"
         android:elevation="4dp">
 
         <SearchView
-            android:layout_width="380dp"
-            android:layout_height="40dp"/>
+            android:id="@+id/svcatalogus"
+            android:layoutDirection="rtl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:queryHint="@string/search_hint"/>
 
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCatalogus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tbCatalogus"
