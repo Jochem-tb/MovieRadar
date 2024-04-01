@@ -4,5 +4,15 @@
     <string name="Genre_2">Genre</string>
     <string name="Genre_3">Genre</string>
     <string name="search_hint">Search</string>
-
+    <string name="movieradar">MovieRadar</string>
+    <string name="home">Home</string>
+    <string name="catalogus">Catalogus</string>
+    <string name="persoonlijk">Persoonlijk</string>
+    <string name="popular_movie">Populaire Movie</string>
+    <string name="movie_poster">Movie Poster</string>
+    <string name="detailpagina_button_buy_tickets">Koop ticket(s)</string>
+    <string name="detailpagina_genre">Genre:</string>
+    <string name="detailpagina_rating">Rating:</string>
+    <string name="detailpagina_pegi">Pegi:</string>
+    <string name="detailpagina_time">Tijd:</string>
 </resources>
