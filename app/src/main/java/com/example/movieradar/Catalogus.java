@@ -1,23 +1,32 @@
 package com.example.movieradar;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.annotation.NonNull;
 
+import com.example.movieradar.API.APIString;
+import com.example.movieradar.API.MovieApiTask;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class Catalogus extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMovieListener {
 
     private final String LOG_TAG = "Catalogus";
+    private final int POPULAR_MOVIES = 1;
+    private final int RANDOM_MOVIES = 2;
     BottomNavigationView btmNavView;
+    private ArrayList<Movie> mMovieList = new ArrayList<>();
+    private RecyclerView rvCatalogusVertical;
+    private CatalogusAdapter catalogusAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +36,15 @@ public class Catalogus extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        RecyclerView rvCatalogus = findViewById(R.id.rvCatalogus);
-        CatalogusAdapter catalogusAdapter = new CatalogusAdapter(this, adapterList());
-        rvCatalogus.setAdapter(catalogusAdapter);
-        rvCatalogus.setLayoutManager(new LinearLayoutManager(this));
+        rvCatalogusVertical = findViewById(R.id.rvCatalogus);
+        rvCatalogusVertical.setLayoutManager(new LinearLayoutManager(this));
+        catalogusAdapter = new CatalogusAdapter(this, mMovieList);
+        rvCatalogusVertical.setAdapter(catalogusAdapter);
 
+        loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
 
-
-        /*btmNavView = findViewById(R.id.btmNavViewMain);
-        btmNavView.setSelectedItemId(R.id.catalogus);
+        btmNavView = findViewById(R.id.btmNavViewMain);
+        btmNavView.setSelectedItemId(R.id.tbCatalogus);
 
         //NavBar functionality
         btmNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -45,15 +54,15 @@ public class Catalogus extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 //Heb geprobeerd met switch/case maar geeft errors
                 if (id == R.id.menuHomeScreen) {
-                    Intent HomeScreen= new Intent(Catalogus.this, Catalogus.class);
+                    startActivity(new Intent(Catalogus.this, Catalogus.class));
                     Log.i(LOG_TAG, "HomeScreen button clicked");
                     return true;
                 } else if (id == R.id.menuFilmList) {
-                    Intent Catalogus = new Intent(Catalogus.this, Catalogus.class);
+                    //Intent Catalogus = new Intent(Catalogus.this, Catalogus.class);
                     Log.i(LOG_TAG, "catalogus button clicked");
                     return true;
                 } else if (id == R.id.menuFilmList) {
-                    Intent Persoonlijk = new Intent(Catalogus.this, Persoonlijk.class);
+                    //Intent Persoonlijk = new Intent(Catalogus.this, Persoonlijk.class);
                     Log.i(LOG_TAG, "Persoonlijk button clicked");
                     return true;
                 } else {
@@ -61,6 +70,38 @@ public class Catalogus extends AppCompatActivity {
                 }
             }
         });
-         */
+
     }
+
+    private void loadMoviesFromAPI(String APIUrl, int apiIdentifier) {
+        MovieApiTask task = new MovieApiTask(this, apiIdentifier);
+        task.execute(APIUrl);
+    }
+
+    @Override
+    public void onMovieAvailable(ArrayList<Movie> movies, int apiIdentifier) {
+        switch (apiIdentifier) {
+            case POPULAR_MOVIES:
+                mMovieList = movies;
+                break;
+            case RANDOM_MOVIES:
+                loadRecyclerView(movies);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void OnNewMovieListener(ArrayList<Movie> movies) {
+
+    }
+
+    public void loadRecyclerView(ArrayList<Movie> movies) {
+        mMovieList.clear();
+        mMovieList.addAll(movies);
+        Log.i(LOG_TAG, "Movies added to recyclerview");
+    }
+
+
 }

@@ -16,7 +16,7 @@
         android:elevation="4dp">
 
         <SearchView
-            android:id="@+id/svcatalogus"
+            android:id="@+id/svCatalogus"
             android:layoutDirection="rtl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tbCatalogus"
+        android:layout_above="@+id/btmNavViewMain"
         android:layout_margin="5dp"/>
 
 
@@ -37,9 +38,7 @@
         android:id="@+id/btmNavViewMain"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="-1dp" />
+        app:menu="@menu/bottom_nav_menu" />
 
 </RelativeLayout>

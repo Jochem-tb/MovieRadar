@@ -1,24 +1,31 @@
 package com.example.movieradar;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 
 public class CatalogusAdapter extends
         RecyclerView.Adapter<CatalogusAdapter.CatalogusViewHolder> {
-
-    private ArrayList<MovieListAdapter> adapterList;
+    private final String LOG_TAG = "CatalogusAdapter";
     private LayoutInflater inflater;
+    private ArrayList<Movie> mMovieList = new ArrayList<>();
+    private Context mContext;
 
-    public CatalogusAdapter(Context context, ArrayList<MovieListAdapter> adapterList) {
+
+    public CatalogusAdapter(Context context, ArrayList<Movie> movieList) {
+        mContext = context;
         inflater = LayoutInflater.from(context);
-        this.adapterList = adapterList;
+        this.mMovieList = movieList;
     }
 
     @NonNull
@@ -30,27 +37,31 @@ public class CatalogusAdapter extends
 
     @Override
     public void onBindViewHolder(@NonNull CatalogusViewHolder holder, int position) {
-        MovieListAdapter movieListAdapter = adapterList.get(position);
 
-        //holder.tvCatalogusItemTitle.setText
+        holder.tvCatalogusItemTitle.setText("TEST");
+
+        MovieListAdapter movieListAdapter = new MovieListAdapter(mContext, mMovieList);
+        holder.movieListAdapter.setAdapter(movieListAdapter);
 
     }
 
     @Override
     public int getItemCount() {
-        adapterList.size();
+        return 10;
     }
 
     public class CatalogusViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView tvcatalogusItemTitle;
-        public RecyclerView MovieListAdapter;
+        public TextView tvCatalogusItemTitle;
+        public RecyclerView movieListAdapter;
 
         public CatalogusViewHolder(@NonNull View itemView, CatalogusAdapter catalogusAdapter) {
             super(itemView);
 
-            tvcatalogusItemTitle = itemView.findViewById(R.id.tvCatalogusItemTitle);
-            MovieListAdapter = itemView.findViewById(R.id.rvCatalogusItem);
+            tvCatalogusItemTitle = itemView.findViewById(R.id.tvCatalogusItemTitle);
+            movieListAdapter = itemView.findViewById(R.id.rvCatalogusItem);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false);
+            movieListAdapter.setLayoutManager(layoutManager);
         }
     }
 }
