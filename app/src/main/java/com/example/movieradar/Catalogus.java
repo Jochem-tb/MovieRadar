@@ -1,6 +1,7 @@
 package com.example.movieradar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -70,6 +71,30 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
         lCatalogusCheckboxes = findViewById(R.id.lCatalogusCheckboxes);
         lCatalogusCheckboxes.setVisibility(View.GONE);
 
+        // NavBar functionality
+        btmNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                // Heb geprobeerd met switch/case maar geeft errors
+                if (id == R.id.menuHomeScreen) {
+                    startActivity(new Intent(Catalogus.this, MainActivity.class));
+                    Log.i(LOG_TAG, "HomeScreen button clicked");
+                    return true;
+                } else if (id == R.id.menuFilmList) {
+                     startActivity(new Intent(Catalogus.this, Catalogus.class));
+                    Log.i(LOG_TAG, "catalogus button clicked");
+                    return true;
+                } else if (id == R.id.menuPersonal) {
+//                     startActivity(new Intent(Catalogus.this, Persoonlijk.class));
+                    Log.i(LOG_TAG, "Persoonlijk button clicked");
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+
 
         svCatalogus = findViewById(R.id.svCatalogus);
         svCatalogus.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -120,31 +145,8 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
         });
 
         loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
+        btmNavView.setSelectedItemId(R.id.tbCatalogus);
 
-        //NavBar functionality
-        btmNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-                int id = menuItem.getItemId();
-                //Heb geprobeerd met switch/case maar geeft errors
-                if (id == R.id.menuHomeScreen) {
-                    //Intent Catalogus = new Intent(Catalogus.this, Catalogus.class);
-                    Log.i(LOG_TAG, "HomeScreen button clicked");
-                    return true;
-                } else if (id == R.id.menuFilmList) {
-                    //Intent Catalogus = new Intent(Catalogus.this, Catalogus.class);
-                    Log.i(LOG_TAG, "catalogus button clicked");
-                    return true;
-                } else if (id == R.id.menuFilmList) {
-                    //Intent Persoonlijk = new Intent(Catalogus.this, Persoonlijk.class);
-                    Log.i(LOG_TAG, "Persoonlijk button clicked");
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-        });
     }
 
     private void loadMoviesFromAPI(String APIUrl, int apiIdentifier) {
