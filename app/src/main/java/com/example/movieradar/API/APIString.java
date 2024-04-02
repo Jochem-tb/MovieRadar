@@ -32,6 +32,7 @@ public class APIString {
     }
 
     public void finish() {
+        addQueryParam("append_to_response", "videos");
         addQueryParam("api_key", API_KEY);
         Log.i(LOG_TAG, mBuilder.toString());
     }
@@ -80,4 +81,13 @@ public class APIString {
         return BASE_IMG_URL+extra;
     }
 
+    public void searchOnId(int movieId) {
+        appendSeparator();
+        mBuilder.append("/movie/").append(movieId);
+    }
+
+    public static String generateMovieUrl(int movieId) {
+        String str = "https://api.themoviedb.org/3/movie/"+movieId+"?append_to_response=videos&api_key=731b0900535ff5476ae98c326ef7413c";
+        return str;
+    }
 }
