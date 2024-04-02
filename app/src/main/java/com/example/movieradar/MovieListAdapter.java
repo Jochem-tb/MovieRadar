@@ -84,7 +84,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
             Intent intent = new Intent(v.getContext(), MovieDetailActivity.class);
 
             // MovieGegevens in intent stoppen
-            intent.putExtra(Movie.getKey(), selectedMovie);
+            intent.putExtra(Movie.getShareKey(), selectedMovie);
 
             //Activiteit starten
             v.getContext().startActivity(intent);

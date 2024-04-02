@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
 
     private final String LOG_TAG = "MainActivity";
     private final int POPULAR_MOVIES = 1;
-    private final int RANDOM_MOVIES = 2;
+    private final int RANDOM_MOVIES = 3;
 
     private MovieListAdapter mAdapter;
     private ArrayList<Movie> mMovieList = new ArrayList<>();
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
 
         // Vraag API vor popular movies, handel deze af als POPULAR_MOVIES
         loadMoviesFromAPI(APIString.getPopularUrl(), POPULAR_MOVIES);
-        loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
+//        loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
     }
 
     private void loadMoviesFromAPI(String APIUrl, int apiIdentifier) {
@@ -115,45 +115,45 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
             case POPULAR_MOVIES:
                 mMovieList = movies;
                 setPopularMoviesHome(movies);
-                break;
-            case RANDOM_MOVIES:
                 loadRecyclerView(movies);
                 break;
+            case RANDOM_MOVIES:
+//                loadRecyclerView(mMovieList);
+                break;
             default:
+//                loadRecyclerView(mMovieList);
                 break;
         }
     }
 
-    @Override
-    public void OnNewMovieListener(ArrayList<Movie> movies) {
-
-    }
 
     public void setPopularMoviesHome(ArrayList<Movie> movies) {
         // Zet de Titel onder Poster
-        mTextViewPop1.setText(movies.get(0).getTitle());
-        mTextViewPop2.setText(movies.get(1).getTitle());
-        mTextViewPop3.setText(movies.get(2).getTitle());
-        mTextViewPop4.setText(movies.get(3).getTitle());
-        mTextViewPop5.setText(movies.get(4).getTitle());
-        mTextViewPop6.setText(movies.get(5).getTitle());
-        // Laad plaatjes in
-        Picasso.get().load(APIString.getBackdropUrl(movies.get(0).getPoster_path())).into(mImagePop1);
-        Picasso.get().load(APIString.getBackdropUrl(movies.get(1).getPoster_path())).into(mImagePop2);
-        Picasso.get().load(APIString.getBackdropUrl(movies.get(2).getPoster_path())).into(mImagePop3);
-        Picasso.get().load(APIString.getBackdropUrl(movies.get(3).getPoster_path())).into(mImagePop4);
-        Picasso.get().load(APIString.getBackdropUrl(movies.get(4).getPoster_path())).into(mImagePop5);
-        Picasso.get().load(APIString.getBackdropUrl(movies.get(5).getPoster_path())).into(mImagePop6);
+        if (movies != null && !movies.isEmpty()) {
+            mTextViewPop1.setText(movies.get(0).getTitle());
+            mTextViewPop2.setText(movies.get(1).getTitle());
+            mTextViewPop3.setText(movies.get(2).getTitle());
+            mTextViewPop4.setText(movies.get(3).getTitle());
+            mTextViewPop5.setText(movies.get(4).getTitle());
+            mTextViewPop6.setText(movies.get(5).getTitle());
+            // Laad plaatjes in
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(0).getPoster_path())).into(mImagePop1);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(1).getPoster_path())).into(mImagePop2);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(2).getPoster_path())).into(mImagePop3);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(3).getPoster_path())).into(mImagePop4);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(4).getPoster_path())).into(mImagePop5);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(5).getPoster_path())).into(mImagePop6);
+        }
     }
     // Set onclickListener
     // TODO Implement OnClick
 
     // Vul recyclerview in
     public void loadRecyclerView(ArrayList<Movie> movies) {
-        mMovieList.clear();
+//        mMovieList.clear();
         mMovieList.addAll(movies);
         mAdapter.setMovieList(mMovieList);
         mAdapter.notifyDataSetChanged();
-        Log.i(LOG_TAG, "Movies added to recyclerview");
+        Log.i(LOG_TAG, movies.size()+" Movies added to recyclerview");
     }
 }

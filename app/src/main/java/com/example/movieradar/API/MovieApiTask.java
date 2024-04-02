@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.example.movieradar.Genre;
 import com.example.movieradar.Movie;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,10 +16,16 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
 public class MovieApiTask extends AsyncTask<String, Void, ArrayList<Movie>> {
 
@@ -26,40 +33,30 @@ public class MovieApiTask extends AsyncTask<String, Void, ArrayList<Movie>> {
     private Context context;
     private final String LOG_TAG = "MovieApiTask";
 
+
     private ArrayList<Movie> movies = new ArrayList<>();
     private OnNewMovieListener listener;
     private int apiIdentifier;
-
-    private static final String JSON_RESULTS = "results";
-    private static final String JSON_ADULT = "adult";
-    private static final String JSON_BACKDROP_PATH = "backdrop_path";
-    private static final String JSON_ID = "id";
-    private static final String JSON_TITLE = "title";
-    private static final String JSON_ORIGINAL_LANGUAGE = "original_language";
-    private static final String JSON_ORIGINAL_TITLE = "original_title";
-    private static final String JSON_OVERVIEW = "overview";
-    private static final String JSON_POSTER_PATH = "poster_path";
-    private static final String JSON_MEDIA_TYPE = "media_type";
-    private static final String JSON_GENRE_IDS = "genre_ids";
-    private static final String JSON_POPULARITY = "popularity";
-    private static final String JSON_RELEASE_DATE = "release_date";
-    private static final String JSON_VIDEO = "video";
-    private static final String JSON_VOTE_AVERAGE = "vote_average";
-    private static final String JSON_VOTE_COUNT = "vote_count";
 
 
     // Interface voor Listener
     public interface OnNewMovieListener {
         void onMovieAvailable(ArrayList<Movie> movies, int apiIdentifier);
-
-        void OnNewMovieListener(ArrayList<Movie> movies);
     }
 
     //Constructor voor listener
     public MovieApiTask(OnNewMovieListener listener, int apiIdentifier) {
         super();
-        Log.i(LOG_TAG, "Constructor");
+        Log.i(LOG_TAG, "Constructor + Identifier");
         this.apiIdentifier = apiIdentifier;
+        this.listener = listener;
+    }
+
+    //Constructor voor listener
+    public MovieApiTask(OnNewMovieListener listener) {
+        super();
+        Log.i(LOG_TAG, "Constructor");
+        this.apiIdentifier = 1;
         this.listener = listener;
     }
 
@@ -75,16 +72,33 @@ public class MovieApiTask extends AsyncTask<String, Void, ArrayList<Movie>> {
                 .url(urlString)
                 .get()
                 .addHeader("accept", "application/json")
-                .addHeader("Authorization", "Bearer YOUR_ACCESS_TOKEN")
+                .addHeader("Authorization", "Bearer ")
                 .build();
         try {
-            Response response = client.newCall(request).execute();
-            movies = jsonParseResponse(response);
+            if(apiIdentifier==52){
+                Log.d(LOG_TAG, "Parse with apiIdentifier = "+apiIdentifier);
+                Response response = client.newCall(request).execute();
+                movies = retrieveKey(response);
+            }else if (apiIdentifier ==1) {
+                Log.d(LOG_TAG, "Parse with apiIdentifier = "+apiIdentifier);
+                Response response = client.newCall(request).execute();
+                movies = betterJsonPars(response);
+            }else if (apiIdentifier ==2) {
+                Log.d(LOG_TAG, "Parse with apiIdentifier = "+apiIdentifier);
+                Response response = client.newCall(request).execute();
+                movies = specificJsonParseMovie(response);
+            }
+            else{
+                Log.d(LOG_TAG, "Invalid apiIdentifier = "+apiIdentifier);
+            }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            Log.e(LOG_TAG, "Error fetching movie data", e);
         }
         return movies;
     }
+
+
+
 
     @Override
     protected void onPostExecute(ArrayList<Movie> movies) {
@@ -93,59 +107,79 @@ public class MovieApiTask extends AsyncTask<String, Void, ArrayList<Movie>> {
         listener.onMovieAvailable(movies, apiIdentifier);
     }
 
-    private ArrayList<Movie> jsonParseResponse(Response response) {
-        Log.i(LOG_TAG, "jsonParseResponse");
-        Log.i("ResponseString", String.valueOf(response));
-        ArrayList<Movie> movieArrayList = new ArrayList<>();
-        ArrayList<Genre> genreArrayList = new ArrayList<>();
+    private ArrayList<Movie> retrieveKey(Response response){
+        ArrayList<Movie> movieList = new ArrayList<>();
 
         try {
-            String jsonResponse = response.body().string(); // Extract response body as String
-            Log.i(LOG_TAG,jsonResponse);
-            JSONObject jsonObject = new JSONObject(jsonResponse);
-            JSONArray results = jsonObject.getJSONArray(JSON_RESULTS);
-            for (int i = 0; i < results.length(); i++) {
-                JSONObject movie = results.getJSONObject(i); // No need to cast, already JSONObject
-                boolean adult = movie.getBoolean(JSON_ADULT);
-                String backdropPath = movie.getString(JSON_BACKDROP_PATH);
-                String id = movie.getString(JSON_ID);
-                String title = movie.getString(JSON_TITLE);
-                String originalLanguage = movie.getString(JSON_ORIGINAL_LANGUAGE);
-                String originalTitle = movie.getString(JSON_ORIGINAL_TITLE);
-                String overview = movie.getString(JSON_OVERVIEW);
-                String posterPath = movie.getString(JSON_POSTER_PATH);
-                String mediaType = movie.getString(JSON_MEDIA_TYPE);
-                JSONArray genreIds = movie.getJSONArray(JSON_GENRE_IDS);
-                for (int j = 0; j < genreIds.length(); j++) {
-                    Genre gen = new Genre();
-                    gen.setId(genreIds.getInt(j));
-                    genreArrayList.add(gen);
-                }
-                double popularity = movie.getDouble(JSON_POPULARITY);
-                String releaseDate = movie.getString(JSON_RELEASE_DATE);
-                boolean video = movie.getBoolean(JSON_VIDEO);
-                double voteAverage = movie.getDouble(JSON_VOTE_AVERAGE);
-                int voteCount = movie.getInt(JSON_VOTE_COUNT);
+            JSONObject jsonObject = new JSONObject(response.body().string());
+            JSONObject videosObject = jsonObject.getJSONObject("videos");
+            JSONArray resultsArray = videosObject.getJSONArray("results");
 
-                movieArrayList.add(new Movie(
-                        Integer.valueOf(id),
-                        adult,
-                        backdropPath,
-                        genreArrayList,
-                        originalLanguage,
-                        overview,
-                        popularity,
-                        posterPath,
-                        releaseDate,
-                        title,
-                        video,
-                        (float)voteAverage,
-                        voteCount
-                ));
+            for (int i = 0; i < resultsArray.length(); i++) {
+                JSONObject resultObject = resultsArray.getJSONObject(i);
+                String type = resultObject.optString("type");
+
+                if ("Trailer".equals(type)) {
+                    String key = resultObject.getString("key");
+                    Movie m = new Movie();
+                    m.setKey(key);
+                    movieList.add(m);
+                    Log.d(LOG_TAG, "Trailer key = "+key);
+                    break; // Assuming only one trailer is needed
+                }
             }
-        } catch (IOException | JSONException e) {
+        } catch (JSONException | IOException e) {
+            e.printStackTrace();
+        }
+
+        return movieList;
+    }
+
+
+    private ArrayList<Movie> betterJsonPars(Response response) {
+        Log.i(LOG_TAG, "betterJsonPars");
+        Log.i("ResponseString", String.valueOf(response));
+
+        ArrayList<Movie> movieArrayList = new ArrayList<>();
+
+        try {
+            String jsonResponse = response.body().string();
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode rootNode = objectMapper.readTree(jsonResponse);
+            JsonNode resultsNode = rootNode.get("results");
+            if (resultsNode != null && resultsNode.isArray()) {
+                for (JsonNode movieNode : resultsNode) {
+                    Movie movie = objectMapper.treeToValue(movieNode, Movie.class);
+                    movieArrayList.add(movie);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return movieArrayList;
+    }
+
+    private ArrayList<Movie> specificJsonParseMovie(Response response) {
+        Log.i(LOG_TAG, "specificJsonParseMovie");
+        Log.i("ResponseString", String.valueOf(response));
+
+        try {
+            String jsonResponse = response.body().string();
+            ArrayList<Movie> movieArrayList = new ArrayList<>();
+
+            try {
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode rootNode = objectMapper.readTree(jsonResponse);
+                Movie movie = objectMapper.treeToValue(rootNode, Movie.class);
+                movieArrayList.add(movie);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return movieArrayList;
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return movieArrayList;
     }
 }
