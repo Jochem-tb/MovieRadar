@@ -198,8 +198,8 @@ public class MovieDetailActivity extends AppCompatActivity{
         mTrailerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              Log.d(LOG_TAG, "Trailer Key: " + mMovie.getKey());
-              playTrailer(mMovie.getKey());
+              Log.d(LOG_TAG, "Trailer Key: " + YOUTUBE_VIDEO_ID);
+              playTrailer(YOUTUBE_VIDEO_ID);
         }
     });
 
