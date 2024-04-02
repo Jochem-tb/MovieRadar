@@ -50,7 +50,6 @@ public class PersonActivity extends AppCompatActivity {
     private Button InlogButton;
     private Button RegisterButton;
 
-    public ArrayList crud = new ArrayList<>();
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -132,19 +131,10 @@ public class PersonActivity extends AppCompatActivity {
         InlogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseTask task = new DatabaseTask("Login", crud);
-                task.execute();
+
             }
         });
 
-        crud.add("INSERT INTO MR-Gebruiker(EmailAdres,Gebruikersnaam,Wachtwoord,Geboortedatum) VALUES (" +
-                EmailField.getText() + "," +
-                UserField.getText() + "," +
-                PassField.getText() + "," +
-                BirthdateView.getText() + ")");
-
-        crud.add(EmailUserField);
-        crud.add(PasswordField);
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

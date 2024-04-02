@@ -25,7 +25,7 @@ public class DatabaseTask extends AsyncTask<Void, Void, Connection> {
     }
 
     public Connection Connectionclass() {
-        ip = "aei-sql2.avans.nl";
+        ip = "217.121.119.223";
         database = "CodeAcademyJGKJ";
         uname = "jgkj";
         pass = "jgkj2023";
@@ -107,13 +107,8 @@ public class DatabaseTask extends AsyncTask<Void, Void, Connection> {
 
     }
     boolean CheckLoginAuthentication (ArrayList <String> list){
-        try {
-            ResultSet rs = DatabaseCon.createConnection().prepareStatement("SELECT * FROM MR-Gebruiker WHERE Gebruikersnaam='" + list.get(1) + "' AND Wachtwoord='" + list.get(2) + "'").executeQuery();
+        String rs = ("SELECT * FROM MR-Gebruiker WHERE Gebruikersnaam='" + list.get(1) + "' AND Wachtwoord='" + list.get(2) + "'");
 
-            return rs.next();
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
         return false;
     }
 }
