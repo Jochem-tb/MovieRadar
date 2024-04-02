@@ -229,6 +229,7 @@
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_nav_menu" />
+        android:background="@color/orange"
+        app:menu="@menu/bottom_nav_menu"/>
 
 </RelativeLayout>
