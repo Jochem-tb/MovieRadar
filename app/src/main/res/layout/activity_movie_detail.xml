@@ -9,7 +9,7 @@
         android:id="@+id/tb_detail_movie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/orange"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
@@ -211,7 +211,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:menu="@menu/bottom_nav_menu"
+        android:background="@color/orange"/>
 
     <Button
         android:id="@+id/bt_detail_buy"
@@ -221,6 +222,7 @@
         android:text="@string/detailpagina_button_buy_tickets"
         app:layout_constraintBottom_toTopOf="@+id/btmNavViewMain"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/orange"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
