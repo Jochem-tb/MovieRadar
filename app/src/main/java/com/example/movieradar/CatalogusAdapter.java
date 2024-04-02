@@ -19,19 +19,17 @@ import java.util.ArrayList;
 
 
 public class CatalogusAdapter extends
-        RecyclerView.Adapter<CatalogusAdapter.CatalogusViewHolder> implements MovieApiTask.OnNewMovieListener {
+        RecyclerView.Adapter<CatalogusAdapter.CatalogusViewHolder>  {
     private final String LOG_TAG = "CatalogusAdapter";
     private LayoutInflater inflater;
     private ArrayList<Movie> mMovieList;
     private Context mContext;
-    private ArrayList<Integer> checkedBoxes;
 
 
-    public CatalogusAdapter(Context context, ArrayList<Movie> movieList, ArrayList<Integer> checkedBoxes) {
+    public CatalogusAdapter(Context context, ArrayList<Movie> movieList) {
         mContext = context;
         inflater = LayoutInflater.from(context);
         this.mMovieList = movieList;
-        this.checkedBoxes = checkedBoxes;
     }
 
     @NonNull
@@ -44,9 +42,10 @@ public class CatalogusAdapter extends
     @Override
     public void onBindViewHolder(@NonNull CatalogusViewHolder holder, int position) {
 
+        /*
         String genre = "";
 
-        for (int i = 0; i < checkedBoxes.size(); i++) {
+        for (int i = 0; i <= checkedBoxes.size(); i++) {
             switch (checkedBoxes.get(i)) {
                 case 1:
                     genre = "Action";
@@ -88,17 +87,18 @@ public class CatalogusAdapter extends
             Log.i(LOG_TAG, "Chosen genre APIString created");
 
             MovieApiTask task = new MovieApiTask(this, 23);
-            task.execute(str.getApiString());
+            task.execute(str.getApiString()); */
 
-            holder.tvCatalogusItemTitle.setText(genre);
+            Log.i(LOG_TAG, "Loaded " + mMovieList.size() + " movies");
+            holder.tvCatalogusItemTitle.setText("Genre:");
             MovieListAdapter movieListAdapter = new MovieListAdapter(mContext, mMovieList);
             holder.movieListAdapter.setAdapter(movieListAdapter);
-        }
+            Log.i(LOG_TAG, "OnBindViewHolder");
     }
 
     @Override
     public int getItemCount() {
-        return checkedBoxes.size();
+        return 10;
     }
 
     public class CatalogusViewHolder extends RecyclerView.ViewHolder {
@@ -116,12 +116,5 @@ public class CatalogusAdapter extends
         }
     }
 
-
-    public void onMovieAvailable(ArrayList<Movie> movies, int apiIdentifier) {
-        mMovieList.clear();
-        mMovieList.addAll(movies);
-        Log.d(LOG_TAG, "Je moeder");
-
-    }
 }
 

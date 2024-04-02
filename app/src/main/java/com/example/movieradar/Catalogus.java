@@ -40,7 +40,6 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
     private CatalogusAdapter catalogusAdapter;
     private LinearLayout lCatalogusCheckboxes;
     private MovieListAdapter movieListAdapter;
-    private TableLayout tlCatalogus;
     private Button bFilterMenuToggle;
     ArrayList<Integer> checkedBoxes = new ArrayList<>();
 
@@ -56,11 +55,11 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
 
         rvCatalogusVertical = findViewById(R.id.rvCatalogus);
         rvCatalogusVertical.setLayoutManager(new LinearLayoutManager(this));
-        catalogusAdapter = new CatalogusAdapter(this, mMovieList, checkedBoxes);
+        catalogusAdapter = new CatalogusAdapter(this, mMovieList);
         rvCatalogusVertical.setAdapter(catalogusAdapter);
+        
         rvCatalogusTop = findViewById(R.id.rvCatalogusTop);
         rvCatalogusTop.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
         movieListAdapter = new MovieListAdapter(this, mSearchResultsList);
         rvCatalogusTop.setAdapter(movieListAdapter);
         rvCatalogusTop.setVisibility(View.GONE);
@@ -109,7 +108,7 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
                 return false;
             }
         });
-
+/*
         int numCheckBox = 8;
         //Plaats numCheckBox CheckBoxen in de Containter
         for (int i = 1; i <= numCheckBox; i++) {
@@ -131,8 +130,6 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
                             CheckBox checkBox = (CheckBox) view;
                             if (checkBox.isChecked()) {
                                 Log.d(LOG_TAG, "Checkbox " + (i + 1) + " is checked");
-                                checkedBoxes.add(i);
-                                catalogusAdapter.notifyDataSetChanged();
                             } else {
                                 Log.d(LOG_TAG, "Checkbox " + (i + 1) + " is not checked");
                             }
@@ -143,7 +140,7 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
                 }
             }
         });
-
+*/
         loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
         btmNavView.setSelectedItemId(R.id.tbCatalogus);
 
@@ -183,6 +180,7 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
         }
     }
 
+
     private void loadSearchOnTopView(ArrayList<Movie> movies) {
         Log.d(LOG_TAG, "loadSearchOnTopView with: "+movies.size()+" movies");
         mSearchResultsList.clear();
@@ -190,12 +188,14 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
         movieListAdapter.setMovieList(mSearchResultsList);
         movieListAdapter.notifyDataSetChanged();
     }
-    
+
 
     public void loadRecyclerView(ArrayList<Movie> movies) {
+        Log.i(LOG_TAG,  movies.size() + " added to MovieList");
         mMovieList.clear();
         mMovieList.addAll(movies);
-        Log.i(LOG_TAG, "Movies added to recyclerview");
+        movieListAdapter.setMovieList(mMovieList);
+        movieListAdapter.notifyDataSetChanged();
     }
 
     public String getGenreName(int i) {
