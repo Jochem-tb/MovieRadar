@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TableLayout;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,14 +28,17 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
     private final int RANDOM_MOVIES = 2;
     BottomNavigationView btmNavView;
     private ArrayList<Movie> mMovieList = new ArrayList<>();
+    private androidx.appcompat.widget.Toolbar toolbar;
     private RecyclerView rvCatalogusVertical;
     private CatalogusAdapter catalogusAdapter;
+    private TableLayout tlCatalogus;
+    private Button bFilterMenuToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.catalogus);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tbCatalogus);
+        toolbar = findViewById(R.id.tbCatalogus);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -46,6 +52,21 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
         btmNavView = findViewById(R.id.btmNavViewMain);
         btmNavView.setSelectedItemId(R.id.tbCatalogus);
 
+        tlCatalogus = findViewById(R.id.tlCatalogus);
+        tlCatalogus.setVisibility(View.GONE);
+
+        bFilterMenuToggle = findViewById(R.id.bFilterMenuToggle);
+        bFilterMenuToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tlCatalogus.getVisibility() == View.VISIBLE) {
+                    tlCatalogus.setVisibility(View.GONE);
+                } else {
+                    tlCatalogus.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
         //NavBar functionality
         btmNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -54,7 +75,7 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
                 int id = menuItem.getItemId();
                 //Heb geprobeerd met switch/case maar geeft errors
                 if (id == R.id.menuHomeScreen) {
-                    startActivity(new Intent(Catalogus.this, Catalogus.class));
+                    //Intent Catalogus = new Intent(Catalogus.this, Catalogus.class);
                     Log.i(LOG_TAG, "HomeScreen button clicked");
                     return true;
                 } else if (id == R.id.menuFilmList) {
@@ -70,7 +91,6 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
                 }
             }
         });
-
     }
 
     private void loadMoviesFromAPI(String APIUrl, int apiIdentifier) {
