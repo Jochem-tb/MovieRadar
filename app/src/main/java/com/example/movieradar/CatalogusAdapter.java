@@ -11,6 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.movieradar.API.APIString;
+import com.example.movieradar.API.Filters;
+
 import java.util.ArrayList;
 
 
@@ -18,14 +21,16 @@ public class CatalogusAdapter extends
         RecyclerView.Adapter<CatalogusAdapter.CatalogusViewHolder> {
     private final String LOG_TAG = "CatalogusAdapter";
     private LayoutInflater inflater;
-    private ArrayList<Movie> mMovieList = new ArrayList<>();
+    private ArrayList<Movie> mMovieList;
     private Context mContext;
+    private ArrayList<Integer> checkedBoxes;
 
 
-    public CatalogusAdapter(Context context, ArrayList<Movie> movieList) {
+    public CatalogusAdapter(Context context, ArrayList<Movie> movieList, ArrayList<Integer> checkedBoxes) {
         mContext = context;
         inflater = LayoutInflater.from(context);
         this.mMovieList = movieList;
+        this.checkedBoxes = checkedBoxes;
     }
 
     @NonNull
@@ -38,8 +43,12 @@ public class CatalogusAdapter extends
     @Override
     public void onBindViewHolder(@NonNull CatalogusViewHolder holder, int position) {
 
-        holder.tvCatalogusItemTitle.setText("TEST");
+        APIString str = new APIString();
+        str.filter(Filters.with_genres, "");
+        str.finish();
+        str.getApiString();
 
+        holder.tvCatalogusItemTitle.setText("TEST");
         MovieListAdapter movieListAdapter = new MovieListAdapter(mContext, mMovieList);
         holder.movieListAdapter.setAdapter(movieListAdapter);
 
@@ -47,7 +56,7 @@ public class CatalogusAdapter extends
 
     @Override
     public int getItemCount() {
-        return 10;
+        return checkedBoxes.size();
     }
 
     public class CatalogusViewHolder extends RecyclerView.ViewHolder {

@@ -1,15 +1,15 @@
 package com.example.movieradar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.annotation.NonNull;
@@ -31,8 +31,9 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
     private androidx.appcompat.widget.Toolbar toolbar;
     private RecyclerView rvCatalogusVertical;
     private CatalogusAdapter catalogusAdapter;
-    private TableLayout tlCatalogus;
+    private LinearLayout lCatalogusCheckboxes;
     private Button bFilterMenuToggle;
+    ArrayList<Integer> checkedBoxes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,28 +45,50 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
 
         rvCatalogusVertical = findViewById(R.id.rvCatalogus);
         rvCatalogusVertical.setLayoutManager(new LinearLayoutManager(this));
-        catalogusAdapter = new CatalogusAdapter(this, mMovieList);
+        catalogusAdapter = new CatalogusAdapter(this, mMovieList, checkedBoxes);
         rvCatalogusVertical.setAdapter(catalogusAdapter);
-
-        loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
 
         btmNavView = findViewById(R.id.btmNavViewMain);
         btmNavView.setSelectedItemId(R.id.tbCatalogus);
 
-        tlCatalogus = findViewById(R.id.tlCatalogus);
-        tlCatalogus.setVisibility(View.GONE);
+        lCatalogusCheckboxes = findViewById(R.id.lCatalogusCheckboxes);
+        lCatalogusCheckboxes.setVisibility(View.GONE);
+
+        int numCheckBox = 8;
+        //Plaats numCheckBox CheckBoxen in de Containter
+        for (int i = 0; i < numCheckBox; i++) {
+            CheckBox checkBox = new CheckBox(this);
+            //TODO Methode voor ophalen genre naam
+            checkBox.setText("GENRE NAAM " + (i + 1));
+            lCatalogusCheckboxes.addView(checkBox);
+        }
 
         bFilterMenuToggle = findViewById(R.id.bFilterMenuToggle);
         bFilterMenuToggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (tlCatalogus.getVisibility() == View.VISIBLE) {
-                    tlCatalogus.setVisibility(View.GONE);
+                if (lCatalogusCheckboxes.getVisibility() == View.VISIBLE) {
+                    lCatalogusCheckboxes.setVisibility(View.GONE);
+                    checkedBoxes.clear();
+                    for (int i = 0; i <= lCatalogusCheckboxes.getChildCount(); i++) {
+                        View view = lCatalogusCheckboxes.getChildAt(i);
+                        if (view instanceof CheckBox) {
+                            CheckBox checkBox = (CheckBox) view;
+                            if (checkBox.isChecked()) {
+                                Log.d(LOG_TAG, "Checkbox " + (i + 1) + " is checked");
+                                checkedBoxes.add(i);
+                            } else {
+                                Log.d(LOG_TAG, "Checkbox " + (i + 1) + " is not checked");
+                            }
+                        }
+                    }
                 } else {
-                    tlCatalogus.setVisibility(View.VISIBLE);
+                    lCatalogusCheckboxes.setVisibility(View.VISIBLE);
                 }
             }
         });
+
+        loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
 
         //NavBar functionality
         btmNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
