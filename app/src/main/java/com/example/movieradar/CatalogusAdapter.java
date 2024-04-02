@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 
 public class CatalogusAdapter extends
-        RecyclerView.Adapter<CatalogusAdapter.CatalogusViewHolder> {
+        RecyclerView.Adapter<CatalogusAdapter.CatalogusViewHolder> implements MovieApiTask.OnNewMovieListener {
     private final String LOG_TAG = "CatalogusAdapter";
     private LayoutInflater inflater;
     private ArrayList<Movie> mMovieList;
@@ -87,14 +87,13 @@ public class CatalogusAdapter extends
             str.finish();
             Log.i(LOG_TAG, "Chosen genre APIString created");
 
-            MovieApiTask task = new MovieApiTask(str.getApiString(), 23);
+            MovieApiTask task = new MovieApiTask(this, 23);
             task.execute(str.getApiString());
+
+            holder.tvCatalogusItemTitle.setText(genre);
+            MovieListAdapter movieListAdapter = new MovieListAdapter(mContext, mMovieList);
+            holder.movieListAdapter.setAdapter(movieListAdapter);
         }
-
-        holder.tvCatalogusItemTitle.setText(genre);
-        MovieListAdapter movieListAdapter = new MovieListAdapter(mContext, mMovieList);
-        holder.movieListAdapter.setAdapter(movieListAdapter);
-
     }
 
     @Override
@@ -117,24 +116,12 @@ public class CatalogusAdapter extends
         }
     }
 
-    public void OnNewMovieListener(ArrayList<Movie> movies) {
+
+    public void onMovieAvailable(ArrayList<Movie> movies, int apiIdentifier) {
+        mMovieList.clear();
+        mMovieList.addAll(movies);
+        Log.d(LOG_TAG, "Je moeder");
 
     }
-
-    /* @Override
-    public void onMovieAvailable(ArrayList<Movie> movies, int apiIdentifier) {
-        switch (apiIdentifier) {
-            case 23:
-                mMovieList = movies;
-                setPopularMoviesHome(movies);
-                loadRecyclerView(movies);
-                break;
-            case RANDOM_MOVIES:
-//                loadRecyclerView(mMovieList);
-                break;
-            default:
-//                loadRecyclerView(mMovieList);
-                break;
-        }
-    } */
 }
+
