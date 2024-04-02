@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
 
     private final String LOG_TAG = "MainActivity";
     private final int POPULAR_MOVIES = 1;
-    private final int RANDOM_MOVIES = 2;
+    private final int RANDOM_MOVIES = 3;
 
     private MovieListAdapter mAdapter;
     private ArrayList<Movie> mMovieList = new ArrayList<>();
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
 
         // Vraag API vor popular movies, handel deze af als POPULAR_MOVIES
         loadMoviesFromAPI(APIString.getPopularUrl(), POPULAR_MOVIES);
-        loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
+//        loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
     }
 
     private void loadMoviesFromAPI(String APIUrl, int apiIdentifier) {
@@ -115,12 +115,13 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
             case POPULAR_MOVIES:
                 mMovieList = movies;
                 setPopularMoviesHome(movies);
+                loadRecyclerView(movies);
                 break;
             case RANDOM_MOVIES:
-                loadRecyclerView(movies);
+//                loadRecyclerView(mMovieList);
                 break;
             default:
-                loadRecyclerView(movies);
+//                loadRecyclerView(mMovieList);
                 break;
         }
     }
@@ -149,10 +150,10 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
 
     // Vul recyclerview in
     public void loadRecyclerView(ArrayList<Movie> movies) {
-        mMovieList.clear();
+//        mMovieList.clear();
         mMovieList.addAll(movies);
         mAdapter.setMovieList(mMovieList);
         mAdapter.notifyDataSetChanged();
-        Log.i(LOG_TAG, "Movies added to recyclerview");
+        Log.i(LOG_TAG, movies.size()+" Movies added to recyclerview");
     }
 }

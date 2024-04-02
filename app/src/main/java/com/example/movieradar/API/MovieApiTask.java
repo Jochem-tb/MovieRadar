@@ -25,6 +25,7 @@ import okhttp3.Response;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
 public class MovieApiTask extends AsyncTask<String, Void, ArrayList<Movie>> {
 
@@ -32,9 +33,10 @@ public class MovieApiTask extends AsyncTask<String, Void, ArrayList<Movie>> {
     private Context context;
     private final String LOG_TAG = "MovieApiTask";
 
+
     private ArrayList<Movie> movies = new ArrayList<>();
     private OnNewMovieListener listener;
-    private int apiIdentifier = 1;
+    private int apiIdentifier;
 
 
     // Interface voor Listener
@@ -70,16 +72,23 @@ public class MovieApiTask extends AsyncTask<String, Void, ArrayList<Movie>> {
                 .url(urlString)
                 .get()
                 .addHeader("accept", "application/json")
-                .addHeader("Authorization", "Bearer YOUR_ACCESS_TOKEN")
+                .addHeader("Authorization", "Bearer ")
                 .build();
         try {
             if(apiIdentifier==52){
+                Log.d(LOG_TAG, "Parse with apiIdentifier = "+apiIdentifier);
                 Response response = client.newCall(request).execute();
                 movies = retrieveKey(response);
-            }else {
+            }else if (apiIdentifier ==1) {
+                Log.d(LOG_TAG, "Parse with apiIdentifier = "+apiIdentifier);
                 Response response = client.newCall(request).execute();
                 movies = betterJsonPars(response);
-
+            }else if (apiIdentifier ==2) {
+                Log.d(LOG_TAG, "Parse with apiIdentifier = "+apiIdentifier);
+                Response response = client.newCall(request).execute();
+                movies = specificJsonParseMovie(response);
+            }
+            else{
                 Log.d(LOG_TAG, "Invalid apiIdentifier = "+apiIdentifier);
             }
         } catch (IOException e) {
@@ -127,40 +136,44 @@ public class MovieApiTask extends AsyncTask<String, Void, ArrayList<Movie>> {
     }
 
 
-    private ArrayList<Movie> betterJsonPars(Response response){
+    private ArrayList<Movie> betterJsonPars(Response response) {
         Log.i(LOG_TAG, "betterJsonPars");
         Log.i("ResponseString", String.valueOf(response));
+
+        ArrayList<Movie> movieArrayList = new ArrayList<>();
+
+        try {
+            String jsonResponse = response.body().string();
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode rootNode = objectMapper.readTree(jsonResponse);
+            JsonNode resultsNode = rootNode.get("results");
+            if (resultsNode != null && resultsNode.isArray()) {
+                for (JsonNode movieNode : resultsNode) {
+                    Movie movie = objectMapper.treeToValue(movieNode, Movie.class);
+                    movieArrayList.add(movie);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return movieArrayList;
+    }
+
+    private ArrayList<Movie> specificJsonParseMovie(Response response) {
+        Log.i(LOG_TAG, "specificJsonParseMovie");
+        Log.i("ResponseString", String.valueOf(response));
+
         try {
             String jsonResponse = response.body().string();
             ArrayList<Movie> movieArrayList = new ArrayList<>();
+
             try {
                 ObjectMapper objectMapper = new ObjectMapper();
                 JsonNode rootNode = objectMapper.readTree(jsonResponse);
-                JsonNode resultsNode = rootNode.get("results");
-                if (resultsNode != null && resultsNode.isArray()) {
-                    for (JsonNode movieNode : resultsNode) {
-                        Movie movie = objectMapper.treeToValue(movieNode, Movie.class);
-                        // Parse the 'videos' field
-                        JsonNode videosNode = movieNode.get("videos");
-                        if (videosNode != null) {
-                            JsonNode resultsArray = videosNode.get("results");
-                            if (resultsArray != null && resultsArray.isArray()) {
-                                String key = null;
-                                for (JsonNode videoNode : resultsArray) {
-                                    JsonNode keyNode = videoNode.get("key");
-                                    if (keyNode != null && !keyNode.isNull()) {
-                                        key = keyNode.asText();
-                                        // Break out of the loop after finding the key
-                                        break;
-                                    }
-                                }
-                                movie.setKey(key);
-                            }
-                        }
-
-                        movieArrayList.add(movie);
-                    }
-                }
+                Movie movie = objectMapper.treeToValue(rootNode, Movie.class);
+                movieArrayList.add(movie);
             } catch (IOException e) {
                 e.printStackTrace();
             }

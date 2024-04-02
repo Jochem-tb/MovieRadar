@@ -9,7 +9,10 @@
     <string name="detailpagina_button_buy_tickets">Koop ticket(s)</string>
     <string name="detailpagina_genre">Genre:</string>
     <string name="detailpagina_rating">Rating:</string>
-    <string name="detailpagina_pegi">Pegi:</string>
+    <string name="detailpagina_status">Status:</string>
     <string name="detailpagina_time">Tijd:</string>
+    <string name="detailpagina_budget">Budget:</string>
+    <string name="detailpagina_revenue">Revenue:</string>
+    <string name="detail_title">Detailpagina</string>
     <string name="add_movie_to_list_title">Voeg toe aan lijsten:</string>
 </resources>

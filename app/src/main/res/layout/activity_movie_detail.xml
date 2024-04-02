@@ -42,14 +42,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_detail_poster"
-        android:layout_width="372dp"
-        android:layout_height="144dp"
-        android:layout_marginTop="20dp"
+    <TextView
+        android:id="@+id/tv_detail_var_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tb_detail_movie"
+        app:layout_constraintTop_toBottomOf="@+id/tb_detail_movie" />
+
+    <ImageView
+        android:id="@+id/tv_detail_poster"
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_var_title"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ScrollView
@@ -60,7 +68,7 @@
         app:layout_constraintBottom_toTopOf="@+id/bt_detail_buy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_detail_poster">
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_poster">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -115,14 +123,14 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_detail_stat_pegi"
+                    android:id="@+id/tv_detail_stat_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/detailpagina_pegi" />
+                    android:text="@string/detailpagina_rating" />
 
                 <TextView
-                    android:id="@+id/tv_detail_var_pegi"
+                    android:id="@+id/tv_detail_var_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
@@ -135,14 +143,54 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_detail_stat_rating"
+                    android:id="@+id/tv_detail_stat_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/detailpagina_rating" />
+                    android:text="@string/detailpagina_status" />
 
                 <TextView
-                    android:id="@+id/tv_detail_var_rating"
+                    android:id="@+id/tv_detail_var_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_detail_stat_budget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/detailpagina_budget" />
+
+                <TextView
+                    android:id="@+id/tv_detail_var_budget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_detail_stat_revenue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/detailpagina_revenue" />
+
+                <TextView
+                    android:id="@+id/tv_detail_var_revenue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />

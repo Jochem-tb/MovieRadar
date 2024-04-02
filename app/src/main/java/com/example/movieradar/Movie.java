@@ -1,24 +1,23 @@
 package com.example.movieradar;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Movie implements Serializable {
     public static final String SHARE_KEY = "MovieKey";
 //    @JsonProperty("id")
     private int id;
-    private int imdb_id;
+//    @JsonProperty("imdb_id")
+    private String imdb_id;
     private String key;
     private Boolean adult;
-//    @JsonProperty("backdrop_path")
     private String backdrop_path;
+    @JsonProperty("budget")
     private Long budget;
     private ArrayList<Genre> genres;
     private String original_language;
@@ -26,23 +25,26 @@ public class Movie implements Serializable {
     private Double popularity;
     private String poster_path;
     private Date release_date;
+    @JsonProperty("revenue")
     private Long revenue;
-    private int runtime;
+    @JsonProperty("runtime")
+    private Integer runtime;
     private String status;
-//    @JsonProperty("title")
     private String title;
     private Boolean video;
-    private float vote_average;
-    private int vote_count;
+    private Float vote_average;
+    private Integer vote_count;
 
-    public static String getShareKey(){
+    public static String getShareKey() {
         return SHARE_KEY;
     }
-    public Movie(){}
 
-    public Movie(int id, Boolean adult, String backdrop_path,  ArrayList genres, String original_language, String overview, Double popularity, String poster_path, String release_date, String title, Boolean video, float vote_average, int vote_count) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    public Movie() {}
+
+
+    public Movie(int id, String imdb_id, Boolean adult, String backdrop_path, ArrayList<Genre> genres, String original_language, String overview, Double popularity, String poster_path, Date release_date, Long revenue, int runtime, String status, String title, Boolean video, float vote_average, int vote_count) {
         this.id = id;
+        this.imdb_id = imdb_id;
         this.adult = adult;
         this.backdrop_path = backdrop_path;
         this.genres = genres;
@@ -50,15 +52,39 @@ public class Movie implements Serializable {
         this.overview = overview;
         this.popularity = popularity;
         this.poster_path = poster_path;
-        try {
-            this.release_date = dateFormat.parse(release_date);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        this.release_date = release_date;
+        this.revenue = revenue;
+        this.runtime = runtime;
+        this.status = status;
         this.title = title;
         this.video = video;
         this.vote_average = vote_average;
         this.vote_count = vote_count;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", imdb_id='" + imdb_id + '\'' +
+                ", key='" + key + '\'' +
+                ", adult=" + adult +
+                ", backdrop_path='" + backdrop_path + '\'' +
+                ", budget=" + budget +
+                ", genres=" + genres +
+                ", original_language='" + original_language + '\'' +
+                ", overview='" + overview + '\'' +
+                ", popularity=" + popularity +
+                ", poster_path='" + poster_path + '\'' +
+                ", release_date=" + release_date +
+                ", revenue=" + revenue +
+                ", runtime=" + runtime +
+                ", status='" + status + '\'' +
+                ", title='" + title + '\'' +
+                ", video=" + video +
+                ", vote_average=" + vote_average +
+                ", vote_count=" + vote_count +
+                '}';
     }
 
     public String getKey() {
@@ -77,11 +103,11 @@ public class Movie implements Serializable {
         this.id = id;
     }
 
-    public int getImdb_id() {
+    public String getImdb_id() {
         return imdb_id;
     }
 
-    public void setImdb_id(int imdb_id) {
+    public void setImdb_id(String imdb_id) {
         this.imdb_id = imdb_id;
     }
 
@@ -165,11 +191,11 @@ public class Movie implements Serializable {
         this.revenue = revenue;
     }
 
-    public int getRuntime() {
+    public Integer getRuntime() {
         return runtime;
     }
 
-    public void setRuntime(int runtime) {
+    public void setRuntime(Integer runtime) {
         this.runtime = runtime;
     }
 
@@ -197,19 +223,19 @@ public class Movie implements Serializable {
         this.video = video;
     }
 
-    public float getVote_average() {
+    public Float getVote_average() {
         return vote_average;
     }
 
-    public void setVote_average(float vote_average) {
+    public void setVote_average(Float vote_average) {
         this.vote_average = vote_average;
     }
 
-    public int getVote_count() {
+    public Integer getVote_count() {
         return vote_count;
     }
 
-    public void setVote_count(int vote_count) {
+    public void setVote_count(Integer vote_count) {
         this.vote_count = vote_count;
     }
 
