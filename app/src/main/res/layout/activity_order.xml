@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/tvMovieTitle"
+        android:id="@+id/tv_MovieTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -20,7 +20,7 @@
         android:id="@+id/ly_spinners"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvMovieTitle"
+        android:layout_below="@id/tv_MovieTitle"
         android:gravity="center"
         >
                 <Spinner
@@ -441,7 +441,7 @@
             android:textSize="20sp"/>
 
         <Spinner
-            android:id="@+id/kindOfTicket_Spinner"
+            android:id="@+id/kindOfTicketSpinner"
             android:layout_width="175dp"
             android:layout_height="37dp"
             android:background="@android:drawable/btn_dropdown"
