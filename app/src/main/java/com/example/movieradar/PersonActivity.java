@@ -1,5 +1,7 @@
 package com.example.movieradar;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,8 +18,11 @@ import android.widget.TextView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,7 +37,11 @@ public class PersonActivity extends AppCompatActivity {
 
 
 
-
+    Connection connect;
+    String connectionResult = "";
+    Statement st = null;
+    private TextView EmailUserField;
+    private TextView PasswordField;
     private TextView BirthdateView;
     private ImageView BirthDateButton;
     private TextView EmailField;
@@ -40,6 +49,8 @@ public class PersonActivity extends AppCompatActivity {
     private TextView PassField;
     private Button InlogButton;
     private Button RegisterButton;
+
+    public ArrayList crud = new ArrayList<>();
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -116,25 +127,48 @@ public class PersonActivity extends AppCompatActivity {
         PassField = findViewById(R.id.PassField);
         InlogButton = findViewById(R.id.InlogButton);
         RegisterButton = findViewById(R.id.RegisterButton);
-
+        EmailUserField = findViewById(R.id.EmailUserField);
+        PasswordField = findViewById(R.id.PasswordField);
         InlogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CheckLoginAuthentication();
+                DatabaseTask task = new DatabaseTask("Login", crud);
+                task.execute();
             }
         });
+
+        crud.add("INSERT INTO MR-Gebruiker(EmailAdres,Gebruikersnaam,Wachtwoord,Geboortedatum) VALUES (" +
+                EmailField.getText() + "," +
+                UserField.getText() + "," +
+                PassField.getText() + "," +
+                BirthdateView.getText() + ")");
+
+        crud.add(EmailUserField);
+        crud.add(PasswordField);
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    DatabaseCon.sendCommand(DatabaseCon.createConnection(),"INSERT INTO MR-Gebruiker(EmailAdres,Gebruikersnaam,Wachtwoord,Geboortedatum) VALUES (" +
-                            EmailField.getText() + "," +
-                            UserField.getText() + "," +
-                            PassField.getText() + "," +
-                            BirthdateView.getText() + ")");
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                Log.d(TAG, "onClick: ");
+                DatabaseTask conhelp = new DatabaseTask();
+                connect = conhelp.Connectionclass();
+                if(connect != null){
+                    String query = "INSERT INTO MR-Gebruiker(EmailAdres,Gebruikersnaam,Wachtwoord,Geboortedatum) VALUES (" +
+                                            EmailField.getText() +","  +
+                                            UserField.getText() + "," +
+                                            PassField.getText() + "," +
+                                            BirthdateView.getText() + ")";
+                    try {
+                        st = connect.createStatement();
+                        ResultSet rs = st.executeQuery(query);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+                    conhelp.execute();
+
                 }
+//                DatabaseTask task = new DatabaseTask("Insert", crud);
+//                task.execute();
+
             }
         });
 

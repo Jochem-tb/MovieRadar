@@ -22,7 +22,10 @@ import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Login extends AppCompatActivity, AsyncTask<Void, Void, Connection> {
+public class Login extends AppCompatActivity {
+
+    Connection connect;
+    String connectionResult = "";
 
     private TextView EmailUserField;
     private TextView PasswordField;
@@ -93,21 +96,26 @@ public class Login extends AppCompatActivity, AsyncTask<Void, Void, Connection> 
                 UserField.getText() + "," +
                 PassField.getText() + "," +
                 BirthdateView.getText() + ")");
-        crud.add()
+
+        crud.add(EmailUserField);
+        crud.add(PasswordField);
         RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    DatabaseTask task = new DatabaseTask("Insert", crud);
-                    task.execute();
+                DatabaseTask conhelp = new DatabaseTask();
+                connect = conhelp.Connectionclass();
+//                DatabaseTask task = new DatabaseTask("Insert", crud);
+//                task.execute();
 
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
             }
         });
 
     }
+    public void GetTextFromSQL(){
 
+        DatabaseTask conhelp = new DatabaseTask();
+        connect = conhelp.Connectionclass();
+
+    }
 }
 
