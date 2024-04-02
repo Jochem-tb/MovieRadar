@@ -62,6 +62,7 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
 
         movieListAdapter = new MovieListAdapter(this, mSearchResultsList);
         rvCatalogusTop.setAdapter(movieListAdapter);
+        rvCatalogusTop.setVisibility(View.GONE);
 
         btmNavView = findViewById(R.id.btmNavViewMain);
         btmNavView.setSelectedItemId(R.id.tbCatalogus);
@@ -152,16 +153,13 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
     }
 
     private void performSearch(String query){
-//        rvCatalogusTop.setVisibility(View.GONE);
+        rvCatalogusTop.setVisibility(View.VISIBLE);
         MovieApiTask task = new MovieApiTask(this, SEARCH_MOVIE);
         APIString str = new APIString();
         str.search(query);
         str.finish();
         task.execute(str.getApiString());
-//        https://api.themoviedb.org/3/search/movie?query=Spider&include_adult=false&language=en-US&page=1
-
-//        task.execute("https://api.themoviedb.org/3/search/movie?query=Spider&include_adult=false&language=en-US&page=1&api_key=731b0900535ff5476ae98c326ef7413c");
-    }
+}
 
     @Override
     public void onMovieAvailable(ArrayList<Movie> movies, int apiIdentifier) {
