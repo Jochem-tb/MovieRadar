@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TableLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,13 +28,18 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
     private final String LOG_TAG = "Catalogus";
     private final int POPULAR_MOVIES = 1;
     private final int RANDOM_MOVIES = 2;
+    private final int SEARCH_MOVIE = 15;
     BottomNavigationView btmNavView;
     private ArrayList<Movie> mMovieList = new ArrayList<>();
     private androidx.appcompat.widget.Toolbar toolbar;
     private RecyclerView rvCatalogusVertical;
+    private RecyclerView rvCatalogusTop;
     private CatalogusAdapter catalogusAdapter;
+    private MovieListAdapter movieListAdapter;
     private TableLayout tlCatalogus;
     private Button bFilterMenuToggle;
+
+    private SearchView svCatalogus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,9 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
         rvCatalogusVertical.setLayoutManager(new LinearLayoutManager(this));
         catalogusAdapter = new CatalogusAdapter(this, mMovieList);
         rvCatalogusVertical.setAdapter(catalogusAdapter);
+        movieListAdapter = new MovieListAdapter(this, mMovieList);
+        rvCatalogusTop = findViewById(R.id.rvCatalogusTop);
+        rvCatalogusTop.setAdapter(movieListAdapter);
 
         loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
 
@@ -54,6 +64,22 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
 
         tlCatalogus = findViewById(R.id.tlCatalogus);
         tlCatalogus.setVisibility(View.GONE);
+
+        svCatalogus = findViewById(R.id.svCatalogus);
+        svCatalogus.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                performSearch(query);
+                return true; // Return true to indicate that the query has been handled.
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+
 
         bFilterMenuToggle = findViewById(R.id.bFilterMenuToggle);
         bFilterMenuToggle.setOnClickListener(new View.OnClickListener() {
@@ -98,18 +124,38 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
         task.execute(APIUrl);
     }
 
+    private void performSearch(String query){
+        rvCatalogusTop.setVisibility(View.GONE);
+        MovieApiTask task = new MovieApiTask(this, SEARCH_MOVIE);
+        APIString str = new APIString();
+        str.search(query);
+        str.isAdult(true);
+        str.finish();
+        task.execute("https://api.themoviedb.org/3/search/movie?query=Spider&include_adult=false&language=en-US&page=1&api_key=731b0900535ff5476ae98c326ef7413c");
+    }
+
     @Override
     public void onMovieAvailable(ArrayList<Movie> movies, int apiIdentifier) {
         switch (apiIdentifier) {
             case POPULAR_MOVIES:
+                Log.d(LOG_TAG, "MovieAvailable with "+POPULAR_MOVIES);
                 mMovieList = movies;
                 break;
             case RANDOM_MOVIES:
+                Log.d(LOG_TAG, "MovieAvailable with "+RANDOM_MOVIES);
                 loadRecyclerView(movies);
+                break;
+            case SEARCH_MOVIE:
+                Log.d(LOG_TAG, "MovieAvailable with "+SEARCH_MOVIE);
+                loadSearchOnTopView(movies);
                 break;
             default:
                 break;
         }
+    }
+
+    private void loadSearchOnTopView(ArrayList<Movie> movies) {
+
     }
 
     @Override
