@@ -59,13 +59,13 @@
     <LinearLayout
         android:id="@+id/lCatalogusCheckboxes"
         android:layout_width="150dp"
-        android:layout_height="300dp"
+        android:layout_height="250dp"
+        android:background="@color/orange"
         android:layout_below="@+id/tbCatalogus"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="25dp"
         android:orientation="vertical">
-
 
     </LinearLayout>
 

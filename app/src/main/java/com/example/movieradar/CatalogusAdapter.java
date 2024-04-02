@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movieradar.API.APIString;
 import com.example.movieradar.API.Filters;
+import com.example.movieradar.API.MovieApiTask;
 
 import java.util.ArrayList;
 
@@ -43,12 +44,54 @@ public class CatalogusAdapter extends
     @Override
     public void onBindViewHolder(@NonNull CatalogusViewHolder holder, int position) {
 
-        APIString str = new APIString();
-        str.filter(Filters.with_genres, "");
-        str.finish();
-        str.getApiString();
+        String genre = "";
 
-        holder.tvCatalogusItemTitle.setText("TEST");
+        for (int i = 0; i < checkedBoxes.size(); i++) {
+            switch (checkedBoxes.get(i)) {
+                case 1:
+                    genre = "Action";
+                    Log.i(LOG_TAG, "Action genre selected");
+                    break;
+                case 2:
+                    genre = "Comedy";
+                    Log.i(LOG_TAG, "Comedy genre selected");
+                    break;
+                case 3:
+                    genre = "Drama";
+                    Log.i(LOG_TAG, "Drama genre selected");
+                    break;
+                case 4:
+                    genre = "Family";
+                    Log.i(LOG_TAG, "Family genre selected");
+                    break;
+                case 5:
+                    genre = "Fantasy";
+                    Log.i(LOG_TAG, "Fantasy genre selected");
+                    break;
+                case 6:
+                    genre = "Horror";
+                    Log.i(LOG_TAG, "Horror genre selected");
+                    break;
+                case 7:
+                    genre = "Romance";
+                    Log.i(LOG_TAG, "Romance genre selected");
+                    break;
+                case 8:
+                    genre = "Science Fiction";
+                    Log.i(LOG_TAG, "Science Fiction genre selected");
+                    break;
+            }
+
+            APIString str = new APIString();
+            str.filter(Filters.with_genres, genre);
+            str.finish();
+            Log.i(LOG_TAG, "Chosen genre APIString created");
+
+            MovieApiTask task = new MovieApiTask(str.getApiString(), 23);
+            task.execute(str.getApiString());
+        }
+
+        holder.tvCatalogusItemTitle.setText(genre);
         MovieListAdapter movieListAdapter = new MovieListAdapter(mContext, mMovieList);
         holder.movieListAdapter.setAdapter(movieListAdapter);
 
@@ -73,4 +116,25 @@ public class CatalogusAdapter extends
             movieListAdapter.setLayoutManager(layoutManager);
         }
     }
+
+    public void OnNewMovieListener(ArrayList<Movie> movies) {
+
+    }
+
+    /* @Override
+    public void onMovieAvailable(ArrayList<Movie> movies, int apiIdentifier) {
+        switch (apiIdentifier) {
+            case 23:
+                mMovieList = movies;
+                setPopularMoviesHome(movies);
+                loadRecyclerView(movies);
+                break;
+            case RANDOM_MOVIES:
+//                loadRecyclerView(mMovieList);
+                break;
+            default:
+//                loadRecyclerView(mMovieList);
+                break;
+        }
+    } */
 }

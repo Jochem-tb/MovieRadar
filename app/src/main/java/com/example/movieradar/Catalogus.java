@@ -66,14 +66,6 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
         lCatalogusCheckboxes = findViewById(R.id.lCatalogusCheckboxes);
         lCatalogusCheckboxes.setVisibility(View.GONE);
 
-        int numCheckBox = 8;
-        //Plaats numCheckBox CheckBoxen in de Containter
-        for (int i = 0; i < numCheckBox; i++) {
-            CheckBox checkBox = new CheckBox(this);
-            //TODO Methode voor ophalen genre naam
-            checkBox.setText("GENRE NAAM " + (i + 1));
-            lCatalogusCheckboxes.addView(checkBox);
-        }
 
         svCatalogus = findViewById(R.id.svCatalogus);
         svCatalogus.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -89,7 +81,13 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
             }
         });
 
-
+        int numCheckBox = 8;
+        //Plaats numCheckBox CheckBoxen in de Containter
+        for (int i = 1; i <= numCheckBox; i++) {
+            CheckBox checkBox = new CheckBox(this);
+            checkBox.setText(getGenreName(i));
+            lCatalogusCheckboxes.addView(checkBox);
+        }
 
         bFilterMenuToggle = findViewById(R.id.bFilterMenuToggle);
         bFilterMenuToggle.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +103,7 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
                             if (checkBox.isChecked()) {
                                 Log.d(LOG_TAG, "Checkbox " + (i + 1) + " is checked");
                                 checkedBoxes.add(i);
+                                catalogusAdapter.notifyDataSetChanged();
                             } else {
                                 Log.d(LOG_TAG, "Checkbox " + (i + 1) + " is not checked");
                             }
@@ -194,5 +193,37 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
         Log.i(LOG_TAG, "Movies added to recyclerview");
     }
 
+    public String getGenreName(int i) {
 
+        String genre = "";
+
+        switch (i) {
+            case 1:
+                genre = "Action";
+                break;
+            case 2:
+                genre = "Comedy";
+                break;
+            case 3:
+                genre = "Drama";
+                break;
+            case 4:
+                genre = "Family";
+                break;
+            case 5:
+                genre = "Fantasy";
+                break;
+            case 6:
+                genre = "Horror";
+                break;
+            case 7:
+                genre = "Romance";
+                break;
+            case 8:
+                genre = "Science Fiction";
+                break;
+        }
+
+        return genre;
+    }
 }
