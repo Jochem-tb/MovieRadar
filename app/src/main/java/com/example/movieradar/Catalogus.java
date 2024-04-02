@@ -31,6 +31,7 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
     private final int SEARCH_MOVIE = 15;
     BottomNavigationView btmNavView;
     private ArrayList<Movie> mMovieList = new ArrayList<>();
+    private ArrayList<Movie> mSearchResultsList = new ArrayList<>();
     private androidx.appcompat.widget.Toolbar toolbar;
     private RecyclerView rvCatalogusVertical;
     private RecyclerView rvCatalogusTop;
@@ -53,8 +54,10 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
         rvCatalogusVertical.setLayoutManager(new LinearLayoutManager(this));
         catalogusAdapter = new CatalogusAdapter(this, mMovieList);
         rvCatalogusVertical.setAdapter(catalogusAdapter);
-        movieListAdapter = new MovieListAdapter(this, mMovieList);
         rvCatalogusTop = findViewById(R.id.rvCatalogusTop);
+        rvCatalogusTop.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        movieListAdapter = new MovieListAdapter(this, mSearchResultsList);
         rvCatalogusTop.setAdapter(movieListAdapter);
 
         loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
@@ -125,13 +128,15 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
     }
 
     private void performSearch(String query){
-        rvCatalogusTop.setVisibility(View.GONE);
+//        rvCatalogusTop.setVisibility(View.GONE);
         MovieApiTask task = new MovieApiTask(this, SEARCH_MOVIE);
         APIString str = new APIString();
         str.search(query);
-        str.isAdult(true);
         str.finish();
-        task.execute("https://api.themoviedb.org/3/search/movie?query=Spider&include_adult=false&language=en-US&page=1&api_key=731b0900535ff5476ae98c326ef7413c");
+        task.execute(str.getApiString());
+//        https://api.themoviedb.org/3/search/movie?query=Spider&include_adult=false&language=en-US&page=1
+
+//        task.execute("https://api.themoviedb.org/3/search/movie?query=Spider&include_adult=false&language=en-US&page=1&api_key=731b0900535ff5476ae98c326ef7413c");
     }
 
     @Override
@@ -155,13 +160,13 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
     }
 
     private void loadSearchOnTopView(ArrayList<Movie> movies) {
-
+        Log.d(LOG_TAG, "loadSearchOnTopView with: "+movies.size()+" movies");
+        mSearchResultsList.clear();
+        mSearchResultsList.addAll(movies);
+        movieListAdapter.setMovieList(mSearchResultsList);
+        movieListAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void OnNewMovieListener(ArrayList<Movie> movies) {
-
-    }
 
     public void loadRecyclerView(ArrayList<Movie> movies) {
         mMovieList.clear();
