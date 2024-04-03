@@ -16,6 +16,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Random;
+
 public class OrderActivity extends AppCompatActivity {
 
     private final String LOG_TAG = "OrderActivity";
@@ -27,6 +32,7 @@ public class OrderActivity extends AppCompatActivity {
     private int selectedChairsCount;
     private Movie mMovie;
     private boolean isAdult;
+    private String[] dates;
 
     // All Textviews, Spinners and Buttons
     TextView tvTitle;
@@ -103,8 +109,9 @@ public class OrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-        //Setting counters to 0
+        //Setting objects to standards
         selectedChairsCount = 0;
+        dates = makeDates();
 
         //Linking of the Textviews, Spinners and Buttons
         tvTitle = findViewById(R.id.tv_MovieTitle);
@@ -265,10 +272,13 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
-        //Creation of an ArrayAdapter using the string array and a default spinner
+        //Creation of the ArrayAdapters
         ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
                 .createFromResource(this, R.array.kindOfTicket_array,
                         android.R.layout.simple_spinner_item);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, dates);
 
         //Specify the layout to use when the list of choices appears
         staticAdapter
@@ -276,6 +286,7 @@ public class OrderActivity extends AppCompatActivity {
 
         //Apply the adapter to the spinner
         spDropdownTicketKind.setAdapter(staticAdapter);
+        spDropdownDate.setAdapter(adapter);
 
         //Methode to look what kind of tickets it is.
         spDropdownTicketKind.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -301,6 +312,7 @@ public class OrderActivity extends AppCompatActivity {
         });
     }
 
+    //OnClickListener methode, so the code is shorter.
     private View.OnClickListener getSeatClickListener() {
         return new View.OnClickListener() {
             @Override
@@ -310,6 +322,7 @@ public class OrderActivity extends AppCompatActivity {
         };
     }
 
+    //Methode to change the image of the chairs
     public void changeImage(ImageView imageView) {
         String tag = (String) imageView.getTag();
             if (imageView.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.unavailable_chair_foreground))){
@@ -329,12 +342,56 @@ public class OrderActivity extends AppCompatActivity {
         setTicketInformation();
     }
 
+    //Methode to update the ticket information
     public void setTicketInformation(){
         int totalPrice = isAdult ? selectedChairsCount * priceAdult : selectedChairsCount * priceChild;
         tvCountChairs.setText(String.valueOf(selectedChairsCount));
         tvTotalPrice.setText("€" + totalPrice + ",00");
+        Log.d(LOG_TAG, "TicketInformation updated ");
     }
 
+    //Methode to make random dates
+    public String[] makeDates() {
+        ArrayList<String> randomDates = new ArrayList<>();
+        Random random = new Random();
 
+        while (randomDates.size() < 5) {
+            int month = random.nextInt(2) + 4; // 4 or 5
+            int day;
+            if (month == 4) {
+                day = random.nextInt(24) + 7; // Day should not be lower than 07 if month is 04
+            } else {
+                day = random.nextInt(30) + 1; // Any day from 1 to 30 for month 05
+            }
 
+            String formattedDay = (day < 10) ? "0" + day : String.valueOf(day);
+            String formattedMonth = (month < 10) ? "0" + month : String.valueOf(month);
+            String date = formattedDay + "-" + formattedMonth + "-2024";
+
+            // Add date only if not already exist
+            if (!randomDates.contains(date)) {
+                randomDates.add(date);
+            }
+        }
+        Log.d(LOG_TAG, "random dates made");
+
+        // Sort first on the month, then day
+        Collections.sort(randomDates, new Comparator<String>() {
+            @Override
+            public int compare(String date1, String date2) {
+                String[] parts1 = date1.split("-");
+                String[] parts2 = date2.split("-");
+                int month1 = Integer.parseInt(parts1[1]);
+                int month2 = Integer.parseInt(parts2[1]);
+                if (month1 != month2) {
+                    return Integer.compare(month1, month2);
+                }
+                int day1 = Integer.parseInt(parts1[0]);
+                int day2 = Integer.parseInt(parts2[0]);
+                return Integer.compare(day1, day2);
+            }
+        });
+        Log.d(LOG_TAG, "Dates sorted");
+        return randomDates.toArray(new String[0]);
+    }
 }
