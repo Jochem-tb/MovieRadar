@@ -273,6 +273,9 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "Order button clicked");
+                Intent payactivity = new Intent(OrderActivity.this,PayActivity.class);
+                payactivity.putExtra(Movie.getShareKey(),mMovie);
+                startActivity(payactivity);
             }
         });
 

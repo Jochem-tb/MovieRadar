@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/Ticketkopen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="15sp"
+        android:background="@color/orange"
+        android:gravity="center"
+        android:padding="10sp"
+        android:text="@string/payment_screen"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/Betaaloptie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Ticketkopen"
+        android:gravity="center"
+        android:text="@string/Payment_choice"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/Paypal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Betaaloptie"
+        android:layout_marginStart="15sp"
+        android:layout_marginTop="15sp"
+        android:layout_marginEnd="15sp"
+        android:layout_marginBottom="15sp"
+        android:backgroundTint="@color/orange"
+        android:text="@string/Paypal_choice"
+        android:textColor="@color/black"
+        android:textSize="34sp" />
+
+    <Button
+        android:id="@+id/ApplePay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Paypal"
+        android:layout_marginStart="15sp"
+        android:layout_marginTop="15sp"
+        android:layout_marginEnd="15sp"
+        android:layout_marginBottom="15sp"
+        android:backgroundTint="@color/orange"
+        android:text="@string/ApplePay_choice"
+        android:textColor="@color/black"
+        android:textSize="34sp" />
+
+    <Button
+        android:id="@+id/CreditCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ApplePay"
+        android:layout_marginStart="15sp"
+        android:layout_marginTop="15sp"
+        android:layout_marginEnd="15sp"
+        android:layout_marginBottom="15sp"
+        android:backgroundTint="@color/orange"
+        android:text="@string/Creditcard_choice"
+        android:textColor="@color/black"
+        android:textSize="34sp" />
+
+    <Button
+        android:id="@+id/Ideal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/CreditCard"
+        android:layout_marginStart="15sp"
+        android:layout_marginTop="15sp"
+        android:layout_marginEnd="15sp"
+        android:layout_marginBottom="15sp"
+        android:backgroundTint="@color/orange"
+        android:text="@string/Ideal_choice"
+        android:textColor="@color/black"
+        android:textSize="34sp" />
+
+</RelativeLayout>

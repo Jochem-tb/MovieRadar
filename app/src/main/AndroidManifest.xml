@@ -26,6 +26,7 @@
         </activity>
         <activity android:name=".MovieDetailActivity" />
         <activity android:name=".OrderActivity"/>
+        <activity android:name=".PayActivity"/>
         <activity android:name=".CatalogusActivity"
             android:exported="true"></activity>
     </application>
