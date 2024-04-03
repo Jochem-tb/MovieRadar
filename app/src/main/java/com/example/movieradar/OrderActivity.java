@@ -538,6 +538,8 @@ public class OrderActivity extends AppCompatActivity {
                 seat.setTag(null);
             }
         }
+        selectedChairsCount = 0;
+        setTicketInformation();
         Log.i(LOG_TAG, "Reseted chairs");
     }
 }
