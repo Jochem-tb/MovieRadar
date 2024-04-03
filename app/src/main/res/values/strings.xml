@@ -22,4 +22,8 @@
     <string name="standard_total_price">€0,00</string>
     <string name="cancel_button">Annuleer tickets</string>
     <string name="order_button">Bestel tickets</string>
+    <string-array name="kindOfTicket_array">
+        <item>Volwassenen (13+)</item>
+        <item>Kinderen (t/m 12)</item>
+    </string-array>
 </resources>

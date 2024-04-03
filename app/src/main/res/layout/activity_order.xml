@@ -9,12 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="TitleFilm"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:background="@color/orange"
-        android:paddingBottom="10sp"
+        android:padding="10sp"
         android:layout_marginBottom="15sp"
-        android:textSize="40sp" />
+        android:textSize="35sp" />
 
     <LinearLayout
         android:id="@+id/ly_spinners"
@@ -488,7 +488,7 @@
 
         <Spinner
             android:id="@+id/kindOfTicketSpinner"
-            android:layout_width="175dp"
+            android:layout_width="185dp"
             android:layout_height="37dp"
             android:background="@android:drawable/btn_dropdown"
             android:spinnerMode="dropdown"
