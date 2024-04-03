@@ -26,6 +26,7 @@ public class OrderActivity extends AppCompatActivity {
     private static final int priceAdult = 10;
     private int selectedChairsCount;
     private Movie mMovie;
+    private boolean isAdult;
 
     // All Textviews, Spinners and Buttons
     TextView tvTitle;
@@ -255,6 +256,7 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
+        //Order Button
         bOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -262,35 +264,40 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
-//        ArrayAdapter<String>adapter = new ArrayAdapter<String>(OrderActivity.this,
-//                android.R.layout.simple_spinner_item,kindOfTicket);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spDropdownTicketKind.setAdapter(adapter);
-//        spDropdownTicketKind.setOnItemSelectedListener(this);
-//
-//    }
-//
-//    @Override
-//    public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-//
-//        switch (position) {
-//            case 0:
-//                // Whatever you want to happen when the first item gets selected
-//                break;
-//            case 1:
-//                // Whatever you want to happen when the second item gets selected
-//                break;
-//            case 2:
-//                // Whatever you want to happen when the thrid item gets selected
-//                break;
-//
-//        }
-//    }
-//
-//    @Override
-//    public void onNothingSelected(AdapterView<?> parent) {
-//        // TODO Auto-generated method stub
+        //Creation of an ArrayAdapter using the string array and a default spinner
+        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
+                .createFromResource(this, R.array.kindOfTicket_array,
+                        android.R.layout.simple_spinner_item);
 
+        //Specify the layout to use when the list of choices appears
+        staticAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        //Apply the adapter to the spinner
+        spDropdownTicketKind.setAdapter(staticAdapter);
+
+        //Methode to look what kind of tickets it is.
+        spDropdownTicketKind.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Makes the boolean true of false. Standard = false
+                if (position == 0) { // Child
+                    isAdult = false;
+                    Log.d(LOG_TAG, "isAdult: " + isAdult);
+                } else if (position == 1) { // Adult
+                    isAdult = true;
+                    Log.d(LOG_TAG, "isAdult: " + isAdult);
+                }
+                setTicketInformation();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // If nothing is selected or errors happen:
+                isAdult = false;
+                Log.d(LOG_TAG, "Nothing selected; isAdult: " + isAdult);
+            }
+        });
     }
 
     private View.OnClickListener getSeatClickListener() {
@@ -322,8 +329,8 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     public void setTicketInformation(){
-        int totalPrice = selectedChairsCount * priceChild;
-        tvCountChairs.setText(selectedChairsCount + "");
+        int totalPrice = isAdult ? selectedChairsCount * priceAdult : selectedChairsCount * priceChild;
+        tvCountChairs.setText(String.valueOf(selectedChairsCount));
         tvTotalPrice.setText("€" + totalPrice + ",00");
     }
 
