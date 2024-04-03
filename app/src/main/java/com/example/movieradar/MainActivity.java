@@ -65,15 +65,15 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
                     int id = menuItem.getItemId();
                     //Heb geprobeerd met switch/case maar geeft errors
                     if (id == R.id.menuHomeScreen) {
-                        startActivity(new Intent(MainActivity.this, MainActivity.class));
-                        Log.i(LOG_TAG, "HomeScreen button clicked");
+//                        startActivity(new Intent(MainActivity.this, MainActivity.class));
+//                        Log.i(LOG_TAG, "HomeScreen button clicked");
                         return true;
                     } else if (id == R.id.menuFilmList) {
                         startActivity(new Intent(MainActivity.this, CatalogusActivity.class));
                         Log.i(LOG_TAG, "Catalogus button clicked");
                         return true;
                     } else if (id == R.id.menuPersonal) {
-//                        startActivity(new Intent(MainActivity.this, PersonActivity.class));
+                        startActivity(new Intent(MainActivity.this, PersonActivity.class));
                         Log.i(LOG_TAG, "Personal button clicked");
                         return true;
                     } else {
