@@ -65,7 +65,7 @@ public class CatalogusActivity extends AppCompatActivity implements MovieApiTask
         loadMoviesFromAPI(APIString.getPopularUrl(), POPULAR_MOVIES);
 
         btmNavView = findViewById(R.id.btmNavViewMain);
-        btmNavView.setSelectedItemId(R.id.tbCatalogus);
+        btmNavView.setSelectedItemId(R.id.menuFilmList);
 
         lCatalogusCheckboxes = findViewById(R.id.lCatalogusCheckboxes);
         lCatalogusCheckboxes.setVisibility(View.GONE);
