@@ -480,6 +480,7 @@ public class OrderActivity extends AppCompatActivity {
         ArrayAdapter<String> timeAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, times);
         spDropdownTime.setAdapter(timeAdapter);
+        Log.i(LOG_TAG, "Updated timeDropdownMenu");
     }
 
     private void markRandomSeatsUnavailable() {
@@ -513,6 +514,7 @@ public class OrderActivity extends AppCompatActivity {
                 row[randomSeatIndex].setImageResource(R.drawable.unavailable_chair_foreground);
                 row[randomSeatIndex].setTag("unavailable");
                 markedSeats.add(randomSeatIndex);
+                Log.i(LOG_TAG, "Marked chairs unavailable");
             }
         }
     }
@@ -537,5 +539,6 @@ public class OrderActivity extends AppCompatActivity {
                 seat.setTag(null);
             }
         }
+        Log.i(LOG_TAG, "Reseted chairs");
     }
 }
