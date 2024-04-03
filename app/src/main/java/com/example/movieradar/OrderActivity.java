@@ -250,7 +250,15 @@ public class OrderActivity extends AppCompatActivity {
         bCancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                Log.i(LOG_TAG, "Cancel button clicked");
                 finish();
+            }
+        });
+
+        bOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(LOG_TAG, "Order button clicked");
             }
         });
 
