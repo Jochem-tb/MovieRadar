@@ -324,7 +324,6 @@ public class OrderActivity extends AppCompatActivity {
                     // makes new random times when selected
                     times = makeTimes();
                     updateTimeDropdownMenu(); //Creation of the ArrayAdapter for times and also applies the adapter to the spinner
-                    markRandomSeatsUnavailable();
                 }
 
                 @Override
