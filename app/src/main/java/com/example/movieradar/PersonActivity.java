@@ -71,7 +71,6 @@ public class PersonActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "fillTickets");
         for (int i = 0; i < 10; i++) {
             ticketList.add(new Ticket(
-                    1, // Room number
                     "Movie " + (i + 1), // Title of the movie
                     "12:00", // Time of the movie
                     "2024-04-03", // Date of the movie

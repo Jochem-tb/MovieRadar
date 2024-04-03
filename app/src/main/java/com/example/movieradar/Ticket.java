@@ -3,15 +3,14 @@ package com.example.movieradar;
 public class Ticket {
 
     private int id;
-    private int roomNr = 1;
+    private final int roomNr = 1;
     private String titleMovie;
     private String timeMovie;
     private String datumMovie;
     private int chairNr;
     private int rowNr;
 
-    public Ticket(int roomNr, String titleMovie, String timeMovie, String datumMovie, int chairNr, int rowNr){
-        this.roomNr = roomNr;
+    public Ticket(String titleMovie, String timeMovie, String datumMovie, int chairNr, int rowNr){
         this.titleMovie = titleMovie;
         this.timeMovie = timeMovie;
         this.datumMovie = datumMovie;
@@ -19,6 +18,13 @@ public class Ticket {
         this.rowNr = rowNr;
     }
 
+    public int getRowNr() {
+        return rowNr;
+    }
+
+    public void setRowNr(int rowNr) {
+        this.rowNr = rowNr;
+    }
     public int getId() {
         return id;
     }
@@ -29,10 +35,6 @@ public class Ticket {
 
     public int getRoomNr() {
         return roomNr;
-    }
-
-    public void setRoomNr(int roomNr) {
-        this.roomNr = roomNr;
     }
 
     public String getTitleMovie() {
