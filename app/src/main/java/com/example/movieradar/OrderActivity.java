@@ -1,6 +1,7 @@
 package com.example.movieradar;
 
 import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,7 @@ public class OrderActivity extends AppCompatActivity {
     private static final int priceChild = 5;
     private static final int priceAdult = 10;
     private int selectedChairsCount;
+    private Movie mMovie;
 
     // All Textviews, Spinners and Buttons
     TextView tvTitle;
@@ -230,6 +232,19 @@ public class OrderActivity extends AppCompatActivity {
         row6Seat6.setOnClickListener(getSeatClickListener());
         row6Seat7.setOnClickListener(getSeatClickListener());
         row6Seat8.setOnClickListener(getSeatClickListener());
+
+        //Setting title
+
+        Intent intent = getIntent();
+        mMovie = (Movie) intent.getSerializableExtra(Movie.getShareKey());
+
+        if (mMovie != null) {
+            Log.d(LOG_TAG, "Title has been loaded");
+            tvTitle.setText(mMovie.getTitle());
+        } else {
+            Log.d(LOG_TAG, "Title couldn't been loaded");
+            tvTitle.setText("Ticket bestellen");
+        }
 
 //        ArrayAdapter<String>adapter = new ArrayAdapter<String>(OrderActivity.this,
 //                android.R.layout.simple_spinner_item,kindOfTicket);
