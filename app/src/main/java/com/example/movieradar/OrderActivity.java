@@ -319,18 +319,18 @@ public class OrderActivity extends AppCompatActivity {
 
         // Methode to refresh the times when a new date is selected, and the seats availability.
         spDropdownDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    // makes new random times when selected
-                    times = makeTimes();
-                    updateTimeDropdownMenu(); //Creation of the ArrayAdapter for times and also applies the adapter to the spinner
-                }
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // makes new random times when selected
+                times = makeTimes();
+                updateTimeDropdownMenu(); //Creation of the ArrayAdapter for times and also applies the adapter to the spinner
+            }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                    // if nothing is selected
-                    Log.d(LOG_TAG, "onNothingSelected in dateDropdown ");
-                }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // if nothing is selected
+                Log.d(LOG_TAG, "onNothingSelected in dateDropdown ");
+            }
         });
 
         //Methode to refresh the seats availability
@@ -538,6 +538,8 @@ public class OrderActivity extends AppCompatActivity {
                 seat.setTag(null);
             }
         }
+        selectedChairsCount = 0;
+        setTicketInformation();
         Log.i(LOG_TAG, "Reseted chairs");
     }
 }
