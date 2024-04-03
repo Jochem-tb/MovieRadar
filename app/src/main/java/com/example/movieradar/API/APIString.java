@@ -18,9 +18,10 @@ public class APIString {
     }
 
     public void search(String query) {
-        appendSeparator();
-        mBuilder.append("/search/movie");
-        addQueryParam("query", query);
+//        appendSeparator();
+        addQueryParam("/search/movie", "query", query);
+        addQueryParam("include_adult", "true"); // Assuming you want to include adult content
+        addQueryParam("api_key", API_KEY);
     }
 
     public void isAdult(boolean isAdult) {
@@ -43,6 +44,11 @@ public class APIString {
 
     private void addQueryParam(String key, String value) {
         appendSeparator();
+        mBuilder.append("&").append(key).append("=").append(value);
+    }
+
+    private void addQueryParam(String endpoint, String key, String value) {
+        mBuilder.append("/").append(endpoint).append("?");
         mBuilder.append(key).append("=").append(value);
     }
 
@@ -60,6 +66,11 @@ public class APIString {
             mBuilder.append("/search/movie?");
             isFiltered = true;
         }
+        mBuilder.append(filterType.name()).append("=").append(filter);
+    }
+
+    public void filterOnGenre(Filters filterType, String filter) {
+        mBuilder.append("/discover/movie?");
         mBuilder.append(filterType.name()).append("=").append(filter);
     }
 

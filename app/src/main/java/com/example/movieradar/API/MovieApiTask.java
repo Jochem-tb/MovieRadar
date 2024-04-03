@@ -87,6 +87,10 @@ public class MovieApiTask extends AsyncTask<String, Void, ArrayList<Movie>> {
                 Log.d(LOG_TAG, "Parse with apiIdentifier = "+apiIdentifier);
                 Response response = client.newCall(request).execute();
                 movies = specificJsonParseMovie(response);
+            }else if (apiIdentifier ==15) {
+                Log.d(LOG_TAG, "Parse with apiIdentifier = "+apiIdentifier);
+                Response response = client.newCall(request).execute();
+                movies = betterJsonPars(response);
             }
             else{
                 Log.d(LOG_TAG, "Invalid apiIdentifier = "+apiIdentifier);

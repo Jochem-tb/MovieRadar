@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">MovieRadar</string>
+    <string name="Genre_1">Genre</string>
+    <string name="Genre_2">Genre</string>
+    <string name="Genre_3">Genre</string>
+    <string name="search_hint">Search</string>
     <string name="movieradar">MovieRadar</string>
     <string name="home">Home</string>
     <string name="catalogus">Catalogus</string>
