@@ -6,14 +6,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import android.widget.SearchView;
-import android.widget.TableLayout;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,7 +23,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 
-public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMovieListener {
+public class CatalogusActivity extends AppCompatActivity implements MovieApiTask.OnNewMovieListener {
 
     private final String LOG_TAG = "Catalogus";
     private final int POPULAR_MOVIES = 1;
@@ -48,7 +45,7 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.catalogus);
+        setContentView(R.layout.activity_catalogus);
         toolbar = findViewById(R.id.tbCatalogus);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -80,11 +77,11 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
                 int id = menuItem.getItemId();
                 // Heb geprobeerd met switch/case maar geeft errors
                 if (id == R.id.menuHomeScreen) {
-                    startActivity(new Intent(Catalogus.this, MainActivity.class));
+                    startActivity(new Intent(CatalogusActivity.this, MainActivity.class));
                     Log.i(LOG_TAG, "HomeScreen button clicked");
                     return true;
                 } else if (id == R.id.menuFilmList) {
-                     startActivity(new Intent(Catalogus.this, Catalogus.class));
+                     startActivity(new Intent(CatalogusActivity.this, CatalogusActivity.class));
                     Log.i(LOG_TAG, "catalogus button clicked");
                     return true;
                 } else if (id == R.id.menuPersonal) {

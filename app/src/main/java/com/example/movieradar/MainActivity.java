@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
                         Log.i(LOG_TAG, "HomeScreen button clicked");
                         return true;
                     } else if (id == R.id.menuFilmList) {
-//                        startActivity(new Intent(MainActivity.this, CatalogusActivity.class));
+                        startActivity(new Intent(MainActivity.this, CatalogusActivity.class));
                         Log.i(LOG_TAG, "Catalogus button clicked");
                         return true;
                     } else if (id == R.id.menuPersonal) {

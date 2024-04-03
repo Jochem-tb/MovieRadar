@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/orange"
-        android:minHeight="?attr/actionBarSize"
+        android:minHeight="65dp"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,8 +44,10 @@
 
     <TextView
         android:id="@+id/tv_detail_var_title"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textSize="20sp"
         android:layout_margin="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -218,11 +220,12 @@
         android:id="@+id/bt_detail_buy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginBottom="20dp"
         android:text="@string/detailpagina_button_buy_tickets"
         app:layout_constraintBottom_toTopOf="@+id/btmNavViewMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/black"
         android:backgroundTint="@color/orange"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
