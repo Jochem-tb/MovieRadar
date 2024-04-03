@@ -33,6 +33,7 @@ public class OrderActivity extends AppCompatActivity {
     private Movie mMovie;
     private boolean isAdult;
     private String[] dates;
+    private String[] times;
 
     // All Textviews, Spinners and Buttons
     TextView tvTitle;
@@ -112,6 +113,7 @@ public class OrderActivity extends AppCompatActivity {
         //Setting objects to standards
         selectedChairsCount = 0;
         dates = makeDates();
+        times = makeTimes();
 
         //Linking of the Textviews, Spinners and Buttons
         tvTitle = findViewById(R.id.tv_MovieTitle);
@@ -273,20 +275,22 @@ public class OrderActivity extends AppCompatActivity {
         });
 
         //Creation of the ArrayAdapters
-        ArrayAdapter<CharSequence> staticAdapter = ArrayAdapter
+        ArrayAdapter<CharSequence> kindOfTicketAdapter = ArrayAdapter
                 .createFromResource(this, R.array.kindOfTicket_array,
                         android.R.layout.simple_spinner_item);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> dateAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, dates);
 
+        updateTimeDropdownMenu(); //Creation of the ArrayAdapter for times and also applies the adapter to the spinner
+
         //Specify the layout to use when the list of choices appears
-        staticAdapter
+        kindOfTicketAdapter
                 .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         //Apply the adapter to the spinner
-        spDropdownTicketKind.setAdapter(staticAdapter);
-        spDropdownDate.setAdapter(adapter);
+        spDropdownTicketKind.setAdapter(kindOfTicketAdapter);
+        spDropdownDate.setAdapter(dateAdapter);
 
         //Methode to look what kind of tickets it is.
         spDropdownTicketKind.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -309,6 +313,22 @@ public class OrderActivity extends AppCompatActivity {
                 isAdult = true;
                 Log.d(LOG_TAG, "Nothing selected; isAdult: " + isAdult);
             }
+        });
+
+        // Methode to refresh the times when a new date is selected.
+        spDropdownDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    // makes new random times when selected
+                    times = makeTimes();
+                    updateTimeDropdownMenu(); //Creation of the ArrayAdapter for times and also applies the adapter to the spinner
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    // if nothing is selected
+                    Log.d(LOG_TAG, "onNothingSelected in dateDropdown ");
+                }
         });
     }
 
@@ -393,5 +413,55 @@ public class OrderActivity extends AppCompatActivity {
         });
         Log.d(LOG_TAG, "Dates sorted");
         return randomDates.toArray(new String[0]);
+    }
+
+    //Methode to make random times
+    private String[] makeTimes() {
+        ArrayList<String> randomTimes = new ArrayList<>();
+        Random random = new Random();
+
+        while (randomTimes.size() < 5) {
+            int hour = random.nextInt(16) + 8; // The movie cant play between 00:00 and 08:00
+            int minuteIndex = random.nextInt(4); // The minutes are every quarter, so chose a quarter
+            int minute = minuteIndex * 15; // 0, 15, 30, 45
+
+            // Check if hour is not
+            if (hour == 24) continue;
+
+            String formattedHour = (hour < 10) ? "0" + hour : String.valueOf(hour);
+            String formattedMinute = (minute < 10) ? "0" + minute : String.valueOf(minute);
+            String time = formattedHour + ":" + formattedMinute;
+
+            // Add the time if it doesnt exist yet
+            if (!randomTimes.contains(time)) {
+                randomTimes.add(time);
+            }
+        }
+        Log.d(LOG_TAG, "random times made");
+
+        // Sort on hour, then on minute
+        Collections.sort(randomTimes, new Comparator<String>() {
+            @Override
+            public int compare(String time1, String time2) {
+                String[] parts1 = time1.split(":");
+                String[] parts2 = time2.split(":");
+                int hour1 = Integer.parseInt(parts1[0]);
+                int hour2 = Integer.parseInt(parts2[0]);
+                if (hour1 != hour2) {
+                    return Integer.compare(hour1, hour2);
+                }
+                int minute1 = Integer.parseInt(parts1[1]);
+                int minute2 = Integer.parseInt(parts2[1]);
+                return Integer.compare(minute1, minute2);
+            }
+        });
+        Log.d(LOG_TAG, "Times sorted");
+        return randomTimes.toArray(new String[0]);
+    }
+
+    public void updateTimeDropdownMenu(){
+        ArrayAdapter<String> timeAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, times);
+        spDropdownTime.setAdapter(timeAdapter);
     }
 }
