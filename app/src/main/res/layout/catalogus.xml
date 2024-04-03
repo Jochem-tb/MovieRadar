@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:textAlignment="center"
+    tools:context=".Catalogus">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tbCatalogus"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@color/orange"
+        android:elevation="4dp">
+
+        <SearchView
+            android:id="@+id/svCatalogus"
+            android:layoutDirection="rtl"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:queryHint="@string/search_hint"/>
+
+        <ImageButton
+            android:id="@+id/bFilterMenuToggle"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/filters_menu_foreground"
+            android:backgroundTint="@color/orange"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCatalogusTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tbCatalogus"
+        android:layout_marginTop="10dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCatalogus"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btmNavViewMain"
+        android:layout_below="@+id/rvCatalogusTop"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="5dp" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/btmNavViewMain"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/orange"
+        app:menu="@menu/bottom_nav_menu"/>
+
+    <LinearLayout
+        android:id="@+id/lCatalogusCheckboxes"
+        android:layout_width="150dp"
+        android:layout_height="250dp"
+        android:background="@color/orange"
+        android:layout_below="@+id/tbCatalogus"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="25dp"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+
+</RelativeLayout>

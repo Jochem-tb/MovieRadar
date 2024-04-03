@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
     public void onMovieAvailable(ArrayList<Movie> movies, int apiIdentifier) {
         switch (apiIdentifier) {
             case POPULAR_MOVIES:
-                mMovieList = movies;
                 setPopularMoviesHome(movies);
                 loadRecyclerView(movies);
                 break;
@@ -150,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
 
     // Vul recyclerview in
     public void loadRecyclerView(ArrayList<Movie> movies) {
-//        mMovieList.clear();
+        mMovieList.clear();
         mMovieList.addAll(movies);
         mAdapter.setMovieList(mMovieList);
         mAdapter.notifyDataSetChanged();
