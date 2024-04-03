@@ -488,7 +488,7 @@
 
         <Spinner
             android:id="@+id/kindOfTicketSpinner"
-            android:layout_width="175dp"
+            android:layout_width="185dp"
             android:layout_height="37dp"
             android:background="@android:drawable/btn_dropdown"
             android:spinnerMode="dropdown"
