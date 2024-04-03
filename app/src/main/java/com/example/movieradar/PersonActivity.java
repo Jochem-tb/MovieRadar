@@ -140,7 +140,7 @@ public class PersonActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "onClick: ");
                 DatabaseTask conhelp = new DatabaseTask();
-                connect = conhelp.Connectionclass();
+                connect = conhelp.doInBackground();
                 if(connect != null){
                     String query = "INSERT INTO MR-Gebruiker(EmailAdres,Gebruikersnaam,Wachtwoord,Geboortedatum) VALUES (" +
                                             EmailField.getText() +","  +

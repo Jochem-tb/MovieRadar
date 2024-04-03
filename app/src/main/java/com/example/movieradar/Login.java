@@ -103,7 +103,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DatabaseTask conhelp = new DatabaseTask();
-                connect = conhelp.Connectionclass();
+                connect = conhelp.doInBackground();
 //                DatabaseTask task = new DatabaseTask("Insert", crud);
 //                task.execute();
 
@@ -114,7 +114,7 @@ public class Login extends AppCompatActivity {
     public void GetTextFromSQL(){
 
         DatabaseTask conhelp = new DatabaseTask();
-        connect = conhelp.Connectionclass();
+        connect = conhelp.doInBackground();
 
     }
 }

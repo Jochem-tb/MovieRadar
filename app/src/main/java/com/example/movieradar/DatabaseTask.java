@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class DatabaseTask extends AsyncTask<Void, Void, Connection> {
     public DatabaseTask(){
     }
 
+<<<<<<< Updated upstream
     public Connection Connectionclass() {
         ip = "145.48.6.86";
         database = "CodeAcademyJGKJ";
@@ -47,6 +49,37 @@ public class DatabaseTask extends AsyncTask<Void, Void, Connection> {
         }
         return connection;
     }
+=======
+//    public Connection Connectionclass() {
+//        ip = "145.48.6.86";
+//        database = "CodeAcademyJGKJ";
+//        uname = "jgkj";
+//        pass = "jgkj2023";
+//        port = "1443";
+//        Log.d(TAG, "onConnection: ");
+//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
+//        Log.d(TAG, "AfterStrictmode: ");
+//
+//        Connection connection = null;
+//        String connectionURL = null;
+//
+//        try{
+//            Log.d(TAG, "BeforeCon: ");
+//
+//            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//            connectionURL = "jdbc:sqlserver://" + ip + ":" + port + ";DatabaseName=" + database + ";user=" + uname + ";password=" + pass + ";";
+//            Log.d(TAG, "AtCon: ");
+//
+//            connection = DriverManager.getConnection(connectionURL);
+//            Log.d(TAG, "AfterCon: ");
+//
+//        }catch(Exception ex){
+//            Log.e("Error",ex.getMessage());
+//        }
+//        return connection;
+//    }
+>>>>>>> Stashed changes
 
     private static final String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static final String DB_URL = "jdbc:sqlserver://aei-sql2.avans.nl:1443;DatabaseName=CodeAcademyJGKJ;encrypt=false;";
@@ -68,10 +101,9 @@ public class DatabaseTask extends AsyncTask<Void, Void, Connection> {
             Class.forName(JDBC_DRIVER);
             Log.d(TAG, "doInBackground: ");
 
-            // Maak connectie database 
+            // Maak connectie database
             Connection connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
             Log.d(TAG, "doInBackground: ");
-            System.out.println("Connection made successfully!");
             return connection;
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("An ERROR has occured, trying to connect to the database:");
@@ -106,9 +138,27 @@ public class DatabaseTask extends AsyncTask<Void, Void, Connection> {
     list.get(0);
 
     }
-    boolean CheckLoginAuthentication (ArrayList <String> list){
-        String rs = ("SELECT * FROM MR-Gebruiker WHERE Gebruikersnaam='" + list.get(1) + "' AND Wachtwoord='" + list.get(2) + "'");
-
+    boolean CheckLoginAuthentication(ArrayList<String> list) {
+        try {
+            Connection connection = doInBackground(); // Obtain connection
+            if (connection != null) {
+                String query = "SELECT * FROM [MR-Gebruiker] WHERE Gebruikersnaam=? AND Wachtwoord=?";
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, list.get(1)); // Assuming username is at index 1
+                statement.setString(2, list.get(2)); // Assuming password is at index 2
+                ResultSet resultSet = statement.executeQuery();
+                boolean isValidUser = resultSet.next(); // Check if result set has any rows
+                resultSet.close();
+                statement.close();
+                connection.close();
+                return isValidUser;
+            } else {
+                Log.e(TAG, "Connection is null");
+            }
+        } catch (SQLException e) {
+            Log.e(TAG, "SQLException: " + e.getMessage());
+        }
         return false;
     }
+
 }
