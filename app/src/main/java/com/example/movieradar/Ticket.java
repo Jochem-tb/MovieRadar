@@ -8,13 +8,15 @@ public class Ticket {
     private String timeMovie;
     private String datumMovie;
     private int chairNr;
+    private int rowNr;
 
-    public Ticket( int roomNr, String titleMovie, String timeMovie, String datumMovie, int chairNr){
+    public Ticket(int roomNr, String titleMovie, String timeMovie, String datumMovie, int chairNr, int rowNr){
         this.roomNr = roomNr;
         this.titleMovie = titleMovie;
         this.timeMovie = timeMovie;
         this.datumMovie = datumMovie;
         this.chairNr = chairNr;
+        this.rowNr = rowNr;
     }
 
     public int getId() {

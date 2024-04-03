@@ -75,7 +75,8 @@ public class PersonActivity extends AppCompatActivity {
                     "Movie " + (i + 1), // Title of the movie
                     "12:00", // Time of the movie
                     "2024-04-03", // Date of the movie
-                    i + 1 // Chair number
+                    i + 1, // Chair number
+                    1 // row Number
             ));
         }
         Log.d(LOG_TAG, "setTicketList with: "+ticketList.size());
