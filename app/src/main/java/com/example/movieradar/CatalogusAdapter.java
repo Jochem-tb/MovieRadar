@@ -54,11 +54,12 @@ public class CatalogusAdapter extends
 //        }
         this.holder = holder;
         Integer genreId = checkedBoxes.get(position);
-        String genre = getGenreName(genreId);
-        holder.tvCatalogusItemTitle.setText(genre);
+        String genreIdTrue = getGenreId(genreId);
+        String genreName = getGenreName(genreId);
+        holder.tvCatalogusItemTitle.setText(genreName);
         // Make API call for the genre
         APIString str = new APIString();
-        str.filterOnGenre(Filters.with_genres, genre);
+        str.filterOnGenre(Filters.with_genres, genreIdTrue);
         str.finish();
         Log.i(LOG_TAG, "Chosen genre APIString created");
 
@@ -72,7 +73,7 @@ public class CatalogusAdapter extends
         return checkedBoxes.size();
     }
 
-    private String getGenreName(int genreId) {
+    private String getGenreId(int genreId) {
             String genre="";
 
             switch (genreId) {
@@ -113,6 +114,38 @@ public class CatalogusAdapter extends
             return genre;
         }
 
+    private String getGenreName(int genreId) {
+        String genre="";
+
+        switch (genreId) {
+            case 1:
+                genre = "Action";
+                break;
+            case 2:
+                genre = "Comedy";
+                break;
+            case 3:
+                genre = "Drama";
+                break;
+            case 4:
+                genre = "Family";
+                break;
+            case 5:
+                genre = "Fantasy";
+                break;
+            case 6:
+                genre = "Horror";
+                break;
+            case 7:
+                genre = "Romance";
+                break;
+            case 8:
+                genre = "Science Fiction";
+                break;
+        }
+
+        return genre;
+    }
 
     static class CatalogusViewHolder extends RecyclerView.ViewHolder {
         TextView tvCatalogusItemTitle;

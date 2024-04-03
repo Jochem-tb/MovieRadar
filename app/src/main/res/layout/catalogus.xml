@@ -23,10 +23,12 @@
             android:layout_margin="10dp"
             android:queryHint="@string/search_hint"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/bFilterMenuToggle"
             android:layout_width="48dp"
-            android:layout_height="48dp" />
+            android:layout_height="48dp"
+            android:src="@drawable/filters_menu_foreground"
+            android:backgroundTint="@color/orange"/>
 
     </androidx.appcompat.widget.Toolbar>
 

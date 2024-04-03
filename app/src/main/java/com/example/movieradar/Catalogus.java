@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import android.widget.SearchView;
@@ -40,7 +41,7 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
     private CatalogusAdapter catalogusAdapter;
     private LinearLayout lCatalogusCheckboxes;
     private MovieListAdapter movieListAdapter;
-    private Button bFilterMenuToggle;
+    private ImageButton bFilterMenuToggle;
     ArrayList<Integer> checkedBoxes = new ArrayList<>();
 
     private SearchView svCatalogus;
@@ -117,8 +118,12 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
         for (int i = 1; i <= numCheckBox; i++) {
             CheckBox checkBox = new CheckBox(this);
             checkBox.setText(getGenreName(i));
+            checkBox.setChecked(true);
             lCatalogusCheckboxes.addView(checkBox);
+            checkedBoxes.add(i);
+            catalogusAdapter.notifyDataSetChanged();
         }
+
 
         bFilterMenuToggle = findViewById(R.id.bFilterMenuToggle);
         bFilterMenuToggle.setOnClickListener(new View.OnClickListener() {
@@ -146,8 +151,6 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
                 }
             }
         });
-
-
         btmNavView.setSelectedItemId(R.id.tbCatalogus);
     }
 
@@ -163,7 +166,7 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
         str.search(query);
         str.finish();
         task.execute(str.getApiString());
-}
+    }
 
     @Override
     public void onMovieAvailable(ArrayList<Movie> movies, int apiIdentifier) {
