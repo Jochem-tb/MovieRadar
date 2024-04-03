@@ -30,4 +30,9 @@
         <item>Volwassenen (13+)</item>
         <item>Kinderen (t/m 12)</item>
     </string-array>
+    <string name="roomLabel">Zaal:</string>
+    <string name="seatLabel">Stoel:</string>
+    <string name="rowLabel">Rij:</string>
+    <string name="moreButton">Meer...</string>
+    <string name="ticketLabel">Ticket(s)</string>
 </resources>

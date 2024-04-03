@@ -247,7 +247,6 @@ public class OrderActivity extends AppCompatActivity {
         row6Seat8.setOnClickListener(getSeatClickListener());
 
         //Setting title
-
         Intent intent = getIntent();
         mMovie = (Movie) intent.getSerializableExtra(Movie.getShareKey());
 
