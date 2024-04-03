@@ -193,6 +193,7 @@ public class OrderActivity extends AppCompatActivity {
         row2Seat5.setOnClickListener(getSeatClickListener());
         row2Seat6.setOnClickListener(getSeatClickListener());
         row2Seat7.setOnClickListener(getSeatClickListener());
+        row2Seat8.setOnClickListener(getSeatClickListener());
 
         //row 3
         row3Seat1.setOnClickListener(getSeatClickListener());
@@ -280,12 +281,12 @@ public class OrderActivity extends AppCompatActivity {
         spDropdownTicketKind.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Makes the boolean true of false. Standard = false
-                if (position == 0) { // Child
-                    isAdult = false;
-                    Log.d(LOG_TAG, "isAdult: " + isAdult);
-                } else if (position == 1) { // Adult
+                // Makes the boolean true of false. Standard = true
+                if (position == 0) { // Adult
                     isAdult = true;
+                    Log.d(LOG_TAG, "isAdult: " + isAdult);
+                } else if (position == 1) { // Child
+                    isAdult = false;
                     Log.d(LOG_TAG, "isAdult: " + isAdult);
                 }
                 setTicketInformation();
@@ -294,7 +295,7 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 // If nothing is selected or errors happen:
-                isAdult = false;
+                isAdult = true;
                 Log.d(LOG_TAG, "Nothing selected; isAdult: " + isAdult);
             }
         });
