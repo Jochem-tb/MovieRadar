@@ -8,15 +8,22 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import java.util.ArrayList;
 
 public class PersonActivity extends AppCompatActivity {
 
     private final String LOG_TAG = "PersonActivity";
 
     TextView nameAccount;
+    RecyclerView rvTickets;
+    ArrayList<Ticket> ticketList = new ArrayList<Ticket>();
+    TicketListAdapter mTicketListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +31,10 @@ public class PersonActivity extends AppCompatActivity {
         setContentView(R.layout.activity_person);
 
         nameAccount = findViewById(R.id.tvNamePerson);
+        rvTickets = findViewById(R.id.rvTickets);
+        mTicketListAdapter = new TicketListAdapter(this,ticketList);
+        rvTickets.setLayoutManager(new LinearLayoutManager(this));
+        rvTickets.setAdapter(mTicketListAdapter);
         nameAccount.setText("Gast");
         
         //Navbar function
@@ -52,5 +63,23 @@ public class PersonActivity extends AppCompatActivity {
                 }
             }
         });
+
+        fillTickets();
+    }
+
+    private void fillTickets() {
+        Log.d(LOG_TAG, "fillTickets");
+        for (int i = 0; i < 10; i++) {
+            ticketList.add(new Ticket(
+                    1, // Room number
+                    "Movie " + (i + 1), // Title of the movie
+                    "12:00", // Time of the movie
+                    "2024-04-03", // Date of the movie
+                    i + 1 // Chair number
+            ));
+        }
+        Log.d(LOG_TAG, "setTicketList with: "+ticketList.size());
+        mTicketListAdapter.setTicketList(ticketList);
+
     }
 }

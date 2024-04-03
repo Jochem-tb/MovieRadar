@@ -42,4 +42,6 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.71828")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation ("com.fasterxml.jackson.core:jackson-databind:2.12.5")
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
+
 }

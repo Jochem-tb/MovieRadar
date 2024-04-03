@@ -70,12 +70,12 @@
         android:text="@string/moreButton"
         android:backgroundTint="@color/orange"
         android:textColor="@color/black"
-        android:layout_below="@id/recyclerviewTickets"
+        android:layout_below="@id/rvTickets"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerviewTickets"
+        android:id="@+id/rvTickets"
         android:layout_width="match_parent"
         android:layout_height="245dp"
         android:layout_below="@id/labelTickets"/>
