@@ -28,6 +28,7 @@
         <activity android:name=".OrderActivity"/>
         <activity android:name=".CatalogusActivity"
             android:exported="true"></activity>
+        <activity android:name=".PersonActivity"/>
     </application>
 
 </manifest>

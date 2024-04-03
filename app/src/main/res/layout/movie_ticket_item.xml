@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/ivQRImage"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/tvTitleMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:textSize="16sp"
+        android:layout_toEndOf="@id/ivQRImage"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+
+    <TextView
+        android:id="@+id/tvTimeMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_toEndOf="@id/ivQRImage"
+        android:layout_below="@id/tvTitleMovie"
+        android:layout_marginBottom="10dp"
+        />
+
+    <TextView
+        android:id="@+id/tvDateMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_below="@id/tvTitleMovie"
+        android:layout_toEndOf="@id/tvTimeMovie"
+        android:layout_marginStart="15dp"/>
+
+    <TextView
+        android:id="@+id/labelRowMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rowLabel"
+        android:textSize="16sp"
+        android:layout_below="@id/tvTimeMovie"
+        android:layout_toEndOf="@id/ivQRImage"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/tvRowMovieNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_below="@id/tvTimeMovie"
+        android:layout_toEndOf="@id/labelRowMovie"
+        />
+
+    <TextView
+        android:id="@+id/labelSeatMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/seatLabel"
+        android:textSize="16sp"
+        android:layout_below="@id/tvTimeMovie"
+        android:layout_toEndOf="@id/tvTimeMovie"
+        android:layout_marginStart="15dp"/>
+
+    <TextView
+        android:id="@+id/tvSeatMovieNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_below="@id/tvTimeMovie"
+        android:layout_toEndOf="@id/labelSeatMovie"
+        android:layout_marginStart="3dp"/>
+
+    <TextView
+        android:id="@+id/labelRoomMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/roomLabel"
+        android:textSize="16sp"
+        android:layout_below="@id/labelRowMovie"
+        android:layout_toEndOf="@id/ivQRImage"/>
+
+    <TextView
+        android:id="@+id/tvRoomMovieNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_below="@id/labelRowMovie"
+        android:layout_toEndOf="@id/labelRoomMovie" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@id/ivQRImage"
+        android:layout_marginTop="10dp"
+        android:background="#DAD8D8"/>
+
+</RelativeLayout>

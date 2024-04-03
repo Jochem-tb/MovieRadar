@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PersonActivity">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/btmNavViewMain"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/orange"
+        app:menu="@menu/bottom_nav_menu"
+        tools:layout_editor_absoluteX="103dp"
+        tools:layout_editor_absoluteY="658dp" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/orange"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="1dp" />
+
+    <FrameLayout
+        android:id="@+id/fl_accountImage"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/profile_background">
+
+    <ImageView
+        android:id="@+id/ivAccountImage"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/ic_person_foreground"
+        />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvNamePerson"
+        android:layout_width="280dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="18dp"
+        android:textAlignment="viewEnd"
+        android:layout_toLeftOf="@id/fl_accountImage"
+        android:layout_marginEnd="10dp"
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/labelTickets"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ticketLabel"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:layout_below="@id/recyclerviewList"
+        />
+
+    <Button
+        android:id="@+id/bMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/moreButton"
+        android:backgroundTint="@color/orange"
+        android:textColor="@color/black"
+        android:layout_below="@id/recyclerviewTickets"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewTickets"
+        android:layout_width="match_parent"
+        android:layout_height="245dp"
+        android:layout_below="@id/labelTickets"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerviewList"
+        android:layout_width="match_parent"
+        android:layout_height="245dp"
+        android:layout_below="@id/toolbar"
+        />
+</RelativeLayout>
