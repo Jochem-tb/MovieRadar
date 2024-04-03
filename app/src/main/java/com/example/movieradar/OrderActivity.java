@@ -246,6 +246,14 @@ public class OrderActivity extends AppCompatActivity {
             tvTitle.setText("Ticket bestellen");
         }
 
+        //Cancel Button
+        bCancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                finish();
+            }
+        });
+
 //        ArrayAdapter<String>adapter = new ArrayAdapter<String>(OrderActivity.this,
 //                android.R.layout.simple_spinner_item,kindOfTicket);
 //        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
