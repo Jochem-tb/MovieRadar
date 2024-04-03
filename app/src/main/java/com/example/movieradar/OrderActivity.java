@@ -175,211 +175,61 @@ public class OrderActivity extends AppCompatActivity {
 
         // cinema seats onclicklisteners
         //row 1
-        row1Seat1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-
-        row1Seat2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-
-        row1Seat3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-
-        row1Seat4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-
-        row1Seat5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-
-        row1Seat6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
+        row1Seat1.setOnClickListener(getSeatClickListener());
+        row1Seat2.setOnClickListener(getSeatClickListener());
+        row1Seat3.setOnClickListener(getSeatClickListener());
+        row1Seat4.setOnClickListener(getSeatClickListener());
+        row1Seat5.setOnClickListener(getSeatClickListener());
+        row1Seat6.setOnClickListener(getSeatClickListener());
 
         //row 2
-        row2Seat1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row2Seat2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row2Seat3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row2Seat4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row2Seat5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row2Seat6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row2Seat7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row2Seat8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
+        row2Seat1.setOnClickListener(getSeatClickListener());
+        row2Seat2.setOnClickListener(getSeatClickListener());
+        row2Seat3.setOnClickListener(getSeatClickListener());
+        row2Seat4.setOnClickListener(getSeatClickListener());
+        row2Seat5.setOnClickListener(getSeatClickListener());
+        row2Seat6.setOnClickListener(getSeatClickListener());
+        row2Seat7.setOnClickListener(getSeatClickListener());
 
         //row 3
-        row3Seat1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row3Seat2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row3Seat3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row3Seat4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row3Seat5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row3Seat6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row3Seat7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row3Seat8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
+        row3Seat1.setOnClickListener(getSeatClickListener());
+        row3Seat2.setOnClickListener(getSeatClickListener());
+        row3Seat3.setOnClickListener(getSeatClickListener());
+        row3Seat4.setOnClickListener(getSeatClickListener());
+        row3Seat5.setOnClickListener(getSeatClickListener());
+        row3Seat6.setOnClickListener(getSeatClickListener());
+        row3Seat7.setOnClickListener(getSeatClickListener());
+        row3Seat8.setOnClickListener(getSeatClickListener());
 
         //row 4
-        row4Seat1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row4Seat2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row4Seat3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row4Seat4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row4Seat5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row4Seat6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row4Seat7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row4Seat8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
+        row4Seat1.setOnClickListener(getSeatClickListener());
+        row4Seat2.setOnClickListener(getSeatClickListener());
+        row4Seat3.setOnClickListener(getSeatClickListener());
+        row4Seat4.setOnClickListener(getSeatClickListener());
+        row4Seat5.setOnClickListener(getSeatClickListener());
+        row4Seat6.setOnClickListener(getSeatClickListener());
+        row4Seat7.setOnClickListener(getSeatClickListener());
+        row4Seat8.setOnClickListener(getSeatClickListener());
 
         //row 5
-        row5Seat1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row5Seat2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row5Seat3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row5Seat4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row5Seat5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row5Seat6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row5Seat7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row5Seat8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
+        row5Seat1.setOnClickListener(getSeatClickListener());
+        row5Seat2.setOnClickListener(getSeatClickListener());
+        row5Seat3.setOnClickListener(getSeatClickListener());
+        row5Seat4.setOnClickListener(getSeatClickListener());
+        row5Seat5.setOnClickListener(getSeatClickListener());
+        row5Seat6.setOnClickListener(getSeatClickListener());
+        row5Seat7.setOnClickListener(getSeatClickListener());
+        row5Seat8.setOnClickListener(getSeatClickListener());
 
         //row 6
-        row6Seat1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row6Seat2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row6Seat3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row6Seat4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row6Seat5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row6Seat6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row6Seat7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-        row6Seat8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {changeImage((ImageView) v);
-            }});
-
-
-
-
-
-
+        row6Seat1.setOnClickListener(getSeatClickListener());
+        row6Seat2.setOnClickListener(getSeatClickListener());
+        row6Seat3.setOnClickListener(getSeatClickListener());
+        row6Seat4.setOnClickListener(getSeatClickListener());
+        row6Seat5.setOnClickListener(getSeatClickListener());
+        row6Seat6.setOnClickListener(getSeatClickListener());
+        row6Seat7.setOnClickListener(getSeatClickListener());
+        row6Seat8.setOnClickListener(getSeatClickListener());
 
 //        ArrayAdapter<String>adapter = new ArrayAdapter<String>(OrderActivity.this,
 //                android.R.layout.simple_spinner_item,kindOfTicket);
@@ -412,24 +262,32 @@ public class OrderActivity extends AppCompatActivity {
 
     }
 
-        public void changeImage(ImageView imageView) {
-            String tag = (String) imageView.getTag();
-        if (imageView.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.unavailable_chair_foreground))){
-            Toast.makeText(this, "Deze stoel is al bezet", Toast.LENGTH_SHORT).show();
-            Log.i(LOG_TAG, "unavailable chair pushed");
-        } else if (tag == null || !tag.equals("selected")) {
-            imageView.setImageResource(R.drawable.selected_chair_foreground);
-            imageView.setTag("selected");
-            selectedChairsCount++;
-            setTicketInformation();
-            Log.i(LOG_TAG, "available chair changed to selected" );
-        } else {
-            imageView.setImageResource(R.drawable.available_chair_foreground);
-            imageView.setTag(null);
-            selectedChairsCount--;
-            setTicketInformation();
-            Log.i(LOG_TAG, "selected chair changed to available");
-        }
+    private View.OnClickListener getSeatClickListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeImage((ImageView) v);
+            }
+        };
+    }
+
+    public void changeImage(ImageView imageView) {
+        String tag = (String) imageView.getTag();
+            if (imageView.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.unavailable_chair_foreground))){
+                Toast.makeText(this, "Deze stoel is al bezet", Toast.LENGTH_SHORT).show();
+                Log.i(LOG_TAG, "unavailable chair pushed");
+            } else if (tag == null || !tag.equals("selected")) {
+                imageView.setImageResource(R.drawable.selected_chair_foreground);
+                imageView.setTag("selected");
+                selectedChairsCount++;
+                Log.i(LOG_TAG, "available chair changed to selected" );
+            } else {
+                imageView.setImageResource(R.drawable.available_chair_foreground);
+                imageView.setTag(null);
+                selectedChairsCount--;
+                Log.i(LOG_TAG, "selected chair changed to available");
+            }
+        setTicketInformation();
     }
 
     public void setTicketInformation(){
