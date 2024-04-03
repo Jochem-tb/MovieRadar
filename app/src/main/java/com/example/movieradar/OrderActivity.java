@@ -19,7 +19,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class OrderActivity extends AppCompatActivity {
 
@@ -315,13 +317,14 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
-        // Methode to refresh the times when a new date is selected.
+        // Methode to refresh the times when a new date is selected, and the seats availability.
         spDropdownDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     // makes new random times when selected
                     times = makeTimes();
                     updateTimeDropdownMenu(); //Creation of the ArrayAdapter for times and also applies the adapter to the spinner
+                    markRandomSeatsUnavailable();
                 }
 
                 @Override
@@ -329,6 +332,20 @@ public class OrderActivity extends AppCompatActivity {
                     // if nothing is selected
                     Log.d(LOG_TAG, "onNothingSelected in dateDropdown ");
                 }
+        });
+
+        //Methode to refresh the seats availability
+        spDropdownTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Roep updateSelections aan om de selecties bij te werken
+                markRandomSeatsUnavailable();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Doe niets als er niets is geselecteerd
+            }
         });
     }
 
@@ -463,5 +480,39 @@ public class OrderActivity extends AppCompatActivity {
         ArrayAdapter<String> timeAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, times);
         spDropdownTime.setAdapter(timeAdapter);
+    }
+
+    private void markRandomSeatsUnavailable() {
+        // List of all imageview/cinema seats
+        ImageView[][] seatImageViews = {
+                {row1Seat1, row1Seat2, row1Seat3, row1Seat4, row1Seat5, row1Seat6},
+                {row2Seat1, row2Seat2, row2Seat3, row2Seat4, row2Seat5, row2Seat6, row2Seat7, row2Seat8},
+                {row3Seat1, row3Seat2, row3Seat3, row3Seat4, row3Seat5, row3Seat6, row3Seat7, row3Seat8},
+                {row4Seat1, row4Seat2, row4Seat3, row4Seat4, row4Seat5, row4Seat6, row4Seat7, row4Seat8},
+                {row5Seat1, row5Seat2, row5Seat3, row5Seat4, row5Seat5, row5Seat6, row5Seat7, row5Seat8},
+                {row6Seat1, row6Seat2, row6Seat3, row6Seat4, row6Seat5, row6Seat6, row6Seat7, row6Seat8}
+        };
+        Random random = new Random();
+
+        // read all rows
+        for (ImageView[] row : seatImageViews) {
+            // Chose random percentage of the seats that are unavailable
+            int numberOfSeatsToMarkUnavailable = random.nextInt(row.length);
+
+            // Remembers which seats are unavailable
+            Set<Integer> markedSeats = new HashSet<>();
+
+            // marks random selected chairs as unavailable
+            while (markedSeats.size() < numberOfSeatsToMarkUnavailable) {
+                int randomSeatIndex = random.nextInt(row.length);
+
+                // Checks if it is already marked
+                if (markedSeats.contains(randomSeatIndex)) {
+                    continue;
+                }
+                row[randomSeatIndex].setImageResource(R.drawable.unavailable_chair_foreground);
+                markedSeats.add(randomSeatIndex);
+            }
+        }
     }
 }
