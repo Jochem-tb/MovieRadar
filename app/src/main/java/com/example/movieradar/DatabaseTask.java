@@ -25,7 +25,7 @@ public class DatabaseTask extends AsyncTask<Void, Void, Connection> {
     }
 
     public Connection Connectionclass() {
-        ip = "217.121.119.223";
+        ip = "145.48.6.86";
         database = "CodeAcademyJGKJ";
         uname = "jgkj";
         pass = "jgkj2023";
