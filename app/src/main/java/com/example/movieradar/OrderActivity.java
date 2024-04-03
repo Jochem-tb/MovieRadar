@@ -362,20 +362,20 @@ public class OrderActivity extends AppCompatActivity {
     //Methode to change the image of the chairs
     public void changeImage(ImageView imageView) {
         String tag = (String) imageView.getTag();
-            if (imageView.getDrawable().getConstantState().equals(getResources().getDrawable(R.drawable.unavailable_chair_foreground))){
-                Toast.makeText(this, "Deze stoel is al bezet", Toast.LENGTH_SHORT).show();
-                Log.i(LOG_TAG, "unavailable chair pushed");
-            } else if (tag == null || !tag.equals("selected")) {
-                imageView.setImageResource(R.drawable.selected_chair_foreground);
-                imageView.setTag("selected");
-                selectedChairsCount++;
-                Log.i(LOG_TAG, "available chair changed to selected" );
-            } else {
-                imageView.setImageResource(R.drawable.available_chair_foreground);
-                imageView.setTag(null);
-                selectedChairsCount--;
-                Log.i(LOG_TAG, "selected chair changed to available");
-            }
+        if (tag != null && tag.equals("unavailable")) {
+            Toast.makeText(this, "Deze stoel is al bezet", Toast.LENGTH_SHORT).show();
+            Log.i(LOG_TAG, "unavailable chair pushed");
+        } else if (tag != null && tag.equals("selected")) {
+            imageView.setImageResource(R.drawable.available_chair_foreground);
+            imageView.setTag(null);
+            selectedChairsCount--;
+            Log.i(LOG_TAG, "selected chair changed to available");
+        } else {
+            imageView.setImageResource(R.drawable.selected_chair_foreground);
+            imageView.setTag("selected");
+            selectedChairsCount++;
+            Log.i(LOG_TAG, "available chair changed to selected");
+        }
         setTicketInformation();
     }
 
@@ -511,6 +511,7 @@ public class OrderActivity extends AppCompatActivity {
                     continue;
                 }
                 row[randomSeatIndex].setImageResource(R.drawable.unavailable_chair_foreground);
+                row[randomSeatIndex].setTag("unavailable");
                 markedSeats.add(randomSeatIndex);
             }
         }
