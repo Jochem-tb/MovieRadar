@@ -62,7 +62,7 @@ public class CatalogusActivity extends AppCompatActivity implements MovieApiTask
         rvCatalogusTop.setAdapter(movieListAdapter);
         rvCatalogusTop.setVisibility(View.GONE);
 
-        loadMoviesFromAPI(APIString.getPopularUrl(), POPULAR_MOVIES);
+//        loadMoviesFromAPI(APIString.getPopularUrl(), POPULAR_MOVIES);
 
         btmNavView = findViewById(R.id.btmNavViewMain);
         btmNavView.setSelectedItemId(R.id.menuFilmList);

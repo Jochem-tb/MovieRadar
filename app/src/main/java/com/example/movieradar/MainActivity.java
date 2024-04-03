@@ -101,8 +101,8 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         mTextViewPop6 = findViewById(R.id.tvMainPopularMovie6);
 
         // Vraag API vor popular movies, handel deze af als POPULAR_MOVIES
-        loadMoviesFromAPI(APIString.getPopularUrl(), POPULAR_MOVIES);
-//        loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
+        loadMoviesFromAPI(APIString.getPopularUrl("day"), POPULAR_MOVIES);
+        loadMoviesFromAPI(APIString.getPopularUrl("week"), RANDOM_MOVIES);
 
 
         mImagePop1.setOnClickListener(goToPopDetailPage(0));
@@ -138,11 +138,10 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         switch (apiIdentifier) {
             case POPULAR_MOVIES:
                 setPopularMoviesHome(movies);
-                loadRecyclerView(movies);
                 mPopulairMovies = movies;
                 break;
             case RANDOM_MOVIES:
-//                loadRecyclerView(mMovieList);
+                loadRecyclerView(movies);
                 break;
             default:
 //                loadRecyclerView(mMovieList);
@@ -153,19 +152,19 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
     public void setPopularMoviesHome(ArrayList<Movie> movies) {
         // Zet de Titel onder Poster
         if (movies != null && !movies.isEmpty()) {
-            mTextViewPop1.setText(movies.get(0).getTitle());
-            mTextViewPop2.setText(movies.get(1).getTitle());
-            mTextViewPop3.setText(movies.get(2).getTitle());
-            mTextViewPop4.setText(movies.get(3).getTitle());
-            mTextViewPop5.setText(movies.get(4).getTitle());
-            mTextViewPop6.setText(movies.get(5).getTitle());
+            mTextViewPop1.setText(movies.get(movies.size()-1).getTitle());
+            mTextViewPop2.setText(movies.get(movies.size()-2).getTitle());
+            mTextViewPop3.setText(movies.get(movies.size()-3).getTitle());
+            mTextViewPop4.setText(movies.get(movies.size()-4).getTitle());
+            mTextViewPop5.setText(movies.get(movies.size()-5).getTitle());
+            mTextViewPop6.setText(movies.get(movies.size()-6).getTitle());
             // Laad plaatjes in
-            Picasso.get().load(APIString.getBackdropUrl(movies.get(0).getPoster_path())).into(mImagePop1);
-            Picasso.get().load(APIString.getBackdropUrl(movies.get(1).getPoster_path())).into(mImagePop2);
-            Picasso.get().load(APIString.getBackdropUrl(movies.get(2).getPoster_path())).into(mImagePop3);
-            Picasso.get().load(APIString.getBackdropUrl(movies.get(3).getPoster_path())).into(mImagePop4);
-            Picasso.get().load(APIString.getBackdropUrl(movies.get(4).getPoster_path())).into(mImagePop5);
-            Picasso.get().load(APIString.getBackdropUrl(movies.get(5).getPoster_path())).into(mImagePop6);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(movies.size()-1).getPoster_path())).into(mImagePop1);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(movies.size()-2).getPoster_path())).into(mImagePop2);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(movies.size()-3).getPoster_path())).into(mImagePop3);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(movies.size()-4).getPoster_path())).into(mImagePop4);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(movies.size()-5).getPoster_path())).into(mImagePop5);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(movies.size()-6).getPoster_path())).into(mImagePop6);
         }
     }
 
