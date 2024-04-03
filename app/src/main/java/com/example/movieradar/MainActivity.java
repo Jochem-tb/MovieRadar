@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
 
     private MovieListAdapter mAdapter;
     private ArrayList<Movie> mMovieList = new ArrayList<>();
+    private ArrayList<Movie> mPopulairMovies = new ArrayList<>();
     RecyclerView rvMainMovieList;
     ImageView mImagePop1;
     ImageView mImagePop2;
@@ -102,6 +103,29 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         // Vraag API vor popular movies, handel deze af als POPULAR_MOVIES
         loadMoviesFromAPI(APIString.getPopularUrl(), POPULAR_MOVIES);
 //        loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
+
+
+        mImagePop1.setOnClickListener(goToPopDetailPage(0));
+        mImagePop2.setOnClickListener(goToPopDetailPage(1));
+        mImagePop3.setOnClickListener(goToPopDetailPage(2));
+        mImagePop4.setOnClickListener(goToPopDetailPage(3));
+        mImagePop5.setOnClickListener(goToPopDetailPage(4));
+        mImagePop6.setOnClickListener(goToPopDetailPage(5));
+
+    }
+
+    //Methode to send the right movie to the new intent
+    private View.OnClickListener goToPopDetailPage(int position){
+        return new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Movie movie = mPopulairMovies.get(position);
+                Intent detailMovie = new Intent(MainActivity.this, MovieDetailActivity.class);
+                detailMovie.putExtra(Movie.getShareKey(),movie);
+                startActivity(detailMovie);
+                Log.d(LOG_TAG, "Popular image " + position + " pressed");
+            }
+        };
     }
 
     private void loadMoviesFromAPI(String APIUrl, int apiIdentifier) {
@@ -115,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
             case POPULAR_MOVIES:
                 setPopularMoviesHome(movies);
                 loadRecyclerView(movies);
+                mPopulairMovies = movies;
                 break;
             case RANDOM_MOVIES:
 //                loadRecyclerView(mMovieList);
@@ -124,7 +149,6 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
                 break;
         }
     }
-
 
     public void setPopularMoviesHome(ArrayList<Movie> movies) {
         // Zet de Titel onder Poster
@@ -144,8 +168,6 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
             Picasso.get().load(APIString.getBackdropUrl(movies.get(5).getPoster_path())).into(mImagePop6);
         }
     }
-    // Set onclickListener
-    // TODO Implement OnClick
 
     // Vul recyclerview in
     public void loadRecyclerView(ArrayList<Movie> movies) {
