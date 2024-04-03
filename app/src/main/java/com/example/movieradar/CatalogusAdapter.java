@@ -22,7 +22,6 @@ public class CatalogusAdapter extends
         RecyclerView.Adapter<CatalogusAdapter.CatalogusViewHolder> implements MovieApiTask.OnNewMovieListener {
     private final String LOG_TAG = "CatalogusAdapter";
     private LayoutInflater inflater;
-    private ArrayList<Movie> mMovieList;
     private Context mContext;
     private ArrayList<Integer> checkedBoxes;
     private ArrayList<ArrayList<Movie>> movieLists;
@@ -49,9 +48,7 @@ public class CatalogusAdapter extends
 
     @Override
     public void onBindViewHolder(@NonNull CatalogusViewHolder holder, int position) {
-//        if (checkedBoxes.isEmpty() || position >= movieLists.size()) {
-//            return; // Exit method if checkedBoxes list is empty or movieLists is empty or position is out of bounds
-//        }
+
         this.holder = holder;
         Integer genreId = checkedBoxes.get(position);
         String genreIdTrue = getGenreId(genreId);
@@ -68,51 +65,87 @@ public class CatalogusAdapter extends
 
 
     }
+
+    static class CatalogusViewHolder extends RecyclerView.ViewHolder {
+        TextView tvCatalogusItemTitle;
+        RecyclerView movieListRecyclerView;
+
+        CatalogusViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tvCatalogusItemTitle = itemView.findViewById(R.id.tvCatalogusItemTitle);
+            movieListRecyclerView = itemView.findViewById(R.id.rvCatalogusItem);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false);
+            movieListRecyclerView.setLayoutManager(layoutManager);
+        }
+    }
+
+
+    @Override
+    public void onMovieAvailable(ArrayList<Movie> movies, int position) {
+        Log.d(LOG_TAG, "onMovieAvailable on CatalogusAdapterClass with movielist size: "+movies.size()+" and position: "+position);
+        // Ensure that the movieLists ArrayList contains a valid list at the specified position
+        while (movieLists.size() <= position) {
+            movieLists.add(new ArrayList<>());
+        }
+        // Set the movie list at the specified position
+        movieLists.set(position, movies);
+
+        // Check if movieLists has the necessary elements
+        if (position < movieLists.size()) {
+            // Populate inner RecyclerView with movies
+            MovieListAdapter movieListAdapter = new MovieListAdapter(mContext, movieLists.get(position));
+            holder.movieListRecyclerView.setAdapter(movieListAdapter);
+
+        } else {
+            Log.e(LOG_TAG, "movieLists does not contain the necessary element at position: " + position);
+        }
+    }
+
     @Override
     public int getItemCount() {
         return checkedBoxes.size();
     }
 
     private String getGenreId(int genreId) {
-            String genre="";
+        String genre="";
 
-            switch (genreId) {
-                case 1:
-                    //Action
-                    genre = "28";
-                    break;
-                case 2:
-                    //Comedy
-                    genre = "35";
-                    break;
-                case 3:
-                    //Drama
-                    genre = "18";
-                    break;
-                case 4:
-                    //Family
-                    genre = "10751";
-                    break;
-                case 5:
-                    //Fantasy
-                    genre = "14";
-                    break;
-                case 6:
-                    //Horror
-                    genre = "27";
-                    break;
-                case 7:
-                    //Romance
-                    genre = "10749";
-                    break;
-                case 8:
-                    //Science Fiction
-                    genre = "878";
-                    break;
-            }
-
-            return genre;
+        switch (genreId) {
+            case 1:
+                //Action
+                genre = "28";
+                break;
+            case 2:
+                //Comedy
+                genre = "35";
+                break;
+            case 3:
+                //Drama
+                genre = "18";
+                break;
+            case 4:
+                //Family
+                genre = "10751";
+                break;
+            case 5:
+                //Fantasy
+                genre = "14";
+                break;
+            case 6:
+                //Horror
+                genre = "27";
+                break;
+            case 7:
+                //Romance
+                genre = "10749";
+                break;
+            case 8:
+                //Science Fiction
+                genre = "878";
+                break;
         }
+
+        return genre;
+    }
 
     private String getGenreName(int genreId) {
         String genre="";
@@ -145,57 +178,6 @@ public class CatalogusAdapter extends
         }
 
         return genre;
-    }
-
-    static class CatalogusViewHolder extends RecyclerView.ViewHolder {
-        TextView tvCatalogusItemTitle;
-        RecyclerView movieListRecyclerView;
-
-        CatalogusViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvCatalogusItemTitle = itemView.findViewById(R.id.tvCatalogusItemTitle);
-            movieListRecyclerView = itemView.findViewById(R.id.rvCatalogusItem);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false);
-            movieListRecyclerView.setLayoutManager(layoutManager);
-        }
-    }
-
-
-    @Override
-    public void onMovieAvailable(ArrayList<Movie> movies, int position) {
-        Log.d(LOG_TAG, "onMovieAvailable on CatalogusAdapterClass with movielist size: "+movies.size()+" and position: "+position);
-        // Ensure that the movieLists ArrayList contains a valid list at the specified position
-        while (movieLists.size() <= position) {
-            movieLists.add(new ArrayList<>());
-        }
-
-        // Set the movie list at the specified position
-        movieLists.set(position, movies);
-
-        // Check if all movie lists have been updated
-        boolean allListsUpdated = true;
-        for (ArrayList<Movie> list : movieLists) {
-            if (list.isEmpty()) {
-                allListsUpdated = false;
-                break;
-            }
-        }
-
-        // Notify adapter only when all movie lists have been updated
-        if (allListsUpdated) {
-            notifyDataSetChanged(); // Notify adapter that all data sets have changed
-        }
-
-        // Check if movieLists has the necessary elements
-        if (position < movieLists.size()) {
-            // Populate inner RecyclerView with movies
-            MovieListAdapter movieListAdapter = new MovieListAdapter(mContext, movieLists.get(position));
-            holder.movieListRecyclerView.setAdapter(movieListAdapter);
-
-
-        } else {
-            Log.e(LOG_TAG, "movieLists does not contain the necessary element at position: " + position);
-        }
     }
 
 

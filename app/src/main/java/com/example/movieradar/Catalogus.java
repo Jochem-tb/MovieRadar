@@ -43,7 +43,6 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
     private MovieListAdapter movieListAdapter;
     private ImageButton bFilterMenuToggle;
     ArrayList<Integer> checkedBoxes = new ArrayList<>();
-
     private SearchView svCatalogus;
 
     @Override
@@ -151,6 +150,7 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
                 }
             }
         });
+
         btmNavView.setSelectedItemId(R.id.tbCatalogus);
     }
 
@@ -173,10 +173,6 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
         switch (apiIdentifier) {
             case POPULAR_MOVIES:
                 Log.d(LOG_TAG, "MovieAvailable with "+POPULAR_MOVIES);
-                loadRecyclerView(movies);
-                break;
-            case RANDOM_MOVIES:
-                Log.d(LOG_TAG, "MovieAvailable with "+RANDOM_MOVIES);
                 loadRecyclerView(movies);
                 break;
             case SEARCH_MOVIE:
