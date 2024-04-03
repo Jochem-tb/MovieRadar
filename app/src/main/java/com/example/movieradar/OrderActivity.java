@@ -483,6 +483,7 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     private void markRandomSeatsUnavailable() {
+        resetSeatStatus(); // resets the chairs
         // List of all imageview/cinema seats
         ImageView[][] seatImageViews = {
                 {row1Seat1, row1Seat2, row1Seat3, row1Seat4, row1Seat5, row1Seat6},
@@ -494,7 +495,6 @@ public class OrderActivity extends AppCompatActivity {
         };
         Random random = new Random();
 
-        // read all rows
         for (ImageView[] row : seatImageViews) {
             // Chose random percentage of the seats that are unavailable
             int numberOfSeatsToMarkUnavailable = random.nextInt(row.length);
@@ -512,6 +512,28 @@ public class OrderActivity extends AppCompatActivity {
                 }
                 row[randomSeatIndex].setImageResource(R.drawable.unavailable_chair_foreground);
                 markedSeats.add(randomSeatIndex);
+            }
+        }
+    }
+    // Methode to reset all unavailable chairs to available
+    private void resetSeatStatus() {
+
+        // List of all imageview/cinema seats
+        ImageView[][] seatImageViews = {
+                {row1Seat1, row1Seat2, row1Seat3, row1Seat4, row1Seat5, row1Seat6},
+                {row2Seat1, row2Seat2, row2Seat3, row2Seat4, row2Seat5, row2Seat6, row2Seat7, row2Seat8},
+                {row3Seat1, row3Seat2, row3Seat3, row3Seat4, row3Seat5, row3Seat6, row3Seat7, row3Seat8},
+                {row4Seat1, row4Seat2, row4Seat3, row4Seat4, row4Seat5, row4Seat6, row4Seat7, row4Seat8},
+                {row5Seat1, row5Seat2, row5Seat3, row5Seat4, row5Seat5, row5Seat6, row5Seat7, row5Seat8},
+                {row6Seat1, row6Seat2, row6Seat3, row6Seat4, row6Seat5, row6Seat6, row6Seat7, row6Seat8}
+        };
+
+        for (ImageView[] row : seatImageViews) {
+            for (ImageView seat : row) {
+                // resets imageView to standard imageview
+                seat.setImageResource(R.drawable.available_chair_foreground);
+                // deletes possible tags
+                seat.setTag(null);
             }
         }
     }
