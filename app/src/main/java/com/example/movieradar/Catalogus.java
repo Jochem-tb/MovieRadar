@@ -55,7 +55,7 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
 
         rvCatalogusVertical = findViewById(R.id.rvCatalogus);
         rvCatalogusVertical.setLayoutManager(new LinearLayoutManager(this));
-        catalogusAdapter = new CatalogusAdapter(this, mMovieList);
+        catalogusAdapter = new CatalogusAdapter(this, mMovieList, checkedBoxes);
         rvCatalogusVertical.setAdapter(catalogusAdapter);
         
         rvCatalogusTop = findViewById(R.id.rvCatalogusTop);
@@ -63,6 +63,8 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
         movieListAdapter = new MovieListAdapter(this, mSearchResultsList);
         rvCatalogusTop.setAdapter(movieListAdapter);
         rvCatalogusTop.setVisibility(View.GONE);
+
+        loadMoviesFromAPI(APIString.getPopularUrl(), POPULAR_MOVIES);
 
         btmNavView = findViewById(R.id.btmNavViewMain);
         btmNavView.setSelectedItemId(R.id.tbCatalogus);
@@ -108,7 +110,7 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
                 return false;
             }
         });
-/*
+
         int numCheckBox = 8;
         //Plaats numCheckBox CheckBoxen in de Containter
         for (int i = 1; i <= numCheckBox; i++) {
@@ -123,13 +125,14 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
             public void onClick(View v) {
                 if (lCatalogusCheckboxes.getVisibility() == View.VISIBLE) {
                     lCatalogusCheckboxes.setVisibility(View.GONE);
-                    checkedBoxes.clear();
                     for (int i = 0; i <= lCatalogusCheckboxes.getChildCount(); i++) {
                         View view = lCatalogusCheckboxes.getChildAt(i);
                         if (view instanceof CheckBox) {
                             CheckBox checkBox = (CheckBox) view;
                             if (checkBox.isChecked()) {
                                 Log.d(LOG_TAG, "Checkbox " + (i + 1) + " is checked");
+                                checkedBoxes.add(i);
+                                catalogusAdapter.notifyDataSetChanged();
                             } else {
                                 Log.d(LOG_TAG, "Checkbox " + (i + 1) + " is not checked");
                             }
@@ -140,10 +143,9 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
                 }
             }
         });
-*/
-        loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
-        btmNavView.setSelectedItemId(R.id.tbCatalogus);
 
+
+        btmNavView.setSelectedItemId(R.id.tbCatalogus);
     }
 
     private void loadMoviesFromAPI(String APIUrl, int apiIdentifier) {
@@ -165,7 +167,7 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
         switch (apiIdentifier) {
             case POPULAR_MOVIES:
                 Log.d(LOG_TAG, "MovieAvailable with "+POPULAR_MOVIES);
-                mMovieList = movies;
+                loadRecyclerView(movies);
                 break;
             case RANDOM_MOVIES:
                 Log.d(LOG_TAG, "MovieAvailable with "+RANDOM_MOVIES);
@@ -174,8 +176,6 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
             case SEARCH_MOVIE:
                 Log.d(LOG_TAG, "MovieAvailable with "+SEARCH_MOVIE);
                 loadSearchOnTopView(movies);
-                break;
-            default:
                 break;
         }
     }
@@ -191,11 +191,11 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
 
 
     public void loadRecyclerView(ArrayList<Movie> movies) {
-        Log.i(LOG_TAG,  movies.size() + " added to MovieList");
         mMovieList.clear();
         mMovieList.addAll(movies);
-        movieListAdapter.setMovieList(mMovieList);
         movieListAdapter.notifyDataSetChanged();
+        movieListAdapter.setMovieList(mMovieList);
+        Log.i(LOG_TAG,  movies.size() + " added to MovieList");
     }
 
     public String getGenreName(int i) {

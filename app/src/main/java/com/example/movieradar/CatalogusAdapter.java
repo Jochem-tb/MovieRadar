@@ -19,17 +19,19 @@ import java.util.ArrayList;
 
 
 public class CatalogusAdapter extends
-        RecyclerView.Adapter<CatalogusAdapter.CatalogusViewHolder>  {
+        RecyclerView.Adapter<CatalogusAdapter.CatalogusViewHolder> implements MovieApiTask.OnNewMovieListener {
     private final String LOG_TAG = "CatalogusAdapter";
     private LayoutInflater inflater;
     private ArrayList<Movie> mMovieList;
     private Context mContext;
+    private ArrayList<Integer> checkedBoxes;
 
 
-    public CatalogusAdapter(Context context, ArrayList<Movie> movieList) {
+    public CatalogusAdapter(Context context, ArrayList<Movie> movieList, ArrayList<Integer> checkedBoxes) {
         mContext = context;
         inflater = LayoutInflater.from(context);
         this.mMovieList = movieList;
+        this.checkedBoxes = checkedBoxes;
     }
 
     @NonNull
@@ -42,10 +44,10 @@ public class CatalogusAdapter extends
     @Override
     public void onBindViewHolder(@NonNull CatalogusViewHolder holder, int position) {
 
-        /*
+
         String genre = "";
 
-        for (int i = 0; i <= checkedBoxes.size(); i++) {
+        for (int i = 0; i <= checkedBoxes.size();) {
             switch (checkedBoxes.get(i)) {
                 case 1:
                     genre = "Action";
@@ -87,18 +89,20 @@ public class CatalogusAdapter extends
             Log.i(LOG_TAG, "Chosen genre APIString created");
 
             MovieApiTask task = new MovieApiTask(this, 23);
-            task.execute(str.getApiString()); */
+            task.execute(str.getApiString());
 
             Log.i(LOG_TAG, "Loaded " + mMovieList.size() + " movies");
             holder.tvCatalogusItemTitle.setText("Genre:");
             MovieListAdapter movieListAdapter = new MovieListAdapter(mContext, mMovieList);
             holder.movieListAdapter.setAdapter(movieListAdapter);
             Log.i(LOG_TAG, "OnBindViewHolder");
+            break;
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return checkedBoxes.size();
     }
 
     public class CatalogusViewHolder extends RecyclerView.ViewHolder {
@@ -114,6 +118,15 @@ public class CatalogusAdapter extends
             LinearLayoutManager layoutManager = new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false);
             movieListAdapter.setLayoutManager(layoutManager);
         }
+    }
+
+    public void onNewMovieListener() {
+
+    }
+
+    @Override
+    public void onMovieAvailable(ArrayList<Movie> movies, int apiIdentifier) {
+
     }
 
 }
