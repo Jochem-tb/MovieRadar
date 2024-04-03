@@ -55,12 +55,13 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
 
         rvCatalogusVertical = findViewById(R.id.rvCatalogus);
         rvCatalogusVertical.setLayoutManager(new LinearLayoutManager(this));
-        catalogusAdapter = new CatalogusAdapter(this, mMovieList, checkedBoxes);
+        catalogusAdapter = new CatalogusAdapter(this, checkedBoxes);
         rvCatalogusVertical.setAdapter(catalogusAdapter);
         
         rvCatalogusTop = findViewById(R.id.rvCatalogusTop);
         rvCatalogusTop.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         movieListAdapter = new MovieListAdapter(this, mSearchResultsList);
+
         rvCatalogusTop.setAdapter(movieListAdapter);
         rvCatalogusTop.setVisibility(View.GONE);
 
@@ -125,19 +126,21 @@ public class Catalogus extends AppCompatActivity implements MovieApiTask.OnNewMo
             public void onClick(View v) {
                 if (lCatalogusCheckboxes.getVisibility() == View.VISIBLE) {
                     lCatalogusCheckboxes.setVisibility(View.GONE);
+                    checkedBoxes.clear();
                     for (int i = 0; i <= lCatalogusCheckboxes.getChildCount(); i++) {
                         View view = lCatalogusCheckboxes.getChildAt(i);
                         if (view instanceof CheckBox) {
                             CheckBox checkBox = (CheckBox) view;
                             if (checkBox.isChecked()) {
                                 Log.d(LOG_TAG, "Checkbox " + (i + 1) + " is checked");
-                                checkedBoxes.add(i);
+                                checkedBoxes.add(i+1);
                                 catalogusAdapter.notifyDataSetChanged();
                             } else {
                                 Log.d(LOG_TAG, "Checkbox " + (i + 1) + " is not checked");
                             }
                         }
                     }
+                    catalogusAdapter.notifyDataSetChanged();
                 } else {
                     lCatalogusCheckboxes.setVisibility(View.VISIBLE);
                 }

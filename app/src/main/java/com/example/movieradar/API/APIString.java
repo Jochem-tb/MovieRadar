@@ -69,6 +69,11 @@ public class APIString {
         mBuilder.append(filterType.name()).append("=").append(filter);
     }
 
+    public void filterOnGenre(Filters filterType, String filter) {
+        mBuilder.append("/discover/movie?");
+        mBuilder.append(filterType.name()).append("=").append(filter);
+    }
+
     public void sort(SortType sortType) {
         if(!isSorted) {
             appendSeparator();
