@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -36,6 +37,9 @@ public class OrderActivity extends AppCompatActivity {
     private boolean isAdult;
     private String[] dates;
     private String[] times;
+    private int positionDate;
+    private int positionTime;
+    private ArrayList<Ticket> tickets;
 
     // All Textviews, Spinners and Buttons
     TextView tvTitle;
@@ -271,7 +275,23 @@ public class OrderActivity extends AppCompatActivity {
         bOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(LOG_TAG, "Order button clicked");
+                tickets = new ArrayList<>();
+                if (selectedChairsCount > 0) {
+                    List<ImageView> selectedSeats = findSelectedSeats();
+                    for (ImageView seat : selectedSeats) {
+                        String seatName = getResources().getResourceEntryName(seat.getId()); //Makes the selectedSeat an String
+                        String[] parts = seatName.split("Seat");
+                        String rowNumber = parts[0].replaceAll("[^0-9]", "");
+                        String seatNumber = parts[1];
+                        tickets.add(new Ticket(mMovie.getTitle(), times[positionTime], dates[positionDate], Integer.parseInt(seatNumber), Integer.parseInt(rowNumber)));
+                        Log.i(LOG_TAG, "Creation ticket " + mMovie.getTitle() + "\n" + times[positionTime] + "\n " + dates[positionDate] + "\n" + "seatNumber: " + Integer.parseInt(seatNumber) + "\n" + "rowNumber: " + Integer.parseInt(rowNumber));
+                    }
+//                Intent payingActivity = new Intent(OrderActivity.this, payingActivity.class);
+//                payingActivity.putExtra(Ticket.getShareKey(),tickets);
+                } else {
+                    Toast.makeText(OrderActivity.this, "Selecteer eerst een stoel", Toast.LENGTH_SHORT).show();
+                    Log.i(LOG_TAG, "Order button clicked without selected seats");
+                }
             }
         });
 
@@ -321,6 +341,7 @@ public class OrderActivity extends AppCompatActivity {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     // makes new random times when selected
+                    positionDate = position;
                     times = makeTimes();
                     updateTimeDropdownMenu(); //Creation of the ArrayAdapter for times and also applies the adapter to the spinner
                 }
@@ -337,6 +358,7 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Roep updateSelections aan om de selecties bij te werken
+                positionTime = position;
                 markRandomSeatsUnavailable();
             }
 
@@ -358,7 +380,7 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     //Methode to change the image of the chairs
-    public void changeImage(ImageView imageView) {
+    private void changeImage(ImageView imageView) {
         String tag = (String) imageView.getTag();
         if (tag != null && tag.equals("unavailable")) {
             Toast.makeText(this, "Deze stoel is al bezet", Toast.LENGTH_SHORT).show();
@@ -378,7 +400,7 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     //Methode to update the ticket information
-    public void setTicketInformation(){
+    private void setTicketInformation(){
         int totalPrice = isAdult ? selectedChairsCount * priceAdult : selectedChairsCount * priceChild;
         tvCountChairs.setText(String.valueOf(selectedChairsCount));
         tvTotalPrice.setText("€" + totalPrice + ",00");
@@ -386,7 +408,7 @@ public class OrderActivity extends AppCompatActivity {
     }
 
     //Methode to make random dates
-    public String[] makeDates() {
+    private String[] makeDates() {
         ArrayList<String> randomDates = new ArrayList<>();
         Random random = new Random();
 
@@ -474,7 +496,7 @@ public class OrderActivity extends AppCompatActivity {
         return randomTimes.toArray(new String[0]);
     }
 
-    public void updateTimeDropdownMenu(){
+    private void updateTimeDropdownMenu(){
         ArrayAdapter<String> timeAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, times);
         spDropdownTime.setAdapter(timeAdapter);
@@ -512,8 +534,8 @@ public class OrderActivity extends AppCompatActivity {
                 row[randomSeatIndex].setImageResource(R.drawable.unavailable_chair_foreground);
                 row[randomSeatIndex].setTag("unavailable");
                 markedSeats.add(randomSeatIndex);
-                Log.i(LOG_TAG, "Marked chairs unavailable");
             }
+            Log.i(LOG_TAG, "Marked chairs unavailable");
         }
     }
     // Methode to reset all unavailable chairs to available
@@ -541,4 +563,30 @@ public class OrderActivity extends AppCompatActivity {
         setTicketInformation();
         Log.i(LOG_TAG, "Reseted chairs");
     }
+
+    //Methode to find selected chairs
+    private List<ImageView> findSelectedSeats() {
+        List<ImageView> selectedSeats = new ArrayList<>();
+
+        //List of all imageview/cinema seats
+        ImageView[][] seatImageViews = {
+                {row1Seat1, row1Seat2, row1Seat3, row1Seat4, row1Seat5, row1Seat6},
+                {row2Seat1, row2Seat2, row2Seat3, row2Seat4, row2Seat5, row2Seat6, row2Seat7, row2Seat8},
+                {row3Seat1, row3Seat2, row3Seat3, row3Seat4, row3Seat5, row3Seat6, row3Seat7, row3Seat8},
+                {row4Seat1, row4Seat2, row4Seat3, row4Seat4, row4Seat5, row4Seat6, row4Seat7, row4Seat8},
+                {row5Seat1, row5Seat2, row5Seat3, row5Seat4, row5Seat5, row5Seat6, row5Seat7, row5Seat8},
+                {row6Seat1, row6Seat2, row6Seat3, row6Seat4, row6Seat5, row6Seat6, row6Seat7, row6Seat8}
+        };
+
+        //for-loop that search for all images with "selected" tag
+        for (ImageView[] row : seatImageViews) {
+            for (ImageView seat : row) {
+                if (seat.getTag() != null && seat.getTag().equals("selected")) {
+                    selectedSeats.add(seat);
+                }
+            }
+        }
+        return selectedSeats;
+    }
+
 }

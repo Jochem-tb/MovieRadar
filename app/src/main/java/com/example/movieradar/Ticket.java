@@ -2,8 +2,9 @@ package com.example.movieradar;
 
 public class Ticket {
 
-    private int id;
+    public static final String SHARE_KEY = "TicketKey";
     private final int roomNr = 1;
+    private int id;
     private String titleMovie;
     private String timeMovie;
     private String datumMovie;
@@ -16,6 +17,10 @@ public class Ticket {
         this.datumMovie = datumMovie;
         this.chairNr = chairNr;
         this.rowNr = rowNr;
+    }
+
+    public static String getShareKey() {
+        return SHARE_KEY;
     }
 
     public int getRowNr() {
