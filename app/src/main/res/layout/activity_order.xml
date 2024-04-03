@@ -14,7 +14,7 @@
         android:background="@color/orange"
         android:padding="10sp"
         android:layout_marginBottom="15sp"
-        android:textSize="35sp" />
+        android:textSize="30sp" />
 
     <LinearLayout
         android:id="@+id/ly_spinners"
