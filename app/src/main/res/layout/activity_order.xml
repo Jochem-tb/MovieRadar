@@ -73,6 +73,7 @@
 
         <!-- Row 1 -->
         <ImageView
+            android:id="@+id/row1Seat1"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -80,6 +81,7 @@
             app:layout_row="0" />
 
         <ImageView
+            android:id="@+id/row1Seat2"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -87,6 +89,7 @@
             app:layout_row="0" />
 
         <ImageView
+            android:id="@+id/row1Seat3"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -94,6 +97,7 @@
             app:layout_row="0" />
 
         <ImageView
+            android:id="@+id/row1Seat4"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -101,6 +105,7 @@
             app:layout_row="0"/>
 
         <ImageView
+            android:id="@+id/row1Seat5"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -108,6 +113,7 @@
             app:layout_row="0" />
 
         <ImageView
+            android:id="@+id/row1Seat6"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -117,6 +123,7 @@
 
         <!-- Row 2 -->
         <ImageView
+            android:id="@+id/row2Seat1"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -124,6 +131,7 @@
             app:layout_row="1" />
 
         <ImageView
+            android:id="@+id/row2Seat2"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -131,6 +139,7 @@
             app:layout_row="1" />
 
         <ImageView
+            android:id="@+id/row2Seat3"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -138,6 +147,7 @@
             app:layout_row="1" />
 
         <ImageView
+            android:id="@+id/row2Seat4"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -145,6 +155,7 @@
             app:layout_row="1" />
 
         <ImageView
+            android:id="@+id/row2Seat5"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -152,6 +163,7 @@
             app:layout_row="1" />
 
         <ImageView
+            android:id="@+id/row2Seat6"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -159,6 +171,7 @@
             app:layout_row="1"/>
 
         <ImageView
+            android:id="@+id/row2Seat7"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -166,6 +179,7 @@
             app:layout_row="1" />
 
         <ImageView
+            android:id="@+id/row2Seat8"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -174,6 +188,7 @@
 
         <!-- Row 3 -->
         <ImageView
+            android:id="@+id/row3Seat1"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -181,6 +196,7 @@
             app:layout_row="2" />
 
         <ImageView
+            android:id="@+id/row3Seat2"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -188,6 +204,7 @@
             app:layout_row="2" />
 
         <ImageView
+            android:id="@+id/row3Seat3"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -195,6 +212,7 @@
             app:layout_row="2" />
 
         <ImageView
+            android:id="@+id/row3Seat4"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -202,6 +220,7 @@
             app:layout_row="2" />
 
         <ImageView
+            android:id="@+id/row3Seat5"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -209,6 +228,7 @@
             app:layout_row="2" />
 
         <ImageView
+            android:id="@+id/row3Seat6"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -216,6 +236,7 @@
             app:layout_row="2"/>
 
         <ImageView
+            android:id="@+id/row3Seat7"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -223,6 +244,7 @@
             app:layout_row="2" />
 
         <ImageView
+            android:id="@+id/row3Seat8"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -231,6 +253,7 @@
 
         <!-- Row 4 -->
         <ImageView
+            android:id="@+id/row4Seat1"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -238,6 +261,7 @@
             app:layout_row="3" />
 
         <ImageView
+            android:id="@+id/row4Seat2"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -245,6 +269,7 @@
             app:layout_row="3"  />
 
         <ImageView
+            android:id="@+id/row4Seat3"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -252,6 +277,7 @@
             app:layout_row="3"  />
 
         <ImageView
+            android:id="@+id/row4Seat4"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -259,6 +285,7 @@
             app:layout_row="3"  />
 
         <ImageView
+            android:id="@+id/row4Seat5"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -266,6 +293,7 @@
             app:layout_row="3"  />
 
         <ImageView
+            android:id="@+id/row4Seat6"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -273,6 +301,7 @@
             app:layout_row="3"/>
 
         <ImageView
+            android:id="@+id/row4Seat7"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -280,6 +309,7 @@
             app:layout_row="3"/>
 
         <ImageView
+            android:id="@+id/row4Seat8"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -288,6 +318,7 @@
 
         <!-- Row 5 -->
         <ImageView
+            android:id="@+id/row5Seat1"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -295,6 +326,7 @@
             app:layout_row="4" />
 
         <ImageView
+            android:id="@+id/row5Seat2"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -302,6 +334,7 @@
             app:layout_row="4" />
 
         <ImageView
+            android:id="@+id/row5Seat3"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -309,6 +342,7 @@
             app:layout_row="4" />
 
         <ImageView
+            android:id="@+id/row5Seat4"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -316,6 +350,7 @@
             app:layout_row="4" />
 
         <ImageView
+            android:id="@+id/row5Seat5"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -323,6 +358,7 @@
             app:layout_row="4" />
 
         <ImageView
+            android:id="@+id/row5Seat6"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -330,6 +366,7 @@
             app:layout_row="4" />
 
         <ImageView
+            android:id="@+id/row5Seat7"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -337,6 +374,7 @@
             app:layout_row="4" />
 
         <ImageView
+            android:id="@+id/row5Seat8"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -345,6 +383,7 @@
 
         <!-- Row 6 -->
         <ImageView
+            android:id="@+id/row6Seat1"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -352,6 +391,7 @@
             app:layout_row="5" />
 
         <ImageView
+            android:id="@+id/row6Seat2"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -359,6 +399,7 @@
             app:layout_row="5" />
 
         <ImageView
+            android:id="@+id/row6Seat3"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -366,6 +407,7 @@
             app:layout_row="5" />
 
         <ImageView
+            android:id="@+id/row6Seat4"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -373,6 +415,7 @@
             app:layout_row="5" />
 
         <ImageView
+            android:id="@+id/row6Seat5"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -380,6 +423,7 @@
             app:layout_row="5" />
 
         <ImageView
+            android:id="@+id/row6Seat6"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -387,6 +431,7 @@
             app:layout_row="5" />
 
         <ImageView
+            android:id="@+id/row6Seat7"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -394,6 +439,7 @@
             app:layout_row="5" />
 
         <ImageView
+            android:id="@+id/row6Seat8"
             android:layout_width="120px"
             android:layout_height="100px"
             android:src="@drawable/available_chair_foreground"
@@ -421,7 +467,7 @@
             android:id="@+id/label_countChairs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hoeveelheid stoelen:"
+            android:text="@string/label_count_chairs"
             android:textSize="20sp"/>
 
         <TextView
@@ -429,14 +475,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="190dp"
-            android:text="0"
+            android:text="@string/standard_count_chairs"
             android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/label_kindOfTicket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Soort ticket:"
+            android:text="@string/label_kind_ticket"
             android:layout_marginTop="27.5dp"
             android:textSize="20sp"/>
 
@@ -454,7 +500,7 @@
             android:id="@+id/label_totalPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Totale prijs:"
+            android:text="@string/label_total_price"
             android:layout_marginTop="55dp"
             android:textSize="20sp"/>
 
@@ -464,7 +510,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="55dp"
             android:layout_marginStart="150dp"
-            android:text="€0,00"
+            android:text="@string/standard_total_price"
             android:textSize="20sp"/>
 
     </FrameLayout>
@@ -481,7 +527,7 @@
             android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
-            android:text="Annuleer tickets"
+            android:text="@string/cancel_button"
             android:backgroundTint="@color/orange"
             android:textColor="@color/black"/>
 
@@ -489,7 +535,7 @@
             android:id="@+id/order_button"
             android:layout_width="175dp"
             android:layout_height="wrap_content"
-            android:text="Bestel tickets"
+            android:text="@string/order_button"
             android:backgroundTint="@color/orange"
             android:textColor="@color/black"/>
 

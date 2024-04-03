@@ -15,4 +15,11 @@
     <string name="detailpagina_revenue">Revenue:</string>
     <string name="detail_title">Detailpagina</string>
     <string name="add_movie_to_list_title">Voeg toe aan lijsten:</string>
+    <string name="label_count_chairs">Hoeveelheid stoelen:</string>
+    <string name="standard_count_chairs">0</string>
+    <string name="label_kind_ticket">Soort ticket:</string>
+    <string name="label_total_price">Totale prijs:</string>
+    <string name="standard_total_price">€0,00</string>
+    <string name="cancel_button">Annuleer tickets</string>
+    <string name="order_button">Bestel tickets</string>
 </resources>
