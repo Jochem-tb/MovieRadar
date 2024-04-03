@@ -210,7 +210,7 @@ public class MovieDetailActivity extends AppCompatActivity{
                 Intent orderActivity = new Intent(MovieDetailActivity.this, OrderActivity.class);
                 orderActivity.putExtra(Movie.getShareKey(),mMovie);
                 startActivity(orderActivity);
-                Toast.makeText(v.getContext(),"Koop Ticket Button", Toast.LENGTH_SHORT).show();
+                Log.d(LOG_TAG, "buyTicket button clicked");
             }
         });
     }
