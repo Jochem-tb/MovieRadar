@@ -27,7 +27,7 @@ public abstract class TicketDatabase extends RoomDatabase {
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     // Method to obtain an instance of the database
-    static TicketDatabase getDatabase(final Context context) {
+    public static TicketDatabase getDatabase(final Context context) {
         // Check if an instance of the database already exists, otherwise create a new one
         if (INSTANCE == null) {
             synchronized (ListDatabase.class) {

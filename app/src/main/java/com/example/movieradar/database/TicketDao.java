@@ -23,9 +23,9 @@ public interface TicketDao {
     void delete(Ticket ticket);
 
     // Query om een ticket op te halen op basis van het id
-    @Query("SELECT * FROM favo_cocktail WHERE id=:idCheck")
-    Ticket getTicketById(int idCheck);
+//    @Query("SELECT * FROM favo_cocktail WHERE id=:idCheck")
+//    Ticket getTicketById(int idCheck);
 
-    @Query("SELECT * FROM favo_cocktail WHERE id=:idCheck")
-    ArrayList<Ticket> getAllTickets();
+//    @Query("SELECT * FROM favo_cocktail WHERE id=:idCheck")
+//    ArrayList<Ticket> getAllTickets();
 }

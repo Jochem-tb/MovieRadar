@@ -12,7 +12,7 @@ import com.example.movieradar.Movie;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Movie.class}, version = 1, exportSchema = false)
+@Database(entities = {Movie.class, MovieList.class}, version = 1, exportSchema = false)
 public abstract class ListDatabase extends RoomDatabase {
     private static final String LOG_TAG = "MovieDatabase";
 

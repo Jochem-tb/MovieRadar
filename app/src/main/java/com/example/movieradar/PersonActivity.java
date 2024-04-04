@@ -1,6 +1,9 @@
 package com.example.movieradar;
 
+import com.example.movieradar.database.*;
+
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -11,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.movieradar.database.TicketDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -25,6 +29,9 @@ public class PersonActivity extends AppCompatActivity {
     ArrayList<Ticket> ticketList = new ArrayList<Ticket>();
     TicketListAdapter mTicketListAdapter;
 
+    TicketDao ticketDao;
+    TicketDatabase ticketDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,11 +39,14 @@ public class PersonActivity extends AppCompatActivity {
 
         nameAccount = findViewById(R.id.tvNamePerson);
         rvTickets = findViewById(R.id.rvTickets);
-        mTicketListAdapter = new TicketListAdapter(this,ticketList);
+        mTicketListAdapter = new TicketListAdapter(this, ticketList);
         rvTickets.setLayoutManager(new LinearLayoutManager(this));
         rvTickets.setAdapter(mTicketListAdapter);
         nameAccount.setText("Gast");
-        
+
+        ticketDatabase = TicketDatabase.getDatabase(this);
+        ticketDao = ticketDatabase.ticketDao();
+
         //Navbar function
         BottomNavigationView btmNavView = findViewById(R.id.btmNavViewMain);
         btmNavView.setSelectedItemId(R.id.menuPersonal);
@@ -69,17 +79,36 @@ public class PersonActivity extends AppCompatActivity {
 
     private void fillTickets() {
         Log.d(LOG_TAG, "fillTickets");
-        for (int i = 0; i < 10; i++) {
-            ticketList.add(new Ticket(
-                    "Movie " + (i + 1), // Title of the movie
-                    "12:00", // Time of the movie
-                    "2024-04-03", // Date of the movie
-                    i + 1, // Chair number
-                    1 // row Number
-            ));
-        }
-        Log.d(LOG_TAG, "setTicketList with: "+ticketList.size());
-        mTicketListAdapter.setTicketList(ticketList);
+        new InsertTicketsTask().execute();
+    }
 
+    private class InsertTicketsTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            for (int i = 0; i < 10; i++) {
+                Ticket ticket = new Ticket(
+                        "Movie " + (i + 1), // Title of the movie
+                        "12:00", // Time of the movie
+                        "2024-04-03", // Date of the movie
+                        i + 1, // Chair number
+                        1 // row Number
+                );
+                ticketDao.insert(ticket);
+                Log.d(LOG_TAG, "Added ticket into TicketDatabase");
+                ticketList.add(ticket);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Log.d(LOG_TAG, "setTicketList with: " + ticketList.size());
+            mTicketListAdapter.setTicketList(ticketList);
+        }
     }
 }
+
+
+
+

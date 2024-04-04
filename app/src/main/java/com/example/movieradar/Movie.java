@@ -1,29 +1,38 @@
 package com.example.movieradar;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.example.movieradar.database.DateConverter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
 public class Movie implements Serializable {
     public static final String SHARE_KEY = "MovieKey";
-//    @JsonProperty("id")
+    @PrimaryKey(autoGenerate = true)
     private int id;
-//    @JsonProperty("imdb_id")
+
     private String imdb_id;
     private String key;
     private Boolean adult;
     private String backdrop_path;
     @JsonProperty("budget")
     private Long budget;
+    @Ignore
     private ArrayList<Genre> genres;
     private String original_language;
     private String overview;
     private Double popularity;
     private String poster_path;
+@TypeConverters(DateConverter.class)
     private Date release_date;
     @JsonProperty("revenue")
     private Long revenue;
@@ -86,6 +95,8 @@ public class Movie implements Serializable {
                 ", vote_count=" + vote_count +
                 '}';
     }
+
+
 
     public String getKey() {
         return key;

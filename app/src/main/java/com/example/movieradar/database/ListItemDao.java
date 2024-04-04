@@ -16,11 +16,11 @@ public interface ListItemDao {
 
     // Methode om een nieuwe ticket toe te voegen aan de database
     @Insert
-    void insert(Movie movie, int listId);
+    void insert(Movie movie, MovieList movieList);
 
     // Methode om een ticket te verwijderen uit de database
     @Delete
-    void delete(Movie movie, int listId);
+    void delete(Movie movie, MovieList movieList);
 
     // Query om een movies op te halen op basis van het listId
 //    @Query("SELECT * FROM favo_cocktail WHERE id=:idCheck")

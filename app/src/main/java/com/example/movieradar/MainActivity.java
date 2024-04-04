@@ -105,12 +105,12 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         loadMoviesFromAPI(APIString.getPopularUrl("week"), RANDOM_MOVIES);
 
 
-        mImagePop1.setOnClickListener(goToPopDetailPage(0));
-        mImagePop2.setOnClickListener(goToPopDetailPage(1));
-        mImagePop3.setOnClickListener(goToPopDetailPage(2));
-        mImagePop4.setOnClickListener(goToPopDetailPage(3));
-        mImagePop5.setOnClickListener(goToPopDetailPage(4));
-        mImagePop6.setOnClickListener(goToPopDetailPage(5));
+        mImagePop1.setOnClickListener(goToPopDetailPage(mMovieList.size()-1));
+        mImagePop2.setOnClickListener(goToPopDetailPage(mMovieList.size()-2));
+        mImagePop3.setOnClickListener(goToPopDetailPage(mMovieList.size()-3));
+        mImagePop4.setOnClickListener(goToPopDetailPage(mMovieList.size()-4));
+        mImagePop5.setOnClickListener(goToPopDetailPage(mMovieList.size()-5));
+        mImagePop6.setOnClickListener(goToPopDetailPage(mMovieList.size()-6));
 
     }
 
