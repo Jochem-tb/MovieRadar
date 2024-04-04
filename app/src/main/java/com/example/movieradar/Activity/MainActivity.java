@@ -177,4 +177,11 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         mAdapter.notifyDataSetChanged();
         Log.i(LOG_TAG, movies.size()+" Movies added to recyclerview");
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        BottomNavigationView btmNavView = findViewById(R.id.btmNavViewMain);
+        btmNavView.setSelectedItemId(R.id.menuHomeScreen);
+    }
 }

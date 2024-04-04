@@ -13,6 +13,9 @@
         android:layout_alignParentBottom="true"
         android:background="@color/orange"
         app:menu="@menu/bottom_nav_menu"
+        app:itemIconTint="@drawable/bottom_navigation_selector"
+        app:itemTextColor="@drawable/bottom_navigation_selector"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
         tools:layout_editor_absoluteX="103dp"
         tools:layout_editor_absoluteY="658dp" />
 
