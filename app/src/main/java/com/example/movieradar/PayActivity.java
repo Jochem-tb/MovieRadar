@@ -73,7 +73,6 @@ public class PayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payticket);
 
 //        Initialiseer de toolbar
-
         toolbar = findViewById(R.id.Tb_Ticketkopen);
         toolbar.setTitle(R.string.payment_screen);
         setSupportActionBar(toolbar);
