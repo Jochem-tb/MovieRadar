@@ -39,8 +39,9 @@ public class PayActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "PayActivity geopend ");
         setContentView(R.layout.activity_payticket);
 
-        //Getting tickets from OrderActivity
+        //Getting information from OrderActivity
         Intent intent = getIntent();
+        int totalPrice = getIntent().getIntExtra("totalPrice", 0);
         tickets = intent.getParcelableArrayListExtra(Ticket.getShareKey());
         if (tickets != null) {
             for (Ticket ticket : tickets) {
@@ -51,7 +52,7 @@ public class PayActivity extends AppCompatActivity {
         }
 
         tvTotalPrice = findViewById(R.id.tv_totalPrice);
-        tvTotalPrice.setText("€00,00");
+        tvTotalPrice.setText("€" + totalPrice + ",00");
         Paypal = findViewById(R.id.Paypal);
         ApplePay = findViewById(R.id.ApplePay);
         Creditkaart = findViewById(R.id.CreditCard);
