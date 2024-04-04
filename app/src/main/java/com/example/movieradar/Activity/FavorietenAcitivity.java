@@ -1,4 +1,4 @@
-package com.example.movieradar;
+package com.example.movieradar.Activity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,6 +10,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.movieradar.Adapters.MovieListAdapter;
+import com.example.movieradar.Movie;
+import com.example.movieradar.R;
 import com.example.movieradar.database.FavoMovieDao;
 import com.example.movieradar.database.FavoMovieDatabase;
 
