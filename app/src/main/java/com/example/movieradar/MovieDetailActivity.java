@@ -69,7 +69,7 @@ public class MovieDetailActivity extends AppCompatActivity{
 
         Log.i(LOG_TAG, "onCreate");
 
-        toolbar = findViewById(R.id.tb_detail_movie);
+        toolbar = findViewById(R.id.tb_detail_ticket);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.detail_title);
 
@@ -84,9 +84,9 @@ public class MovieDetailActivity extends AppCompatActivity{
         mMovieDetails = findViewById(R.id.tv_var_moviedetails);
         mMovieRevenue = findViewById(R.id.tv_detail_var_revenue);
         mMovieBudget = findViewById(R.id.tv_detail_var_budget);
-        mMovieTitle = findViewById(R.id.tv_detail_var_title);
+        mMovieTitle = findViewById(R.id.tv_detail_ticket_title);
 
-        mMovieBackground = findViewById(R.id.tv_detail_poster);
+        mMovieBackground = findViewById(R.id.iv_ticket_detail_QR);
 
         mFavoriteButton = findViewById(R.id.bt_detail_favorite);
         mTrailerButton = findViewById(R.id.bt_detail_trailer);
