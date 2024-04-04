@@ -26,23 +26,19 @@
     <string name="standard_total_price">€0,00</string>
     <string name="cancel_button">Annuleer tickets</string>
     <string name="order_button">Bestel tickets</string>
+
+<!--    Ticket kopen-->
     <string name="payment_screen">Tickets kopen</string>
     <string name="Payment_choice">Kies betaal optie:</string>
+<!--    Paypal-->
     <string name="Paypal_choice">Paypal</string>
-    <string name="Ideal_choice">Ideal</string>
-    <string name="Creditcard_choice">Credit kaart</string>
-    <string name="ApplePay_choice">Apple Pay</string>
     <string name="Email">Emailadres</string>
     <string name="Wachtwoord">Wachtwoord</string>
-    <string name="Betaling_voltooien">Betaling voltooien</string>
-    <string name="Betaling_annuleren">Betaling annuleren</string>
-    <string name="Username">Gebruikersnaam</string>
-    <string-array name="kindOfTicket_array">
-        <item>Volwassenen (13+)</item>
-        <item>Kinderen (t/m 12)</item>
-    </string-array>
-    <string name="spinneritems">Kies je bank:</string>
+<!--    Ideal-->
+    <string name="Ideal_choice">Ideal</string>
+    <string name="Spinneritems">Kies je bank:</string>
     <string-array name="Banken">
+        <item></item>
         <item>ABN AMRO</item>
         <item>Rabobank</item>
         <item>Knab</item>
@@ -50,6 +46,26 @@
         <item>ING</item>
         <item>SNS Bank</item>
     </string-array>
+<!--    Creditkaart-->
+    <string name="Creditcard_choice">Credit kaart</string>
+    <string name="Cardholder">Kaarthouder naam</string>
+    <string name="Creditkaartnummer">XXXX-XXXX-XXXX-XXXX</string>
+    <string name="Expiry">Vervaldatum</string>
+    <string name="Security">Veilgheidscode</string>
+<!--    Applepay-->
+    <string name="ApplePay_choice">Apple Pay</string>
+    <string name="Username">Gebruikersnaam</string>
+    <string name="WachtwoordApple">Wachtwoord</string>
+
+<!--Betaling voltooien/annuleren-->
+    <string name="Betaling_voltooien">Betaling voltooien</string>
+    <string name="Betaling_annuleren">Betaling annuleren</string>
+
+    <string-array name="kindOfTicket_array">
+        <item>Volwassenen (13+)</item>
+        <item>Kinderen (t/m 12)</item>
+    </string-array>
+
 
 
     <string name="roomLabel">Zaal:</string>
