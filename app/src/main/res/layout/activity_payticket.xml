@@ -19,7 +19,7 @@
 
     <LinearLayout
         android:id="@+id/ly_ticketInformation"
-        android:layout_below="@id/Ticketkopen"
+        android:layout_below="@id/Tb_Ticketkopen"
         android:background="@drawable/border_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
