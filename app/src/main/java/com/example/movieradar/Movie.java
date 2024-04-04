@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Entity
+@Entity(tableName = "favo_movie")
 public class Movie implements Serializable {
     public static final String SHARE_KEY = "MovieKey";
     @PrimaryKey(autoGenerate = true)

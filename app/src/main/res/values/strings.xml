@@ -72,10 +72,11 @@
     <string name="roomLabel">Zaal:</string>
     <string name="seatLabel">Stoel:</string>
     <string name="rowLabel">Rij:</string>
-    <string name="moreButton">Meer...</string>
+    <string name="favoButton">Favorieten</string>
     <string name="ticketLabel">Ticket(s)</string>
     <string name="labelTotale_prijs">Totale prijs:</string>
     <string name="label_movieTitel">Titel van film:</string>
     <string name="label_kindOfTickets">Soort ticket(s):</string>
     <string name="ticket_detail_title">Ticket Detail</string>
+    <string name="favorieten_title">Favorieten Lijst</string>
 </resources>

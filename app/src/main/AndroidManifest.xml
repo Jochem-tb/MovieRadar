@@ -41,6 +41,9 @@
         <activity android:name=".Activity.PersonActivity"/>
         <activity android:name=".Datatest"/>
         <activity android:name=".Activity.TicketDetailActivity"/>
+        <activity android:name=".PersonActivity"/>
+        <activity android:name=".TicketDetailActivity"/>
+        <activity android:name=".FavorietenAcitivity"/>
     </application>
 
 </manifest>

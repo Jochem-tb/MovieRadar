@@ -57,23 +57,35 @@
         android:id="@+id/labelTickets"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/orange"
+        android:layout_below="@+id/bt_favo"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="-1dp"
         android:text="@string/ticketLabel"
         android:textAlignment="center"
-        android:textSize="20sp"
-        android:layout_below="@id/recyclerviewList"
-        />
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/bt_favo"
+        android:layout_width="wrap_content"
+        android:layout_height="66dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="97dp"
+        android:backgroundTint="@color/orange"
+        android:text="@string/favoButton"
+        android:textColor="@color/black" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTickets"
         android:layout_width="match_parent"
-        android:layout_height="245dp"
-        android:layout_below="@id/labelTickets"/>
+        android:layout_height="400dp"
+        android:layout_above="@+id/btmNavViewMain"
+        android:layout_below="@+id/labelTickets"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerviewList"
-        android:layout_width="match_parent"
-        android:layout_height="245dp"
-        android:layout_below="@id/toolbar"
-        />
 </RelativeLayout>

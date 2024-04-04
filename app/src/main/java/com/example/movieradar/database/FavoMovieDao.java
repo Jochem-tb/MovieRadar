@@ -12,17 +12,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Dao
-public interface ListItemDao {
+public interface FavoMovieDao {
 
     // Methode om een nieuwe ticket toe te voegen aan de database
     @Insert
-    void insert(Movie movie, MovieList movieList);
+    void insert(Movie movie);
 
     // Methode om een ticket te verwijderen uit de database
     @Delete
-    void delete(Movie movie, MovieList movieList);
+    void delete(Movie movie);
 
     // Query om een movies op te halen op basis van het listId
-//    @Query("SELECT * FROM favo_cocktail WHERE id=:idCheck")
-//    ArrayList<Movie> getMoviesByListId(int idCheck);
+    @Query("SElECT * FROM favo_movie")
+    List<Movie> getAllFavoMovie();
+
+    @Query("SELECT * FROM favo_movie WHERE title = :searchTitle")
+    Movie getMovieById(String searchTitle);
 }

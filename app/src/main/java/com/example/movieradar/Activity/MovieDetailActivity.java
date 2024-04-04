@@ -25,21 +25,28 @@ import com.example.movieradar.API.MovieApiTask;
 import com.example.movieradar.Genre;
 import com.example.movieradar.Movie;
 import com.example.movieradar.R;
+import com.example.movieradar.database.FavoMovieDao;
+import com.example.movieradar.database.FavoMovieDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MovieDetailActivity extends AppCompatActivity{
+public class MovieDetailActivity extends AppCompatActivity {
     private final String LOG_TAG = "MovieDetailActivity";
     private String YOUTUBE_VIDEO_ID;
     private Movie mMovie;
     private final DecimalFormat ratingFormat = new DecimalFormat("#.#");
     private final DecimalFormat bigNumberFormat = new DecimalFormat("#,###");
+    private Executor executor = Executors.newSingleThreadExecutor();
+    FavoMovieDao favoMovieDao;
+    FavoMovieDatabase favoMovieDatabase;
 
     TextView mMovieGenre;
     TextView mMovieStatus;
@@ -66,8 +73,6 @@ public class MovieDetailActivity extends AppCompatActivity{
     TextView mStaticBudget;
     TextView mStaticRevenue;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +80,7 @@ public class MovieDetailActivity extends AppCompatActivity{
 
         Log.i(LOG_TAG, "onCreate");
 
-        toolbar = findViewById(R.id.tb_detail_ticket);
+        toolbar = findViewById(R.id.tb_detail_movie);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.detail_title);
 
@@ -105,13 +110,16 @@ public class MovieDetailActivity extends AppCompatActivity{
         mStaticRevenue = findViewById(R.id.tv_detail_stat_revenue);
         mStaticBudget = findViewById(R.id.tv_detail_stat_budget);
 
+        favoMovieDatabase = FavoMovieDatabase.getDatabase(this);
+        favoMovieDao = favoMovieDatabase.favoMovieDao();
+
         BottomNavigationView btmNavView = findViewById(R.id.btmNavViewMain);
 
         btmNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@androidx.annotation.NonNull MenuItem menuItem) {
                 int id = menuItem.getItemId();
-                //Heb geprobeerd met switch/case maar geeft errors
+                // Heb geprobeerd met switch/case maar geeft errors
                 if (id == R.id.menuHomeScreen) {
                     startActivity(new Intent(MovieDetailActivity.this, MainActivity.class));
                     Log.i(LOG_TAG, "HomeScreen button clicked");
@@ -121,7 +129,7 @@ public class MovieDetailActivity extends AppCompatActivity{
                     Log.i(LOG_TAG, "Catalogus button clicked");
                     return true;
                 } else if (id == R.id.menuPersonal) {
-                        startActivity(new Intent(MovieDetailActivity.this, PersonActivity.class));
+                    startActivity(new Intent(MovieDetailActivity.this, PersonActivity.class));
                     Log.i(LOG_TAG, "Personal button clicked");
                     return true;
                 } else {
@@ -130,17 +138,15 @@ public class MovieDetailActivity extends AppCompatActivity{
             }
         });
 
-        //Data uit intent halen
+        // Data uit intent halen
         Intent intent = getIntent();
         mMovie = (Movie) intent.getSerializableExtra(Movie.getShareKey());
 
         loadMovieDetails(mMovie.getId());
         loadMovieDataOnGui();
 
-
-
-//      listDialog = setupListDialogView();
-//      setupLongButtonListener(listDialog);
+        // listDialog = setupListDialogView();
+        // setupLongButtonListener(listDialog);
         setupNormalButtonListerners();
 
         Log.d(LOG_TAG, mMovie.toString());
@@ -148,46 +154,44 @@ public class MovieDetailActivity extends AppCompatActivity{
         loadMovieTrailer(mMovie.getId());
     }
 
-
-
-//    private void setupLongButtonListener(AlertDialog listDialog) {
-//        Log.d(LOG_TAG, "setupLongButtonListener");
-//        mFavoriteButton.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                listDialog.show();
-//                return false;
-//            }
-//        });
-//    }
+    // private void setupLongButtonListener(AlertDialog listDialog) {
+    // Log.d(LOG_TAG, "setupLongButtonListener");
+    // mFavoriteButton.setOnLongClickListener(new View.OnLongClickListener() {
+    // @Override
+    // public boolean onLongClick(View v) {
+    // listDialog.show();
+    // return false;
+    // }
+    // });
+    // }
 
     private AlertDialog setupListDialogView() {
         Log.d(LOG_TAG, "setupListDialogView");
-        //Infalting de layout.xml
+        // Infalting de layout.xml
         View listDialog = LayoutInflater.from(this).inflate(R.layout.list_adding_dialog_layout, null);
 
-        //checkboxContainter koppelen aan id
+        // checkboxContainter koppelen aan id
         checkboxContainer = listDialog.findViewById(R.id.checkbox_container);
 
-        //Ophalen van hoeveelheid lijsten, waar gebruiker toegang tot heeft.
-//        getNumLists();
+        // Ophalen van hoeveelheid lijsten, waar gebruiker toegang tot heeft.
+        // getNumLists();
         int numCheckBox = 10;
 
-        //Plaats numCheckBox CheckBoxen in de Containter
+        // Plaats numCheckBox CheckBoxen in de Containter
         for (int i = 0; i < numCheckBox; i++) {
             CheckBox checkBox = new CheckBox(this);
-            //TODO Methode voor ophalen lijst namen
+            // TODO Methode voor ophalen lijst namen
             checkBox.setText("LIJST NAAM " + (i + 1));
             checkboxContainer.addView(checkBox);
         }
 
-        //Aanmaken & tonen va Dialog
+        // Aanmaken & tonen va Dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(listDialog)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //Op moment logging voor Checked of not checked
+                        // Op moment logging voor Checked of not checked
                         for (int i = 0; i < checkboxContainer.getChildCount(); i++) {
                             View view = checkboxContainer.getChildAt(i);
                             if (view instanceof CheckBox) {
@@ -211,37 +215,35 @@ public class MovieDetailActivity extends AppCompatActivity{
                     }
                 });
 
-        //Retourneer opgebouwde Dialog
+        // Retourneer opgebouwde Dialog
         AlertDialog l = builder.create();
         return l;
     }
 
-
-
     private void setupNormalButtonListerners() {
         Log.d(LOG_TAG, "setupNormalButtonListerners");
-        //Button listerners
+        // Button listerners
         mFavoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Favorite Button Kort", Toast.LENGTH_SHORT).show();
-
+                addToFavorites();
+                movieIsFavorite();
             }
         });
         mTrailerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              Log.d(LOG_TAG, "Trailer Key: " + YOUTUBE_VIDEO_ID);
-              playTrailer(YOUTUBE_VIDEO_ID);
-        }
-    });
+                Log.d(LOG_TAG, "Trailer Key: " + YOUTUBE_VIDEO_ID);
+                playTrailer(YOUTUBE_VIDEO_ID);
+            }
+        });
 
         mBuyTicketButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loadMovieDataOnGui();
                 Intent orderActivity = new Intent(MovieDetailActivity.this, OrderActivity.class);
-                orderActivity.putExtra(Movie.getShareKey(),mMovie);
+                orderActivity.putExtra(Movie.getShareKey(), mMovie);
                 startActivity(orderActivity);
                 Log.d(LOG_TAG, "buyTicket button clicked");
             }
@@ -270,17 +272,18 @@ public class MovieDetailActivity extends AppCompatActivity{
                     // Update YOUTUBE_VIDEO_ID with the fetched details
 
                     mMovie = movies.get(0);
-                    Log.d(LOG_TAG, "movie fetch details: "+movies.get(0).toString());
+                    Log.d(LOG_TAG, "movie fetch details: " + movies.get(0).toString());
                     loadMovieDataOnGui();
                     // Check if videos are available for the movie
                 } else {
-                    Toast.makeText(MovieDetailActivity.this, "Failed to fetch movie details", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MovieDetailActivity.this, "Failed to fetch movie details", Toast.LENGTH_SHORT)
+                            .show();
                 }
             }
         }, 2).execute(apiUrl);
     }
 
-    private void loadMovieTrailer(int movieId){
+    private void loadMovieTrailer(int movieId) {
         Log.i(LOG_TAG, "loadMovieTrailer");
         String apiUrl = APIString.generateMovieUrl(movieId);
         new MovieApiTask(new MovieApiTask.OnNewMovieListener() {
@@ -290,10 +293,11 @@ public class MovieDetailActivity extends AppCompatActivity{
                 if (movies != null && !movies.isEmpty()) {
                     // Update YOUTUBE_VIDEO_ID with the fetched details
                     YOUTUBE_VIDEO_ID = movies.get(0).getKey();
-                    Log.d(LOG_TAG, "YOUTUBE_VIDEO_ID changed by API, to: "+YOUTUBE_VIDEO_ID);
+                    Log.d(LOG_TAG, "YOUTUBE_VIDEO_ID changed by API, to: " + YOUTUBE_VIDEO_ID);
                     // Check if videos are available for the movie
                 } else {
-                    Toast.makeText(MovieDetailActivity.this, "Failed to fetch trailer details", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MovieDetailActivity.this, "Failed to fetch trailer details", Toast.LENGTH_SHORT)
+                            .show();
                 }
             }
         }, 52).execute(apiUrl);
@@ -312,8 +316,8 @@ public class MovieDetailActivity extends AppCompatActivity{
     }
 
     private void loadMovieDataOnGui() {
-        Log.d(LOG_TAG, "LOADMOVIEGUI with object: "+mMovie.toString());
-        //Movie data invullen
+        Log.d(LOG_TAG, "LOADMOVIEGUI with object: " + mMovie.toString());
+        // Movie data invullen
         if (mMovie != null) {
             Log.d(LOG_TAG, "Load data into TV");
             mMovieTitle.setText(mMovie.getTitle());
@@ -335,7 +339,7 @@ public class MovieDetailActivity extends AppCompatActivity{
             }
 
             // Check and set movie runtime
-//            Log.d(LOG_TAG, mMovie.getRuntime().toString());
+            // Log.d(LOG_TAG, mMovie.getRuntime().toString());
             if (mMovie.getRuntime() != null && mMovie.getRuntime() != 0) {
                 mStaticTime.setVisibility(View.VISIBLE);
                 mMovieTime.setVisibility(View.VISIBLE);
@@ -345,8 +349,8 @@ public class MovieDetailActivity extends AppCompatActivity{
                 mMovieTime.setVisibility(View.GONE); // Hide the runtime TextView if runtime is not available
             }
 
-            //Check and set movie Status
-            if(mMovie.getStatus() != null){
+            // Check and set movie Status
+            if (mMovie.getStatus() != null) {
                 mMovieStatus.setVisibility(View.VISIBLE);
                 mStaticStatus.setVisibility(View.VISIBLE);
                 mMovieStatus.setText(mMovie.getStatus());
@@ -356,7 +360,7 @@ public class MovieDetailActivity extends AppCompatActivity{
             }
 
             // Check and set movie overview
-//            Log.d(LOG_TAG, mMovie.getOverview());
+            // Log.d(LOG_TAG, mMovie.getOverview());
             if (mMovie.getOverview() != null) {
                 mMovieDetails.setVisibility(View.VISIBLE);
                 mMovieDetails.setText(mMovie.getOverview());
@@ -369,11 +373,12 @@ public class MovieDetailActivity extends AppCompatActivity{
                 mMovieBackground.setVisibility(View.VISIBLE);
                 Picasso.get().load(APIString.getBackdropUrl(mMovie.getBackdrop_path())).into(mMovieBackground);
             } else {
-                mMovieBackground.setVisibility(View.GONE); // Hide the backdrop ImageView if backdrop path is not available
+                mMovieBackground.setVisibility(View.GONE); // Hide the backdrop ImageView if backdrop path is not
+                                                           // available
             }
 
             // Check and set movie revenue
-//            Log.d(LOG_TAG, mMovie.getRevenue().toString());
+            // Log.d(LOG_TAG, mMovie.getRevenue().toString());
             if (mMovie.getRevenue() != null && mMovie.getRevenue() != 0) {
                 mStaticRevenue.setVisibility(View.VISIBLE);
                 mMovieRevenue.setVisibility(View.VISIBLE);
@@ -395,17 +400,73 @@ public class MovieDetailActivity extends AppCompatActivity{
                 mMovieBudget.setVisibility(View.GONE); // Hide the budget TextView if budget is not available
             }
 
-            //Check and set movie Rating
-            if(mMovie.getVote_average() != null && mMovie.getVote_average() !=0){
+            // Check and set movie Rating
+            if (mMovie.getVote_average() != null && mMovie.getVote_average() != 0) {
                 mStaticRating.setVisibility(View.VISIBLE);
                 mMovieRating.setVisibility(View.VISIBLE);
                 String ratingNumber = ratingFormat.format(mMovie.getVote_average());
                 mMovieRating.setText(String.valueOf(ratingNumber));
-            }else {
+            } else {
                 mStaticRating.setVisibility(View.GONE);
                 mMovieRating.setVisibility(View.GONE); // Hide the rating TextView if rating is not available
             }
 
         }
+    }
+
+    private void addToFavorites() {
+        // Cocktails toevoegen of verwijderen van favorieten
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                // Chech of Movie al in favorieten staat.
+                Movie existingCocktail = favoMovieDao.getMovieById(mMovie.getTitle());
+                if (existingCocktail != null) {
+                    // Als Movie al bestaat in DB, verwijder uit DB
+                    favoMovieDao.delete(mMovie);
+                    // Update de UI in mainThread
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getBaseContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    // Movie bestaan nog niet in DB
+                    favoMovieDao.insert(mMovie);
+                    // Update de UI in mainThread
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getBaseContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void movieIsFavorite() {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Movie existingCocktail = favoMovieDao.getMovieById(mMovie.getTitle());
+                if (existingCocktail != null) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mFavoriteButton.setImageResource(R.drawable.heart_foreground);
+                        }
+                    });
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mFavoriteButton.setImageResource(R.drawable.baseline_heart_broken_24);
+                        }
+                    });
+                }
+            }
+        });
     }
 }
