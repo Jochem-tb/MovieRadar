@@ -214,7 +214,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav_menu"
-        android:background="@color/orange"/>
+        android:background="@color/orange"
+        app:itemIconTint="@drawable/bottom_navigation_selector"
+        app:itemTextColor="@drawable/bottom_navigation_selector"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"/>
 
     <Button
         android:id="@+id/bt_detail_buy"

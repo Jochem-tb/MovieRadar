@@ -63,7 +63,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     Button mBuyTicketButton;
 
     LinearLayout checkboxContainer;
-    AlertDialog listDialog;
     Toolbar toolbar;
 
     TextView mStaticGenre;
