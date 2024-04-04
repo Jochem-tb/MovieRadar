@@ -84,7 +84,7 @@ public class TicketDetailActivity extends AppCompatActivity {
 
     }
     private void deleteTicket(){
-            // Cocktails toevoegen of verwijderen van favorieten
+            // Ticket verwijderen uit lijst
             executor.execute(new Runnable() {
                 TicketDatabase db = TicketDatabase.getDatabase(TicketDetailActivity.this);
                 TicketDao t = db.ticketDao();
