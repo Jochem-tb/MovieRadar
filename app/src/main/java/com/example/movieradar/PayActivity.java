@@ -23,6 +23,7 @@ public class PayActivity extends AppCompatActivity {
     Button ApplePay;
     Button Creditkaart;
     Button Ideal;
+    TextView tvTotalPrice;
 
     //PayPal Dialog attributen
 
@@ -49,6 +50,8 @@ public class PayActivity extends AppCompatActivity {
             Log.e("TicketInfo", "Tickets ArrayList is null");
         }
 
+        tvTotalPrice = findViewById(R.id.tv_totalPrice);
+        tvTotalPrice.setText("€00,00");
         Paypal = findViewById(R.id.Paypal);
         ApplePay = findViewById(R.id.ApplePay);
         Creditkaart = findViewById(R.id.CreditCard);

@@ -57,4 +57,5 @@
     <string name="rowLabel">Rij:</string>
     <string name="moreButton">Meer...</string>
     <string name="ticketLabel">Ticket(s)</string>
+    <string name="labelTotale_prijs">Totale prijs:</string>
 </resources>

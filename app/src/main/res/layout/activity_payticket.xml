@@ -16,14 +16,43 @@
         android:text="@string/payment_screen"
         android:textSize="30sp" />
 
+    <LinearLayout
+        android:id="@+id/fl_totalPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/Ticketkopen"
+        android:background="@drawable/border_background"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:padding="5dp"
+        android:gravity="center_horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="@string/labelTotale_prijs"
+            />
+
+        <TextView
+            android:id="@+id/tv_totalPrice"
+            android:textSize="30sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
+
     <TextView
         android:id="@+id/Betaaloptie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/Ticketkopen"
+        android:layout_below="@id/fl_totalPrice"
+        android:layout_marginTop="25dp"
         android:gravity="center"
         android:text="@string/Payment_choice"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/Paypal"
