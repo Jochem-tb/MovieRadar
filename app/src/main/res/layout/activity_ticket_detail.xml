@@ -56,13 +56,14 @@
         app:layout_constraintTop_toBottomOf="@+id/iv_ticket_detail_QR" />
 
     <ImageView
-        android:id="@+id/iv_ticket_detail_print"
+        android:id="@+id/iv_ticket_detail_delete"
         android:layout_width="46dp"
         android:layout_height="44dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:contentDescription="@string/movieradar"
         app:layout_constraintEnd_toEndOf="@+id/tb_detail_ticket"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/available_chair_foreground" />
+        app:srcCompat="@drawable/trashcanicon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
