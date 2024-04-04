@@ -76,8 +76,6 @@ public class TicketDetailActivity extends AppCompatActivity {
 
         rootView = findViewById(android.R.id.content);
 
-
-
         //Data uit intent halen
         Intent intent = getIntent();
         mTicket = (Ticket) intent.getSerializableExtra(Ticket.getShareKey());
@@ -105,8 +103,6 @@ public class TicketDetailActivity extends AppCompatActivity {
                 }
             });
      }
-
-
     private void setupUI() {
         tvTitle.setText(mTicket.getTitleMovie());
         tvRowSeat.setText("Rij: "+mTicket.getRowNr()+"     StoelNr: "+mTicket.getChairNr());
@@ -121,35 +117,6 @@ public class TicketDetailActivity extends AppCompatActivity {
             ivQR.setImageBitmap(bitmap);
         } catch (WriterException e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    private void captureScreenAndExport() {
-        File screenshotFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "screenshot.png");
-
-        // Create a Bitmap with the same dimensions as the rootView
-        Bitmap bitmap = Bitmap.createBitmap(rootView.getWidth(), rootView.getHeight(), Bitmap.Config.ARGB_8888);
-
-        // Create a Canvas using the bitmap
-        Canvas canvas = new Canvas(bitmap);
-
-        // Draw the rootView onto the Canvas
-        rootView.draw(canvas);
-
-        try (FileOutputStream fos = new FileOutputStream(screenshotFile)) {
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            fos.flush();
-            Toast.makeText(this, "Screenshot saved to " + screenshotFile.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-
-            // Open the saved screenshot using an Intent
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            Uri screenshotUri = FileProvider.getUriForFile(this, "com.example.movieradar.fileprovider", screenshotFile);
-            intent.setDataAndType(screenshotUri, "image/*");
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(intent);
-        } catch (IOException e) {
-            Log.e("CaptureScreen", "Error saving screenshot", e);
-            Toast.makeText(this, "Error saving screenshot", Toast.LENGTH_SHORT).show();
         }
     }
 
