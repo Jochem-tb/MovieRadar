@@ -252,8 +252,9 @@ public class PayActivity extends AppCompatActivity {
                     Toast.makeText(PayActivity.this, "Vul een geldige datum in! Datum moet later zijn dan huidige datum", Toast.LENGTH_LONG).show();
                 }
             }
-            else {
+            else if (checkchars == 16 && checkcharsS >= 3 && ExpirydateView.getText().toString().isEmpty()){
                 insertTicket();
+                Log.d(LOG_TAG, "YESSS ");
             }
         });
 
