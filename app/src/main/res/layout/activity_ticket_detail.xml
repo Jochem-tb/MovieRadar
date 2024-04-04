@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tb_favorieten"
+        android:id="@+id/tb_detail_ticket"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/orange"
@@ -25,7 +25,7 @@
         android:layout_margin="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tb_favorieten" />
+        app:layout_constraintTop_toBottomOf="@+id/tb_detail_ticket" />
 
     <TextView
         android:id="@+id/tv_detail_ticket_row_and_seat"
@@ -63,7 +63,6 @@
         android:layout_marginEnd="10dp"
         android:contentDescription="@string/movieradar"
         app:layout_constraintEnd_toEndOf="@+id/tb_detail_ticket"
-        app:layout_constraintEnd_toEndOf="@+id/tb_favorieten"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/trashcanicon" />
 

@@ -2,10 +2,7 @@ package com.example.movieradar.Activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,16 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.FileProvider;
-import androidx.room.DatabaseConfiguration;
-import androidx.room.InvalidationTracker;
-import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
 import com.example.movieradar.database.TicketDao;
-import com.example.movieradar.database.TicketDao_Impl;
 import com.example.movieradar.database.TicketDatabase;
 import com.example.movieradar.R;
 import com.example.movieradar.Ticket;
@@ -32,9 +23,6 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
@@ -57,7 +45,7 @@ public class TicketDetailActivity extends AppCompatActivity {
 
         Log.i(LOG_TAG, "onCreate");
 
-        toolbar = findViewById(R.id.tb_favorieten);
+        toolbar = findViewById(R.id.tb_detail_ticket);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.ticket_detail_title);
 

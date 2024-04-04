@@ -16,7 +16,6 @@ import com.example.movieradar.R;
 import com.example.movieradar.database.FavoMovieDao;
 import com.example.movieradar.database.FavoMovieDatabase;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class FavorietenAcitivity extends AppCompatActivity {
@@ -35,7 +34,7 @@ public class FavorietenAcitivity extends AppCompatActivity {
 
         Log.i(LOG_TAG, "onCreate");
 
-        toolbar = findViewById(R.id.tb_favorieten);
+        toolbar = findViewById(R.id.tb_detail_ticket);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.favorieten_title);
 
