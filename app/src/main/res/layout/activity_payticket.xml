@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -34,10 +35,10 @@
             android:layout_marginStart="5dp">
 
             <TextView
-                android:text="@string/label_movieTitel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"/>
+                android:text="@string/label_movieTitel"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tv_MovieTitle"
@@ -117,6 +118,7 @@
         android:layout_marginEnd="15sp"
         android:layout_marginBottom="15sp"
         android:backgroundTint="@color/orange"
+        android:drawableLeft="@drawable/paypalicon"
         android:text="@string/Paypal_choice"
         android:textColor="@color/black"
         android:textSize="34sp" />
@@ -131,7 +133,9 @@
         android:layout_marginEnd="15sp"
         android:layout_marginBottom="15sp"
         android:backgroundTint="@color/orange"
+        android:drawableLeft="@drawable/applepay"
         android:text="@string/ApplePay_choice"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="34sp" />
 
@@ -145,6 +149,7 @@
         android:layout_marginEnd="15sp"
         android:layout_marginBottom="15sp"
         android:backgroundTint="@color/orange"
+        android:drawableLeft="@drawable/creditcardicon"
         android:text="@string/Creditcard_choice"
         android:textColor="@color/black"
         android:textSize="34sp" />
@@ -159,6 +164,7 @@
         android:layout_marginEnd="15sp"
         android:layout_marginBottom="15sp"
         android:backgroundTint="@color/orange"
+        android:drawableLeft="@drawable/idealicon"
         android:text="@string/Ideal_choice"
         android:textColor="@color/black"
         android:textSize="34sp" />
