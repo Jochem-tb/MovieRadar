@@ -39,6 +39,7 @@
             android:exported="true"></activity>
         <activity android:name=".PersonActivity"/>
         <activity android:name=".TicketDetailActivity"/>
+        <activity android:name=".FavorietenAcitivity"/>
     </application>
 
 </manifest>

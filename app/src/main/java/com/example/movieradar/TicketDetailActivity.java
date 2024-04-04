@@ -45,7 +45,7 @@ public class TicketDetailActivity extends AppCompatActivity {
 
         Log.i(LOG_TAG, "onCreate");
 
-        toolbar = findViewById(R.id.tb_detail_ticket);
+        toolbar = findViewById(R.id.tb_favorieten);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.ticket_detail_title);
 

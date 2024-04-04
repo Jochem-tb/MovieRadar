@@ -36,4 +36,5 @@
     <string name="favoButton">Favorieten</string>
     <string name="ticketLabel">Ticket(s)</string>
     <string name="ticket_detail_title">Ticket Detail</string>
+    <string name="favorieten_title">Favorieten Lijst</string>
 </resources>

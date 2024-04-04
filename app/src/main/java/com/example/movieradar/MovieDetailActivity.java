@@ -78,7 +78,7 @@ public class MovieDetailActivity extends AppCompatActivity{
 
         Log.i(LOG_TAG, "onCreate");
 
-        toolbar = findViewById(R.id.tb_detail_ticket);
+        toolbar = findViewById(R.id.tb_detail_movie);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.detail_title);
 

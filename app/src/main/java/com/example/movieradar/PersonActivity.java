@@ -85,7 +85,7 @@ public class PersonActivity extends AppCompatActivity {
         favoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PersonActivity.this, FavorietenAcitivity.this));
+                startActivity(new Intent(PersonActivity.this, FavorietenAcitivity.class));
             }
         });
 
