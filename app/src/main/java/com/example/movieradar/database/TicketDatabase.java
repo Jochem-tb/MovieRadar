@@ -30,7 +30,7 @@ public abstract class TicketDatabase extends RoomDatabase {
     public static TicketDatabase getDatabase(final Context context) {
         // Check if an instance of the database already exists, otherwise create a new one
         if (INSTANCE == null) {
-            synchronized (ListDatabase.class) {
+            synchronized (TicketDatabase.class) {
                 if (INSTANCE == null) {
                     Log.d(LOG_TAG, "Creating new database instance");
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),

@@ -12,12 +12,12 @@ import com.example.movieradar.Movie;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Movie.class, MovieList.class}, version = 1, exportSchema = false)
-public abstract class ListDatabase extends RoomDatabase {
-    private static final String LOG_TAG = "MovieDatabase";
+@Database(entities = {Movie.class}, version = 1, exportSchema = false)
+public abstract class FavoMovieDatabase extends RoomDatabase {
+    private static final String LOG_TAG = "FavoMovieDatabase";
 
-    private static ListDatabase INSTANCE;
-    public abstract ListItemDao listItemDao();
+    private static FavoMovieDatabase INSTANCE;
+    public abstract FavoMovieDao favoMovieDao();
 
     // The number of threads used for database operations
     private static final int NUMBER_OF_THREADS = 2;
@@ -27,14 +27,14 @@ public abstract class ListDatabase extends RoomDatabase {
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
     // Method to obtain an instance of the database
-    static ListDatabase getDatabase(final Context context) {
+    public static FavoMovieDatabase getDatabase(final Context context) {
         // Check if an instance of the database already exists, otherwise create a new one
         if (INSTANCE == null) {
-            synchronized (ListDatabase.class) {
+            synchronized (FavoMovieDatabase.class) {
                 if (INSTANCE == null) {
                     Log.d(LOG_TAG, "Creating new database instance");
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    ListDatabase.class, "movie_database")
+                                    FavoMovieDatabase.class, "favoMovieDatabase")
                             .build();
                 }
             }
@@ -42,3 +42,4 @@ public abstract class ListDatabase extends RoomDatabase {
         return INSTANCE;
     }
 }
+

@@ -50,6 +50,7 @@ public class PersonActivity extends AppCompatActivity {
         ticketDatabase = TicketDatabase.getDatabase(this);
         ticketDao = ticketDatabase.ticketDao();
 
+
         //Navbar function
         BottomNavigationView btmNavView = findViewById(R.id.btmNavViewMain);
         btmNavView.setSelectedItemId(R.id.menuPersonal);

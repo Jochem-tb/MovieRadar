@@ -3,6 +3,7 @@ package com.example.movieradar;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -22,11 +23,16 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.movieradar.API.APIString;
 import com.example.movieradar.API.MovieApiTask;
+import com.example.movieradar.database.FavoMovieDao;
+import com.example.movieradar.database.FavoMovieDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.squareup.picasso.Picasso;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -34,6 +40,9 @@ public class MovieDetailActivity extends AppCompatActivity{
     private final String LOG_TAG = "MovieDetailActivity";
     private String YOUTUBE_VIDEO_ID;
     private Movie mMovie;
+    private Executor executor = Executors.newSingleThreadExecutor();
+    FavoMovieDao favoMovieDao;
+    FavoMovieDatabase favoMovieDatabase;
 
     TextView mMovieGenre;
     TextView mMovieStatus;
@@ -98,6 +107,11 @@ public class MovieDetailActivity extends AppCompatActivity{
         mStaticRating = findViewById(R.id.tv_detail_stat_rating);
         mStaticRevenue = findViewById(R.id.tv_detail_stat_revenue);
         mStaticBudget = findViewById(R.id.tv_detail_stat_budget);
+
+        favoMovieDatabase = FavoMovieDatabase.getDatabase(this);
+        favoMovieDao = favoMovieDatabase.favoMovieDao();
+
+
 
         BottomNavigationView btmNavView = findViewById(R.id.btmNavViewMain);
 
@@ -218,8 +232,7 @@ public class MovieDetailActivity extends AppCompatActivity{
         mFavoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"Favorite Button Kort", Toast.LENGTH_SHORT).show();
-
+                addToFavorites();
             }
         });
         mTrailerButton.setOnClickListener(new View.OnClickListener() {
@@ -398,5 +411,37 @@ public class MovieDetailActivity extends AppCompatActivity{
             }
 
         }
+    }
+
+    private void addToFavorites() {
+        // Cocktails toevoegen of verwijderen van favorieten
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                // Chech of Movie al in favorieten staat.
+                Movie existingCocktail = favoMovieDao.getMovieById(mMovie.getTitle());
+                if (existingCocktail != null) {
+                    // Als Movie al bestaat in DB, verwijder uit DB
+                    favoMovieDao.delete(mMovie);
+                    // Update de UI in mainThread
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getBaseContext(), "Removed from favorites", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    // Movie bestaan nog niet in DB
+                    favoMovieDao.insert(mMovie);
+                    // Update de UI in mainThread
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getBaseContext(), "Added to favorites", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+        });
     }
 }
