@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Adapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -78,6 +79,12 @@ public class PersonActivity extends AppCompatActivity {
         });
 
         fillTickets();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mTicketListAdapter.notifyDataSetChanged();
     }
 
     private void fillTickets() {

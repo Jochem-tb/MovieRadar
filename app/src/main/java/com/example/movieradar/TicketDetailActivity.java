@@ -13,10 +13,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
+import androidx.room.DatabaseConfiguration;
+import androidx.room.InvalidationTracker;
+import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
+import com.example.movieradar.database.TicketDao;
+import com.example.movieradar.database.TicketDao_Impl;
+import com.example.movieradar.database.TicketDatabase;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -26,9 +33,12 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class TicketDetailActivity extends AppCompatActivity {
     private final String LOG_TAG = "TicketDetailActivity";
+    private Executor executor = Executors.newSingleThreadExecutor();
     private View rootView;
     private Toolbar toolbar;
     private TextView tvTitle;
@@ -59,8 +69,8 @@ public class TicketDetailActivity extends AppCompatActivity {
         tvDateTime = findViewById(R.id.tv_detail_ticket_time_and_date);
 
         ivQR = findViewById(R.id.iv_ticket_detail_QR);
-        ivPrint = findViewById(R.id.iv_ticket_detail_print);
-        ivPrint.setOnClickListener(view -> captureScreenAndExport());
+        ivPrint = findViewById(R.id.iv_ticket_detail_delete);
+        ivPrint.setOnClickListener(view -> deleteTicket());
 
         rootView = findViewById(android.R.id.content);
 
@@ -73,6 +83,27 @@ public class TicketDetailActivity extends AppCompatActivity {
         setupUI();
 
     }
+    private void deleteTicket(){
+            // Cocktails toevoegen of verwijderen van favorieten
+            executor.execute(new Runnable() {
+                TicketDatabase db = TicketDatabase.getDatabase(TicketDetailActivity.this);
+                TicketDao t = db.ticketDao();
+                @Override
+                public void run() {
+                    if (mTicket != null) {
+                        t.delete(mTicket);
+                        startActivity(new Intent(TicketDetailActivity.this, PersonActivity.class));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getBaseContext(), "Removed from Tickets", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }
+            });
+     }
+
 
     private void setupUI() {
         tvTitle.setText(mTicket.getTitleMovie());
