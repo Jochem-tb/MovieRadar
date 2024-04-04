@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class PersonActivity extends AppCompatActivity {
 
     private final String LOG_TAG = "PersonActivity";
-    private final int NUM_TICKETS_LOADED = 5;
+    private final int NUM_TICKETS_LOADED = 10;
 
     TextView nameAccount;
     RecyclerView rvTickets;

@@ -3,40 +3,35 @@ package com.example.movieradar;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.net.wifi.WifiAvailableChannel;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.Toolbar;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-import org.w3c.dom.Text;
+import com.example.movieradar.database.TicketDao;
+import com.example.movieradar.database.TicketDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 
 public class PayActivity extends AppCompatActivity {
 
-    private static final String TAG = "";
     private final String LOG_TAG = "PayActivity";
-    private ArrayList<Ticket> tickets;
     private String movieTitle;
-    private int totalPrice;
-    private int countSeats;
-    private String kindOfTicket;
-    private boolean isAdult;
 
-
+    TicketDao ticketDao;
+    TicketDatabase ticketDatabase;
 
 
     TextView tvTotalPrice;
@@ -69,7 +64,6 @@ public class PayActivity extends AppCompatActivity {
     TextView creditkaartHolder;
     TextView creditkaartSecurity;
     private TextView ExpirydateView;
-    private ImageView ExpiryDateButton;
 
 
     @Override
@@ -85,17 +79,17 @@ public class PayActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Terugknop inschakelen
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
         //Getting tickets from OrderActivity
-        countSeats = 0; // resets count
+        int countSeats = 0; // resets count
         //Getting information from OrderActivity
         Intent intent = getIntent();
-        totalPrice = getIntent().getIntExtra("totalPrice", 0);
-        isAdult = getIntent().getBooleanExtra("isAdult", true);
-        tickets = intent.getParcelableArrayListExtra(Ticket.getShareKey());
+        int totalPrice = getIntent().getIntExtra("totalPrice", 0);
+        boolean isAdult = getIntent().getBooleanExtra("isAdult", true);
+        ArrayList<Ticket> tickets = (ArrayList<Ticket>) intent.getSerializableExtra(Ticket.getShareKey());
         if (tickets != null) {
             for (Ticket ticket : tickets) {
                 movieTitle = ticket.getTitleMovie();
@@ -106,6 +100,7 @@ public class PayActivity extends AppCompatActivity {
             Log.e("TicketInfo", "Tickets ArrayList is null");
         }
 
+        String kindOfTicket;
         if (isAdult){
             kindOfTicket = "volwassen";
         } else {
@@ -127,33 +122,16 @@ public class PayActivity extends AppCompatActivity {
         tvKindOfTicket.setText(countSeats + "x " + kindOfTicket);
 
     //  Button per betaaloptie
-        Paypal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialogPaypal();
-            }
-        });
+        Paypal.setOnClickListener(v -> showDialogPaypal());
 
-        ApplePay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialogApplePay();
-            }
-        });
+        ApplePay.setOnClickListener(v -> showDialogApplePay());
 
-        Ideal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialogIdeal();
-            }
-        });
+        Ideal.setOnClickListener(v -> showDialogIdeal());
 
-        Creditkaart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialogCreditkaart();
-            }
-        });
+        Creditkaart.setOnClickListener(v -> showDialogCreditkaart());
+
+        ticketDatabase = TicketDatabase.getDatabase(this);
+        ticketDao = ticketDatabase.ticketDao();
     }
 
     //    Dialog per betaaloptie
@@ -162,30 +140,18 @@ public class PayActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.dialog_paypal);
         dialog.show();
         betalingcomplete = dialog.findViewById(R.id.BetalingvoltooienP);
-        betalingcomplete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                emailadres = dialog.findViewById(R.id.EmailPaypal);
-                wachtwoord = dialog.findViewById(R.id.PasswordPaypal);
-                if(!emailadres.getText().toString().isEmpty() && !wachtwoord.getText().toString().isEmpty()){
-                    Intent intent = getIntent();
-                    tickets = intent.getParcelableArrayListExtra(Ticket.getShareKey());
-                    Intent payActivity = new Intent(PayActivity.this, PersonActivity.class);
-                    payActivity.putExtra(Ticket.getShareKey(),tickets);
-                    startActivity(payActivity);
-                } else {
-                    Toast.makeText(PayActivity.this, "Vul alle velden in om door te gaan!", Toast.LENGTH_SHORT).show();
-                }
+        betalingcomplete.setOnClickListener(v -> {
+            emailadres = dialog.findViewById(R.id.EmailPaypal);
+            wachtwoord = dialog.findViewById(R.id.PasswordPaypal);
+            if(!emailadres.getText().toString().isEmpty() && !wachtwoord.getText().toString().isEmpty()){
+                insertTicket();
+            } else {
+                Toast.makeText(PayActivity.this, "Vul alle velden in om door te gaan!", Toast.LENGTH_SHORT).show();
             }
         });
 
         betalingcancel = dialog.findViewById(R.id.BetalenAnnuleren);
-        betalingcancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.hide();
-            }
-        });
+        betalingcancel.setOnClickListener(v -> dialog.hide());
 
     }
     private void showDialogApplePay() {
@@ -195,31 +161,19 @@ public class PayActivity extends AppCompatActivity {
 
         betalingcomplete = dialog.findViewById(R.id.BetalingvoltooienA);
 
-        betalingcomplete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            username = dialog.findViewById(R.id.GebruikerApple);
-            wachtwoordApple = dialog.findViewById(R.id.WachtwoordApple);
+        betalingcomplete.setOnClickListener(v -> {
+        username = dialog.findViewById(R.id.GebruikerApple);
+        wachtwoordApple = dialog.findViewById(R.id.WachtwoordApple);
 
-            if (!username.getText().toString().isEmpty() && !wachtwoordApple.getText().toString().isEmpty()){
-                Intent intent = getIntent();
-                tickets = intent.getParcelableArrayListExtra(Ticket.getShareKey());
-                Intent payActivity = new Intent(PayActivity.this, PersonActivity.class);
-                payActivity.putExtra(Ticket.getShareKey(),tickets);
-                startActivity(payActivity);
-            }else {
-                Toast.makeText(PayActivity.this, "Vul alle velden in om door te gaan!", Toast.LENGTH_SHORT).show();
-            }
-            }
+        if (!username.getText().toString().isEmpty() && !wachtwoordApple.getText().toString().isEmpty()){
+        insertTicket();
+        }else {
+            Toast.makeText(PayActivity.this, "Vul alle velden in om door te gaan!", Toast.LENGTH_SHORT).show();
+        }
         });
 
         betalingcancel = dialog.findViewById(R.id.BetalenAnnuleren);
-        betalingcancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.hide();
-            }
-        });
+        betalingcancel.setOnClickListener(v -> dialog.hide());
 
     }
     private void showDialogIdeal() {
@@ -227,29 +181,17 @@ public class PayActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.dialog_ideal);
         dialog.show();
         betalingcomplete = dialog.findViewById(R.id.BetalingvoltooienI);
-        betalingcomplete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            DropdownIdeal = dialog.findViewById(R.id.DropdownIdeal);
-            if (!DropdownIdeal.getSelectedItem().toString().isEmpty()){
-                Intent intent = getIntent();
-                tickets = intent.getParcelableArrayListExtra(Ticket.getShareKey());
-                Intent payActivity = new Intent(PayActivity.this, PersonActivity.class);
-                payActivity.putExtra(Ticket.getShareKey(),tickets);
-                startActivity(payActivity);
-            }else{
-                Toast.makeText(PayActivity.this, "Selecteer een bank om door te gaan!", Toast.LENGTH_SHORT).show();
-            }
-            }
+        betalingcomplete.setOnClickListener(v -> {
+        DropdownIdeal = dialog.findViewById(R.id.DropdownIdeal);
+        if (!DropdownIdeal.getSelectedItem().toString().isEmpty()){
+        insertTicket();
+        }else{
+            Toast.makeText(PayActivity.this, "Selecteer een bank om door te gaan!", Toast.LENGTH_SHORT).show();
+        }
         });
 
         betalingcancel = dialog.findViewById(R.id.BetalenAnnuleren);
-        betalingcancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.hide();
-            }
-        });
+        betalingcancel.setOnClickListener(v -> dialog.hide());
 
     }
     private void showDialogCreditkaart() {
@@ -257,50 +199,38 @@ public class PayActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.dialog_creditkaart);
         dialog.show();
         betalingcomplete = dialog.findViewById(R.id.BetalingvoltooienC);
-        betalingcomplete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                creditkaartNum = dialog.findViewById(R.id.CreditcardNum);
-                creditkaartHolder = dialog.findViewById(R.id.CreditCardholder);
-                creditkaartSecurity = dialog.findViewById(R.id.CreditcardSecurity);
-                ExpirydateView = dialog.findViewById(R.id.CreditcardExpire);
+        betalingcomplete.setOnClickListener(v -> {
+            creditkaartNum = dialog.findViewById(R.id.CreditcardNum);
+            creditkaartHolder = dialog.findViewById(R.id.CreditCardholder);
+            creditkaartSecurity = dialog.findViewById(R.id.CreditcardSecurity);
+            ExpirydateView = dialog.findViewById(R.id.CreditcardExpire);
 
-                String ckn = creditkaartNum.getText().toString();
-                int checkchars = ckn.length();
-                String cks = creditkaartSecurity.getText().toString();
-                int checkcharsS = cks.length();
-                if (checkchars != 16) {
-                    Toast.makeText(PayActivity.this, "Creditkaartnummer moet uit 16 karakters bestaan!", Toast.LENGTH_SHORT).show();
-                }
-                if(!(checkcharsS >= 3)){
-                    Toast.makeText(PayActivity.this, "Veiligheidscode moet uit 3 tot 4 karakters bestaan!", Toast.LENGTH_SHORT).show();
-                }
-                if(checkchars == 16 && checkcharsS >= 3 && !ExpirydateView.getText().toString().isEmpty() && !creditkaartHolder.getText().toString().isEmpty()){
-                    Intent intent = getIntent();
-                    tickets = intent.getParcelableArrayListExtra(Ticket.getShareKey());
-                    Intent payActivity = new Intent(PayActivity.this, PersonActivity.class);
-                    payActivity.putExtra(Ticket.getShareKey(),tickets);
-                    startActivity(payActivity);
-                }
-                else {
-                    Toast.makeText(PayActivity.this, "Vul alle velden in om door te gaan!", Toast.LENGTH_SHORT).show();
-                }
+            String ckn = creditkaartNum.getText().toString();
+            int checkchars = ckn.length();
+            String cks = creditkaartSecurity.getText().toString();
+            int checkcharsS = cks.length();
+            if (checkchars != 16) {
+                Toast.makeText(PayActivity.this, "Creditkaartnummer moet uit 16 karakters bestaan!", Toast.LENGTH_SHORT).show();
+            }
+            if(!(checkcharsS >= 3)){
+                Toast.makeText(PayActivity.this, "Veiligheidscode moet uit 3 tot 4 karakters bestaan!", Toast.LENGTH_SHORT).show();
+            }
+            if(checkchars == 16 && checkcharsS >= 3 && !ExpirydateView.getText().toString().isEmpty() && !creditkaartHolder.getText().toString().isEmpty()){
+                insertTicket();
+            }
+            else {
+                Toast.makeText(PayActivity.this, "Vul alle velden in om door te gaan!", Toast.LENGTH_SHORT).show();
             }
         });
 
         betalingcancel = dialog.findViewById(R.id.BetalenAnnuleren);
-        betalingcancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.hide();
-            }
-        });
+        betalingcancel.setOnClickListener(v -> dialog.hide());
         // on below line we are initializing our variables.
-        ExpiryDateButton = dialog.findViewById(R.id.Expirypicker);
+        ImageView expiryDateButton = dialog.findViewById(R.id.Expirypicker);
         ExpirydateView = dialog.findViewById(R.id.CreditcardExpire);
 
         // on below line we are adding click listener for our pick date button
-        ExpiryDateButton.setOnClickListener(v -> {
+        expiryDateButton.setOnClickListener(v -> {
             // on below line we are getting
             // the instance of our calendar.
             final Calendar c = Calendar.getInstance();
@@ -332,16 +262,38 @@ public class PayActivity extends AppCompatActivity {
 //    Toolbar backbutton functionaliteit
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // Handle the back button (in this case, finish the activity)
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == android.R.id.home) {// Handle the back button (in this case, finish the activity)
+            finish();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
+    }
+    private void insertTicket() {
+        Log.d(LOG_TAG, "insertTicket");
+        new insertPaidTickets().execute();
     }
 
+    private class insertPaidTickets extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Intent intent = getIntent();
+            ArrayList<Ticket> z = (ArrayList<Ticket>)intent.getSerializableExtra(Ticket.getShareKey());
+            if (z != null) {
+                for(Ticket t: z){
+                    ticketDao.insert(new Ticket(t.getTitleMovie(), t.getTimeMovie(), t.getDatumMovie(), t.getChairNr(), t.getRowNr()));
+                }
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            startActivity(new Intent(PayActivity.this, PersonActivity.class));
+
+        }
+    }
 
 
 

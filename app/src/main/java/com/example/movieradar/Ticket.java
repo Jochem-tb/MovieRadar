@@ -49,32 +49,6 @@ public class Ticket implements Serializable {
         rowNr = in.readInt();
     }
 
-    public static final Creator<Ticket> CREATOR = new Creator<Ticket>() {
-        @Override
-        public Ticket createFromParcel(Parcel in) {
-            return new Ticket(in);
-        }
-
-        @Override
-        public Ticket[] newArray(int size) {
-            return new Ticket[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(titleMovie);
-        dest.writeString(timeMovie);
-        dest.writeString(datumMovie);
-        dest.writeInt(chairNr);
-        dest.writeInt(rowNr);
-    }
 
 
 
