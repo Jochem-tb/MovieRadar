@@ -29,6 +29,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -37,6 +38,7 @@ public class MovieDetailActivity extends AppCompatActivity{
     private final String LOG_TAG = "MovieDetailActivity";
     private String YOUTUBE_VIDEO_ID;
     private Movie mMovie;
+    private final DecimalFormat decimalFormat = new DecimalFormat("#.#");
 
     TextView mMovieGenre;
     TextView mMovieStatus;
@@ -394,7 +396,8 @@ public class MovieDetailActivity extends AppCompatActivity{
             if(mMovie.getVote_average() != null && mMovie.getVote_average() !=0){
                 mStaticRating.setVisibility(View.VISIBLE);
                 mMovieRating.setVisibility(View.VISIBLE);
-                mMovieRating.setText(String.valueOf(mMovie.getVote_average()));
+                String formattedNumber = decimalFormat.format(mMovie.getVote_average());
+                mMovieRating.setText(String.valueOf(formattedNumber));
             }else {
                 mStaticRating.setVisibility(View.GONE);
                 mMovieRating.setVisibility(View.GONE); // Hide the rating TextView if rating is not available
