@@ -15,7 +15,7 @@
         android:textSize="34sp" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/CreditcardNum"
+        android:id="@+id/GebruikerApple"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/Paypal_dialog"
@@ -31,10 +31,10 @@
         android:textColorHint="#546E7A" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/CreditcardSecurity"
+        android:id="@+id/WachtwoordApple"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/CreditcardNum"
+        android:layout_below="@id/GebruikerApple"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="15sp"
         android:layout_marginTop="15sp"
@@ -50,7 +50,7 @@
         android:id="@+id/BetalenAnnuleren"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/CreditcardSecurity"
+        android:layout_below="@id/WachtwoordApple"
         android:layout_gravity="center"
         android:layout_marginStart="10sp"
         android:layout_marginTop="10sp"
@@ -60,7 +60,7 @@
         android:text="@string/Betaling_annuleren" />
 
     <Button
-        android:id="@+id/BetalenviaPaypal"
+        android:id="@+id/BetalingvoltooienA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/BetalenAnnuleren"
