@@ -247,8 +247,10 @@ public class PayActivity extends AppCompatActivity {
             if(Datatest.containsUnicodeCharacter(creditkaartHolder.getText().toString())){
                 Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_LONG).show();
             }
-            if (!Datatest.expiryDate(LocalDate.parse(ExpirydateView.getText().toString()))){
-                Toast.makeText(PayActivity.this, "Vul een geldige datum in! Datum moet later zijn dan huidige datum", Toast.LENGTH_LONG).show();
+            if(!ExpirydateView.getText().toString().isEmpty()) {
+                if (!Datatest.expiryDate(LocalDate.parse(ExpirydateView.getText().toString()))) {
+                    Toast.makeText(PayActivity.this, "Vul een geldige datum in! Datum moet later zijn dan huidige datum", Toast.LENGTH_LONG).show();
+                }
             }
             else {
                 insertTicket();
