@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/Ticketkopen"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/Tb_Ticketkopen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -20,7 +20,7 @@
         android:id="@+id/Betaaloptie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/Ticketkopen"
+        android:layout_below="@id/Tb_Ticketkopen"
         android:gravity="center"
         android:text="@string/Payment_choice"
         android:textSize="24sp" />

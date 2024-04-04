@@ -1,12 +1,17 @@
 package com.example.movieradar;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,15 +19,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class PayActivity extends AppCompatActivity {
 
+    private static final String TAG = "";
     private final String LOG_TAG = "PayActivity";
     private ArrayList<Ticket> tickets;
     Button Paypal;
     Button ApplePay;
     Button Creditkaart;
     Button Ideal;
+    Toolbar toolbar;
 
     //PayPal Dialog attributen
 
@@ -30,6 +38,8 @@ public class PayActivity extends AppCompatActivity {
     Button betalingcomplete;
     TextView emailadres;
     TextView wachtwoord;
+    private TextView ExpirydateView;
+    private ImageView ExpiryDateButton;
 
 
     @Override
@@ -37,6 +47,15 @@ public class PayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d(LOG_TAG, "PayActivity geopend ");
         setContentView(R.layout.activity_payticket);
+
+        toolbar = findViewById(R.id.Tb_Ticketkopen);
+        toolbar.setTitle(R.string.payment_screen);
+        setSupportActionBar(toolbar);
+
+        // Terugknop inschakelen
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         //Getting tickets from OrderActivity
         Intent intent = getIntent();
@@ -79,6 +98,17 @@ public class PayActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // Handle the back button (in this case, finish the activity)
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     private void showDialogPaypal() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_paypal);
@@ -116,12 +146,44 @@ public class PayActivity extends AppCompatActivity {
                 dialog.hide();
             }
         });
+        // on below line we are initializing our variables.
+        ExpiryDateButton = dialog.findViewById(R.id.Expirypicker);
+        ExpirydateView = dialog.findViewById(R.id.CreditcardExpire);
 
+        // on below line we are adding click listener for our pick date button
+        ExpiryDateButton.setOnClickListener(v -> {
+            // on below line we are getting
+            // the instance of our calendar.
+            final Calendar c = Calendar.getInstance();
+
+            // on below line we are getting
+            // our day, month and year.
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // on below line we are creating a variable for date picker dialog.
+            DatePickerDialog datePickerDialog = new DatePickerDialog(
+                    // on below line we are passing context.
+                    PayActivity.this,
+                    (view, year1, monthOfYear, dayOfMonth) -> {
+                        // on below line we are setting date to our text view.
+                        ExpirydateView.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year1);
+
+                    },
+                    // on below line we are passing year,
+                    // month and day for selected date in our date picker.
+                    year, month, day);
+            // at last we are calling show to
+            // display our date picker dialog.
+            datePickerDialog.show();
+        });
     }
     private void showDialogApplePay() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_applepay);
         dialog.show();
+
         betalingcancel = dialog.findViewById(R.id.BetalenAnnuleren);
         betalingcancel.setOnClickListener(new View.OnClickListener() {
             @Override

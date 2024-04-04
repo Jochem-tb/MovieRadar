@@ -51,6 +51,7 @@
     <string name="Cardholder">Kaarthouder naam</string>
     <string name="Creditkaartnummer">XXXX-XXXX-XXXX-XXXX</string>
     <string name="Expiry">Vervaldatum</string>
+    <string name="ExpiryPNG">This is a picture of a calender</string>
     <string name="Security">Veilgheidscode</string>
 <!--    Applepay-->
     <string name="ApplePay_choice">Apple Pay</string>
