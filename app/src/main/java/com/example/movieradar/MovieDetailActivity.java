@@ -133,8 +133,8 @@ public class MovieDetailActivity extends AppCompatActivity{
 
 
 
-        listDialog = setupListDialogView();
-        setupLongButtonListener(listDialog);
+//      listDialog = setupListDialogView();
+//      setupLongButtonListener(listDialog);
         setupNormalButtonListerners();
 
         Log.d(LOG_TAG, mMovie.toString());
@@ -144,16 +144,16 @@ public class MovieDetailActivity extends AppCompatActivity{
 
 
 
-    private void setupLongButtonListener(AlertDialog listDialog) {
-        Log.d(LOG_TAG, "setupLongButtonListener");
-        mFavoriteButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                listDialog.show();
-                return false;
-            }
-        });
-    }
+//    private void setupLongButtonListener(AlertDialog listDialog) {
+//        Log.d(LOG_TAG, "setupLongButtonListener");
+//        mFavoriteButton.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                listDialog.show();
+//                return false;
+//            }
+//        });
+//    }
 
     private AlertDialog setupListDialogView() {
         Log.d(LOG_TAG, "setupListDialogView");
