@@ -1,6 +1,7 @@
 package com.example.movieradar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -75,7 +76,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
         return (mTicketList != null) ? mTicketList.size() : 0;
     }
 
-    public class TicketListViewHolder extends RecyclerView.ViewHolder {
+    public class TicketListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView tvTitleMovie;
         public TextView tvTimeMovie;
         public TextView tvDateMovie;
@@ -91,7 +92,30 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
             tvSeatMovieNumber = itemView.findViewById(R.id.tvSeatMovieNumber);
             tvRoomMovieNumber = itemView.findViewById(R.id.tvRoomMovieNumber);
             ivQRImage = itemView.findViewById(R.id.ivQRImage);
+            itemView.setOnClickListener(this);
             Log.i(LOG_TAG, "TicketListViewHolder");
+
+        }
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            Log.d(LOG_TAG, "ListItem onClick: "+position);
+
+            //Ticket op de huidige positie in de intent krijgen
+            Ticket selectedTicket = mTicketList.get(position);
+
+            // Nieuwe intent maken om TicketDetail te openen
+            Intent intent = new Intent(v.getContext(), TicketDetailActivity.class);
+
+            // TicketGegevens in intent stoppen
+            intent.putExtra(Ticket.getShareKey(), selectedTicket);
+
+            //Activiteit starten
+            v.getContext().startActivity(intent);
+
         }
     }
+
+
+
 }
