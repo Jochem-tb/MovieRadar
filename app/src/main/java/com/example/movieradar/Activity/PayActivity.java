@@ -1,4 +1,4 @@
-package com.example.movieradar;
+package com.example.movieradar.Activity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -18,6 +18,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.movieradar.Datatest;
+import com.example.movieradar.R;
+import com.example.movieradar.Ticket;
 import com.example.movieradar.database.TicketDao;
 import com.example.movieradar.database.TicketDatabase;
 
@@ -25,7 +28,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
-import com.example.movieradar.Datatest;
 
 public class PayActivity extends AppCompatActivity {
 

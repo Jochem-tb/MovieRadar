@@ -1,6 +1,5 @@
-package com.example.movieradar;
+package com.example.movieradar.Activity;
 
-import android.graphics.drawable.Drawable;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,13 +7,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.movieradar.Movie;
+import com.example.movieradar.R;
+import com.example.movieradar.Ticket;
 
 import java.util.ArrayList;
 import java.util.Collections;

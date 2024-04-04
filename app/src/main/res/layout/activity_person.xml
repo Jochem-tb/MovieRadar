@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PersonActivity">
+    tools:context=".Activity.PersonActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/btmNavViewMain"
@@ -57,22 +57,12 @@
         android:id="@+id/labelTickets"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/orange"
         android:text="@string/ticketLabel"
         android:textAlignment="center"
         android:textSize="20sp"
         android:layout_below="@id/recyclerviewList"
         />
-
-    <Button
-        android:id="@+id/bMore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/moreButton"
-        android:backgroundTint="@color/orange"
-        android:textColor="@color/black"
-        android:layout_below="@id/rvTickets"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTickets"

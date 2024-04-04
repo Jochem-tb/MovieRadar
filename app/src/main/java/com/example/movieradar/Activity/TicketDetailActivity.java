@@ -1,4 +1,4 @@
-package com.example.movieradar;
+package com.example.movieradar.Activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,6 +24,8 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper;
 import com.example.movieradar.database.TicketDao;
 import com.example.movieradar.database.TicketDao_Impl;
 import com.example.movieradar.database.TicketDatabase;
+import com.example.movieradar.R;
+import com.example.movieradar.Ticket;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;

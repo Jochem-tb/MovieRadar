@@ -1,4 +1,4 @@
-package com.example.movieradar;
+package com.example.movieradar.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +22,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.movieradar.API.APIString;
 import com.example.movieradar.API.MovieApiTask;
+import com.example.movieradar.Genre;
+import com.example.movieradar.Movie;
+import com.example.movieradar.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.squareup.picasso.Picasso;
@@ -133,8 +136,8 @@ public class MovieDetailActivity extends AppCompatActivity{
 
 
 
-        listDialog = setupListDialogView();
-        setupLongButtonListener(listDialog);
+//      listDialog = setupListDialogView();
+//      setupLongButtonListener(listDialog);
         setupNormalButtonListerners();
 
         Log.d(LOG_TAG, mMovie.toString());
@@ -144,16 +147,16 @@ public class MovieDetailActivity extends AppCompatActivity{
 
 
 
-    private void setupLongButtonListener(AlertDialog listDialog) {
-        Log.d(LOG_TAG, "setupLongButtonListener");
-        mFavoriteButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                listDialog.show();
-                return false;
-            }
-        });
-    }
+//    private void setupLongButtonListener(AlertDialog listDialog) {
+//        Log.d(LOG_TAG, "setupLongButtonListener");
+//        mFavoriteButton.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                listDialog.show();
+//                return false;
+//            }
+//        });
+//    }
 
     private AlertDialog setupListDialogView() {
         Log.d(LOG_TAG, "setupListDialogView");
