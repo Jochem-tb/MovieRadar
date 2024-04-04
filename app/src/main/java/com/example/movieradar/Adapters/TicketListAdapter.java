@@ -51,6 +51,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
         holder.tvTitleMovie.setText(mTicket.getTitleMovie());
         holder.tvTimeMovie.setText(mTicket.getTimeMovie());
         holder.tvDateMovie.setText(mTicket.getDatumMovie());
+        holder.tvRowMovieNumber.setText(String.valueOf(mTicket.getRowNr()));
         holder.tvSeatMovieNumber.setText(String.valueOf(mTicket.getChairNr()));
         holder.tvRoomMovieNumber.setText(String.valueOf(mTicket.getRoomNr()));
         String text = mTicket.getTitleMovie()+mTicket.getTimeMovie()+mTicket.getDatumMovie()+mTicket.getChairNr()+mTicket.getRoomNr();
@@ -86,6 +87,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
         public TextView tvSeatMovieNumber;
         public TextView tvRoomMovieNumber;
         public ImageView ivQRImage;
+        public TextView tvRowMovieNumber;
 
         public TicketListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -94,6 +96,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Ti
             tvDateMovie = itemView.findViewById(R.id.tvDateMovie);
             tvSeatMovieNumber = itemView.findViewById(R.id.tvSeatMovieNumber);
             tvRoomMovieNumber = itemView.findViewById(R.id.tvRoomMovieNumber);
+            tvRowMovieNumber = itemView.findViewById(R.id.tvRowMovieNumber);
             ivQRImage = itemView.findViewById(R.id.ivQRImage);
             itemView.setOnClickListener(this);
             Log.i(LOG_TAG, "TicketListViewHolder");

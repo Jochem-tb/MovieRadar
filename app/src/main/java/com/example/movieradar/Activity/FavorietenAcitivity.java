@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,7 +48,8 @@ public class FavorietenAcitivity extends AppCompatActivity {
         mAdapter = new MovieListAdapter(this, mMovieList);
         recyclerViewFavorieten.setAdapter(mAdapter);
 
-        recyclerViewFavorieten.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 3);
+        recyclerViewFavorieten.setLayoutManager(mLayoutManager);
 
         favoMovieDatabase = FavoMovieDatabase.getDatabase(this);
         favoMovieDao = favoMovieDatabase.favoMovieDao();

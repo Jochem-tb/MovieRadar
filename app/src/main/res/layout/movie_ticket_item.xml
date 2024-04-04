@@ -44,6 +44,7 @@
         android:layout_below="@id/tvTimeMovie"
         android:layout_marginBottom="10dp"
         android:layout_toEndOf="@id/ivQRImage"
+        android:layout_marginEnd="5dp"
         android:text="@string/rowLabel"
         android:textSize="16sp" />
 
