@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
 
     private MovieListAdapter mAdapter;
     private ArrayList<Movie> mMovieList = new ArrayList<>();
+    private ArrayList<Movie> mPopulairMovies = new ArrayList<>();
     RecyclerView rvMainMovieList;
     ImageView mImagePop1;
     ImageView mImagePop2;
@@ -65,15 +66,15 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
                     int id = menuItem.getItemId();
                     //Heb geprobeerd met switch/case maar geeft errors
                     if (id == R.id.menuHomeScreen) {
-                        startActivity(new Intent(MainActivity.this, MainActivity.class));
-                        Log.i(LOG_TAG, "HomeScreen button clicked");
+//                        startActivity(new Intent(MainActivity.this, MainActivity.class));
+//                        Log.i(LOG_TAG, "HomeScreen button clicked");
                         return true;
                     } else if (id == R.id.menuFilmList) {
                         startActivity(new Intent(MainActivity.this, CatalogusActivity.class));
                         Log.i(LOG_TAG, "Catalogus button clicked");
                         return true;
                     } else if (id == R.id.menuPersonal) {
-//                        startActivity(new Intent(MainActivity.this, PersonActivity.class));
+                        startActivity(new Intent(MainActivity.this, PersonActivity.class));
                         Log.i(LOG_TAG, "Personal button clicked");
                         return true;
                     } else {
@@ -100,8 +101,31 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         mTextViewPop6 = findViewById(R.id.tvMainPopularMovie6);
 
         // Vraag API vor popular movies, handel deze af als POPULAR_MOVIES
-        loadMoviesFromAPI(APIString.getPopularUrl(), POPULAR_MOVIES);
-//        loadMoviesFromAPI(APIString.getPopularUrl(), RANDOM_MOVIES);
+        loadMoviesFromAPI(APIString.getPopularUrl("day"), POPULAR_MOVIES);
+        loadMoviesFromAPI(APIString.getPopularUrl("week"), RANDOM_MOVIES);
+
+
+        mImagePop1.setOnClickListener(goToPopDetailPage(0));
+        mImagePop2.setOnClickListener(goToPopDetailPage(1));
+        mImagePop3.setOnClickListener(goToPopDetailPage(2));
+        mImagePop4.setOnClickListener(goToPopDetailPage(3));
+        mImagePop5.setOnClickListener(goToPopDetailPage(4));
+        mImagePop6.setOnClickListener(goToPopDetailPage(5));
+
+    }
+
+    //Methode to send the right movie to the new intent
+    private View.OnClickListener goToPopDetailPage(int position){
+        return new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Movie movie = mPopulairMovies.get(position);
+                Intent detailMovie = new Intent(MainActivity.this, MovieDetailActivity.class);
+                detailMovie.putExtra(Movie.getShareKey(),movie);
+                startActivity(detailMovie);
+                Log.d(LOG_TAG, "Popular image " + position + " pressed");
+            }
+        };
     }
 
     private void loadMoviesFromAPI(String APIUrl, int apiIdentifier) {
@@ -114,10 +138,10 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         switch (apiIdentifier) {
             case POPULAR_MOVIES:
                 setPopularMoviesHome(movies);
-                loadRecyclerView(movies);
+                mPopulairMovies = movies;
                 break;
             case RANDOM_MOVIES:
-//                loadRecyclerView(mMovieList);
+                loadRecyclerView(movies);
                 break;
             default:
 //                loadRecyclerView(mMovieList);
@@ -125,27 +149,24 @@ public class MainActivity extends AppCompatActivity implements MovieApiTask.OnNe
         }
     }
 
-
     public void setPopularMoviesHome(ArrayList<Movie> movies) {
         // Zet de Titel onder Poster
         if (movies != null && !movies.isEmpty()) {
-            mTextViewPop1.setText(movies.get(0).getTitle());
-            mTextViewPop2.setText(movies.get(1).getTitle());
-            mTextViewPop3.setText(movies.get(2).getTitle());
-            mTextViewPop4.setText(movies.get(3).getTitle());
-            mTextViewPop5.setText(movies.get(4).getTitle());
-            mTextViewPop6.setText(movies.get(5).getTitle());
+            mTextViewPop1.setText(movies.get(movies.size()-1).getTitle());
+            mTextViewPop2.setText(movies.get(movies.size()-2).getTitle());
+            mTextViewPop3.setText(movies.get(movies.size()-3).getTitle());
+            mTextViewPop4.setText(movies.get(movies.size()-4).getTitle());
+            mTextViewPop5.setText(movies.get(movies.size()-5).getTitle());
+            mTextViewPop6.setText(movies.get(movies.size()-6).getTitle());
             // Laad plaatjes in
-            Picasso.get().load(APIString.getBackdropUrl(movies.get(0).getPoster_path())).into(mImagePop1);
-            Picasso.get().load(APIString.getBackdropUrl(movies.get(1).getPoster_path())).into(mImagePop2);
-            Picasso.get().load(APIString.getBackdropUrl(movies.get(2).getPoster_path())).into(mImagePop3);
-            Picasso.get().load(APIString.getBackdropUrl(movies.get(3).getPoster_path())).into(mImagePop4);
-            Picasso.get().load(APIString.getBackdropUrl(movies.get(4).getPoster_path())).into(mImagePop5);
-            Picasso.get().load(APIString.getBackdropUrl(movies.get(5).getPoster_path())).into(mImagePop6);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(movies.size()-1).getPoster_path())).into(mImagePop1);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(movies.size()-2).getPoster_path())).into(mImagePop2);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(movies.size()-3).getPoster_path())).into(mImagePop3);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(movies.size()-4).getPoster_path())).into(mImagePop4);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(movies.size()-5).getPoster_path())).into(mImagePop5);
+            Picasso.get().load(APIString.getBackdropUrl(movies.get(movies.size()-6).getPoster_path())).into(mImagePop6);
         }
     }
-    // Set onclickListener
-    // TODO Implement OnClick
 
     // Vul recyclerview in
     public void loadRecyclerView(ArrayList<Movie> movies) {

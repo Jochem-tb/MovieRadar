@@ -50,19 +50,18 @@ public class CatalogusAdapter extends
     public void onBindViewHolder(@NonNull CatalogusViewHolder holder, int position) {
 
         this.holder = holder;
-        Integer genreId = checkedBoxes.get(position);
-        String genreIdTrue = getGenreId(genreId);
-        String genreName = getGenreName(genreId);
+        Integer Id = checkedBoxes.get(position);
+        String genreId = getGenreId(Id);
+        String genreName = getGenreName(Id);
         holder.tvCatalogusItemTitle.setText(genreName);
         // Make API call for the genre
         APIString str = new APIString();
-        str.filterOnGenre(Filters.with_genres, genreIdTrue);
+        str.filterOnGenre(Filters.with_genres, genreId);
         str.finish();
         Log.i(LOG_TAG, "Chosen genre APIString created");
 
         MovieApiTask task = new MovieApiTask(this, 1);
         task.execute(str.getApiString());
-
 
     }
 

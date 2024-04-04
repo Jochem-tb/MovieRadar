@@ -22,6 +22,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.movieradar.API.APIString;
 import com.example.movieradar.API.MovieApiTask;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -96,6 +98,31 @@ public class MovieDetailActivity extends AppCompatActivity{
         mStaticRating = findViewById(R.id.tv_detail_stat_rating);
         mStaticRevenue = findViewById(R.id.tv_detail_stat_revenue);
         mStaticBudget = findViewById(R.id.tv_detail_stat_budget);
+
+        BottomNavigationView btmNavView = findViewById(R.id.btmNavViewMain);
+
+        btmNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@androidx.annotation.NonNull MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                //Heb geprobeerd met switch/case maar geeft errors
+                if (id == R.id.menuHomeScreen) {
+                    startActivity(new Intent(MovieDetailActivity.this, MainActivity.class));
+                    Log.i(LOG_TAG, "HomeScreen button clicked");
+                    return true;
+                } else if (id == R.id.menuFilmList) {
+                    startActivity(new Intent(MovieDetailActivity.this, CatalogusActivity.class));
+                    Log.i(LOG_TAG, "Catalogus button clicked");
+                    return true;
+                } else if (id == R.id.menuPersonal) {
+                        startActivity(new Intent(MovieDetailActivity.this, PersonActivity.class));
+                    Log.i(LOG_TAG, "Personal button clicked");
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
 
         //Data uit intent halen
         Intent intent = getIntent();

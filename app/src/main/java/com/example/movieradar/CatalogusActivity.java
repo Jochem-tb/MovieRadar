@@ -62,10 +62,10 @@ public class CatalogusActivity extends AppCompatActivity implements MovieApiTask
         rvCatalogusTop.setAdapter(movieListAdapter);
         rvCatalogusTop.setVisibility(View.GONE);
 
-        loadMoviesFromAPI(APIString.getPopularUrl(), POPULAR_MOVIES);
+//        loadMoviesFromAPI(APIString.getPopularUrl(), POPULAR_MOVIES);
 
         btmNavView = findViewById(R.id.btmNavViewMain);
-        btmNavView.setSelectedItemId(R.id.tbCatalogus);
+        btmNavView.setSelectedItemId(R.id.menuFilmList);
 
         lCatalogusCheckboxes = findViewById(R.id.lCatalogusCheckboxes);
         lCatalogusCheckboxes.setVisibility(View.GONE);
@@ -80,12 +80,12 @@ public class CatalogusActivity extends AppCompatActivity implements MovieApiTask
                     startActivity(new Intent(CatalogusActivity.this, MainActivity.class));
                     Log.i(LOG_TAG, "HomeScreen button clicked");
                     return true;
-                } else if (id == R.id.menuFilmList) {
-                     startActivity(new Intent(CatalogusActivity.this, CatalogusActivity.class));
-                    Log.i(LOG_TAG, "catalogus button clicked");
-                    return true;
+//                } else if (id == R.id.menuFilmList) {
+//                     startActivity(new Intent(CatalogusActivity.this, CatalogusActivity.class));
+//                    Log.i(LOG_TAG, "catalogus button clicked");
+//                    return true;
                 } else if (id == R.id.menuPersonal) {
-//                     startActivity(new Intent(Catalogus.this, Persoonlijk.class));
+                     startActivity(new Intent(CatalogusActivity.this, PersonActivity.class));
                     Log.i(LOG_TAG, "Persoonlijk button clicked");
                     return true;
                 } else {
