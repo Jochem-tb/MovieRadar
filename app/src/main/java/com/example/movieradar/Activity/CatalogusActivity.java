@@ -234,4 +234,11 @@ public class CatalogusActivity extends AppCompatActivity implements MovieApiTask
 
         return genre;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        btmNavView = findViewById(R.id.btmNavViewMain);
+        btmNavView.setSelectedItemId(R.id.menuFilmList);
+    }
 }

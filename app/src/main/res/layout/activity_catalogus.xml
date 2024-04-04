@@ -57,7 +57,11 @@
         android:layout_height="75dp"
         android:layout_alignParentBottom="true"
         android:background="@color/orange"
-        app:menu="@menu/bottom_nav_menu"/>
+        app:menu="@menu/bottom_nav_menu"
+        app:itemIconTint="@drawable/bottom_navigation_selector"
+        app:itemTextColor="@drawable/bottom_navigation_selector"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface"
+        />
 
     <LinearLayout
         android:id="@+id/lCatalogusCheckboxes"

@@ -60,6 +60,7 @@ public class PersonActivity extends AppCompatActivity {
         BottomNavigationView btmNavView = findViewById(R.id.btmNavViewMain);
         btmNavView.setSelectedItemId(R.id.menuPersonal);
 
+
         btmNavView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -96,6 +97,8 @@ public class PersonActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        BottomNavigationView btmNavView = findViewById(R.id.btmNavViewMain);
+        btmNavView.setSelectedItemId(R.id.menuPersonal);
         mTicketListAdapter.notifyDataSetChanged();
     }
 

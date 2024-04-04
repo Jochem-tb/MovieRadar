@@ -144,7 +144,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         loadMovieDetails(mMovie.getId());
         loadMovieDataOnGui();
-
+        movieIsFavorite();
         // listDialog = setupListDialogView();
         // setupLongButtonListener(listDialog);
         setupNormalButtonListerners();
