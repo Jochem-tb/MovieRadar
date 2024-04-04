@@ -3,6 +3,12 @@ package com.example.movieradar;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Ticket implements Parcelable {
 
     @Ignore
