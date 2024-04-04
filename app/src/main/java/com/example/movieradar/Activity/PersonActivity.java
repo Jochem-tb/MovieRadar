@@ -1,5 +1,8 @@
-package com.example.movieradar;
+package com.example.movieradar.Activity;
 
+import com.example.movieradar.R;
+import com.example.movieradar.Ticket;
+import com.example.movieradar.Adapters.TicketListAdapter;
 import com.example.movieradar.database.*;
 
 import android.content.Intent;
@@ -19,7 +22,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class PersonActivity extends AppCompatActivity {

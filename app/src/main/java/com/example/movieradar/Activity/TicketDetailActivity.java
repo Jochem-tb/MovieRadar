@@ -1,4 +1,4 @@
-package com.example.movieradar;
+package com.example.movieradar.Activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 
+import com.example.movieradar.R;
+import com.example.movieradar.Ticket;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;

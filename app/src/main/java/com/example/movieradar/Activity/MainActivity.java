@@ -1,4 +1,4 @@
-package com.example.movieradar;
+package com.example.movieradar.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,11 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.movieradar.API.APIString;
-import com.example.movieradar.API.Filters;
 import com.example.movieradar.API.MovieApiTask;
+import com.example.movieradar.Movie;
+import com.example.movieradar.Adapters.MovieListAdapter;
+import com.example.movieradar.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.squareup.picasso.Picasso;

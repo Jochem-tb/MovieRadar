@@ -1,4 +1,4 @@
-package com.example.movieradar;
+package com.example.movieradar.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movieradar.API.APIString;
+import com.example.movieradar.Activity.MovieDetailActivity;
+import com.example.movieradar.Movie;
+import com.example.movieradar.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

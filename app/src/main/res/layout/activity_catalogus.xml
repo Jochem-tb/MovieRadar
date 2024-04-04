@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:textAlignment="center"
-    tools:context=".CatalogusActivity">
+    tools:context=".Activity.CatalogusActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/tbCatalogus"

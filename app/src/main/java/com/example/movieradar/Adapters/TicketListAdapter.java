@@ -1,4 +1,4 @@
-package com.example.movieradar;
+package com.example.movieradar.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.movieradar.Activity.TicketDetailActivity;
+import com.example.movieradar.R;
+import com.example.movieradar.Ticket;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
