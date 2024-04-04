@@ -26,11 +26,19 @@ public class PayActivity extends AppCompatActivity {
     private static final String TAG = "";
     private final String LOG_TAG = "PayActivity";
     private ArrayList<Ticket> tickets;
+    private String movieTitle;
+    private int totalPrice;
+    private int countSeats;
+    private String kindOfTicket;
+    private boolean isAdult;
     Button Paypal;
     Button ApplePay;
     Button Creditkaart;
     Button Ideal;
     Toolbar toolbar;
+    TextView tvTotalPrice;
+    TextView tvMovieTitle;
+    TextView tvKindOfTicket;
 
     //PayPal Dialog attributen
 
@@ -58,20 +66,41 @@ public class PayActivity extends AppCompatActivity {
 
 
         //Getting tickets from OrderActivity
+        countSeats = 0; // resets count
+        //Getting information from OrderActivity
         Intent intent = getIntent();
+        totalPrice = getIntent().getIntExtra("totalPrice", 0);
+        isAdult = getIntent().getBooleanExtra("isAdult", true);
         tickets = intent.getParcelableArrayListExtra(Ticket.getShareKey());
         if (tickets != null) {
             for (Ticket ticket : tickets) {
+                movieTitle = ticket.getTitleMovie();
+                countSeats++;
                 Log.d("TicketInfo: ","Movie title: " + ticket.getTitleMovie() + ", Room: " + ticket.getRoomNr() + ", Chair: " + ticket.getChairNr() + ", Row: " + ticket.getRowNr() + ", Time: " + ticket.getTimeMovie() + ", Datum: " + ticket.getDatumMovie());
             }
         } else {
             Log.e("TicketInfo", "Tickets ArrayList is null");
         }
 
+        if (isAdult){
+            kindOfTicket = "volwassen";
+        } else {
+            kindOfTicket = "kinderen";
+        }
+
+        //Setting attributes to layout
+        tvTotalPrice = findViewById(R.id.tv_totalPrice);
+        tvMovieTitle = findViewById(R.id.tv_MovieTitle);
+        tvKindOfTicket = findViewById(R.id.tv_KindOfTicket);
         Paypal = findViewById(R.id.Paypal);
         ApplePay = findViewById(R.id.ApplePay);
         Creditkaart = findViewById(R.id.CreditCard);
         Ideal = findViewById(R.id.Ideal);
+
+        //Setting text
+        tvTotalPrice.setText("€" + totalPrice + ",00");
+        tvMovieTitle.setText(movieTitle);
+        tvKindOfTicket.setText(countSeats + "x " + kindOfTicket);
         Paypal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

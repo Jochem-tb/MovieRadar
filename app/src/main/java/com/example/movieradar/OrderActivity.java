@@ -32,6 +32,7 @@ public class OrderActivity extends AppCompatActivity {
     private final String[] kindOfTicket = {"Kind", "Volwassene"};
     private static final int priceChild = 5;
     private static final int priceAdult = 10;
+    private int totalPrice;
     private int selectedChairsCount;
     private Movie mMovie;
     private boolean isAdult;
@@ -289,6 +290,8 @@ public class OrderActivity extends AppCompatActivity {
                     }
                 Intent payActivity = new Intent(OrderActivity.this, PayActivity.class);
                 payActivity.putExtra(Ticket.getShareKey(),tickets);
+                payActivity.putExtra("totalPrice", totalPrice);
+                payActivity.putExtra("isAdult", isAdult);
                 startActivity(payActivity);
                 } else {
                     Toast.makeText(OrderActivity.this, "Selecteer eerst een stoel", Toast.LENGTH_SHORT).show();
@@ -403,7 +406,7 @@ public class OrderActivity extends AppCompatActivity {
 
     //Methode to update the ticket information
     private void setTicketInformation(){
-        int totalPrice = isAdult ? selectedChairsCount * priceAdult : selectedChairsCount * priceChild;
+        totalPrice = isAdult ? selectedChairsCount * priceAdult : selectedChairsCount * priceChild;
         tvCountChairs.setText(String.valueOf(selectedChairsCount));
         tvTotalPrice.setText("€" + totalPrice + ",00");
         Log.d(LOG_TAG, "TicketInformation updated ");
