@@ -3,7 +3,6 @@ package com.example.movieradar;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -29,7 +28,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.squareup.picasso.Picasso;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -233,6 +231,7 @@ public class MovieDetailActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 addToFavorites();
+                movieIsFavorite();
             }
         });
         mTrailerButton.setOnClickListener(new View.OnClickListener() {
@@ -444,4 +443,29 @@ public class MovieDetailActivity extends AppCompatActivity{
             }
         });
     }
+
+    private void movieIsFavorite() {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Movie existingCocktail = favoMovieDao.getMovieById(mMovie.getTitle());
+                if (existingCocktail != null) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mFavoriteButton.setImageResource(R.drawable.heart_foreground);
+                        }
+                    });
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mFavoriteButton.setImageResource(R.drawable.baseline_heart_broken_24);
+                        }
+                    });
+                }
+            }
+        });
+    }
 }
+
