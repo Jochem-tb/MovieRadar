@@ -220,7 +220,6 @@ public class PayActivity extends AppCompatActivity {
             creditkaartNum = dialog.findViewById(R.id.CreditcardNum);
             creditkaartHolder = dialog.findViewById(R.id.CreditCardholder);
             creditkaartSecurity = dialog.findViewById(R.id.CreditcardSecurity);
-            ExpirydateView = dialog.findViewById(R.id.CreditcardExpire);
 
             String ckn = creditkaartNum.getText().toString();
             int checkchars = ckn.length();
@@ -238,21 +237,13 @@ public class PayActivity extends AppCompatActivity {
             if(Datatest.containsUnicodeCharacter(cks)){
                 Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_LONG).show();
             }
-            if(!(checkchars == 16) || !(checkcharsS >= 3) || ExpirydateView.getText().toString().isEmpty() || creditkaartHolder.getText().toString().isEmpty()){
+            if(!(checkchars == 16) || !(checkcharsS >= 3) || creditkaartHolder.getText().toString().isEmpty()){
                 Toast.makeText(PayActivity.this, "Vul alle velden in om door te gaan!", Toast.LENGTH_LONG).show();
-            }
-            if(Datatest.containsUnicodeCharacter(ExpirydateView.getText().toString())){
-                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_LONG).show();
             }
             if(Datatest.containsUnicodeCharacter(creditkaartHolder.getText().toString())){
                 Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_LONG).show();
             }
-            if(!ExpirydateView.getText().toString().isEmpty()) {
-                if (!Datatest.expiryDate(LocalDate.parse(ExpirydateView.getText().toString()))) {
-                    Toast.makeText(PayActivity.this, "Vul een geldige datum in! Datum moet later zijn dan huidige datum", Toast.LENGTH_LONG).show();
-                }
-            }
-            else if (checkchars == 16 && checkcharsS >= 3 && ExpirydateView.getText().toString().isEmpty()){
+            else if (checkchars == 16 && checkcharsS >= 3){
                 insertTicket();
                 Log.d(LOG_TAG, "YESSS ");
             }
