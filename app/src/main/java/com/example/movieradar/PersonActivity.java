@@ -31,7 +31,6 @@ public class PersonActivity extends AppCompatActivity {
     RecyclerView rvTickets;
     ArrayList<Ticket> ticketList = new ArrayList<Ticket>();
     TicketListAdapter mTicketListAdapter;
-
     TicketDao ticketDao;
     TicketDatabase ticketDatabase;
 

@@ -63,17 +63,6 @@
         android:layout_below="@id/recyclerviewList"
         />
 
-    <Button
-        android:id="@+id/bMore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/moreButton"
-        android:backgroundTint="@color/orange"
-        android:textColor="@color/black"
-        android:layout_below="@id/rvTickets"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"/>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTickets"
         android:layout_width="match_parent"
