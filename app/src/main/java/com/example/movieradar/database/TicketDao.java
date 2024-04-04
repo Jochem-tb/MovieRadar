@@ -34,6 +34,6 @@ public interface TicketDao {
     @Query("SELECT * FROM tickets WHERE date_movie >= :todayDate AND time_Movie >= :nowTime ORDER BY date_movie DESC LIMIT :topAantl")
     List<Ticket> getTopTicketsForToday(String todayDate,String nowTime, int topAantl);
 
-    @Query("SELECT * FROM tickets WHERE date_movie >= :todayDate ORDER BY date_movie DESC LIMIT :topAantl")
-    List<Ticket> getTopTicketsForToday(String todayDate, int topAantl);
+    @Query("SELECT * FROM tickets ORDER BY date_movie DESC LIMIT :topAantl")
+    List<Ticket> getTopTicketsForToday( int topAantl);
 }

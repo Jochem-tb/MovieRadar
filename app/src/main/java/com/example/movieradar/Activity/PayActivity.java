@@ -299,6 +299,7 @@ public class PayActivity extends AppCompatActivity {
             if (z != null) {
                 for(Ticket t: z){
                     ticketDao.insert(new Ticket(t.getTitleMovie(), t.getTimeMovie(), t.getDatumMovie(), t.getChairNr(), t.getRowNr()));
+                Log.d(LOG_TAG, "Ticket Inserted into Dao");
                 }
             }
 

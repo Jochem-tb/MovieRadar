@@ -108,11 +108,8 @@ public class PersonActivity extends AppCompatActivity {
         ArrayList<Ticket> list;
         @Override
         protected Void doInBackground(Void... voids) {
-//            for (int i=0; i<10; i++){
-//                ticketDao.insert(new Ticket("Dummy "+i, LocalTime.now().toString(),"2024-04-0"+i,i,i));
-//            }
-            ;
-            list = new ArrayList<>(ticketDao.getTopTicketsForToday(LocalDate.now().toString(), NUM_TICKETS_LOADED));
+//
+            list = new ArrayList<>(ticketDao.getTopTicketsForToday(NUM_TICKETS_LOADED));
             Log.d(LOG_TAG, "Fetched tickets from Dao: "+list.size());
             return null;
         }
