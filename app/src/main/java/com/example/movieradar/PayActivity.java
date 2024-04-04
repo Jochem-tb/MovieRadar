@@ -1,7 +1,9 @@
 package com.example.movieradar;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,8 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class PayActivity extends AppCompatActivity {
 
+    private final String LOG_TAG = "PayActivity";
+    private ArrayList<Ticket> tickets;
     Button Paypal;
     Button ApplePay;
     Button Creditkaart;
@@ -29,7 +35,19 @@ public class PayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(LOG_TAG, "PayActivity geopend ");
         setContentView(R.layout.activity_payticket);
+
+        //Getting tickets from OrderActivity
+        Intent intent = getIntent();
+        tickets = intent.getParcelableArrayListExtra(Ticket.getShareKey());
+        if (tickets != null) {
+            for (Ticket ticket : tickets) {
+                Log.d("TicketInfo: ","Movie title: " + ticket.getTitleMovie() + ", Room: " + ticket.getRoomNr() + ", Chair: " + ticket.getChairNr() + ", Row: " + ticket.getRowNr() + ", Time: " + ticket.getTimeMovie() + ", Datum: " + ticket.getDatumMovie());
+            }
+        } else {
+            Log.e("TicketInfo", "Tickets ArrayList is null");
+        }
 
         Paypal = findViewById(R.id.Paypal);
         ApplePay = findViewById(R.id.ApplePay);

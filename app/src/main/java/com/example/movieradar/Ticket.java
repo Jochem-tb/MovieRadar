@@ -1,6 +1,9 @@
 package com.example.movieradar;
 
-public class Ticket {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Ticket implements Parcelable {
 
     public static final String SHARE_KEY = "TicketKey";
     private final int roomNr = 1;
@@ -17,6 +20,41 @@ public class Ticket {
         this.datumMovie = datumMovie;
         this.chairNr = chairNr;
         this.rowNr = rowNr;
+    }
+    protected Ticket(Parcel in) {
+        id = in.readInt();
+        titleMovie = in.readString();
+        timeMovie = in.readString();
+        datumMovie = in.readString();
+        chairNr = in.readInt();
+        rowNr = in.readInt();
+    }
+
+    public static final Creator<Ticket> CREATOR = new Creator<Ticket>() {
+        @Override
+        public Ticket createFromParcel(Parcel in) {
+            return new Ticket(in);
+        }
+
+        @Override
+        public Ticket[] newArray(int size) {
+            return new Ticket[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(titleMovie);
+        dest.writeString(timeMovie);
+        dest.writeString(datumMovie);
+        dest.writeInt(chairNr);
+        dest.writeInt(rowNr);
     }
 
     public static String getShareKey() {

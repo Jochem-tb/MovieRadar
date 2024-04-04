@@ -276,9 +276,6 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "Order button clicked");
-                Intent payactivity = new Intent(OrderActivity.this,PayActivity.class);
-                payactivity.putExtra(Movie.getShareKey(),mMovie);
-                startActivity(payactivity);
                 tickets = new ArrayList<>();
                 if (selectedChairsCount > 0) {
                     List<ImageView> selectedSeats = findSelectedSeats();
@@ -288,10 +285,11 @@ public class OrderActivity extends AppCompatActivity {
                         String rowNumber = parts[0].replaceAll("[^0-9]", "");
                         String seatNumber = parts[1];
                         tickets.add(new Ticket(mMovie.getTitle(), times[positionTime], dates[positionDate], Integer.parseInt(seatNumber), Integer.parseInt(rowNumber)));
-                        Log.i(LOG_TAG, "Creation ticket " + mMovie.getTitle() + "\n" + times[positionTime] + "\n " + dates[positionDate] + "\n" + "seatNumber: " + Integer.parseInt(seatNumber) + "\n" + "rowNumber: " + Integer.parseInt(rowNumber));
+                        Log.i(LOG_TAG, "Creation ticket: " + mMovie.getTitle() + ", Time: " + times[positionTime] + ", Date: " + dates[positionDate] + ", Seat Number: " + Integer.parseInt(seatNumber) + ", Row Number: " + Integer.parseInt(rowNumber));
                     }
-//                Intent payingActivity = new Intent(OrderActivity.this, payingActivity.class);
-//                payingActivity.putExtra(Ticket.getShareKey(),tickets);
+                Intent payActivity = new Intent(OrderActivity.this, PayActivity.class);
+                payActivity.putExtra(Ticket.getShareKey(),tickets);
+                startActivity(payActivity);
                 } else {
                     Toast.makeText(OrderActivity.this, "Selecteer eerst een stoel", Toast.LENGTH_SHORT).show();
                     Log.i(LOG_TAG, "Order button clicked without selected seats");
