@@ -39,6 +39,7 @@
         <activity android:name=".CatalogusActivity"
             android:exported="true"></activity>
         <activity android:name=".PersonActivity"/>
+        <activity android:name=".Datatest"/>
         <activity android:name=".TicketDetailActivity"/>
     </application>
 

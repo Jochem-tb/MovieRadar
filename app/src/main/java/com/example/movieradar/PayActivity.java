@@ -21,19 +21,24 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.movieradar.database.TicketDao;
 import com.example.movieradar.database.TicketDatabase;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
+import com.example.movieradar.Datatest;
 
 public class PayActivity extends AppCompatActivity {
 
+//      Log_Tag
     private final String LOG_TAG = "PayActivity";
-    private String movieTitle;
 
+//      Database entry tickets
     TicketDao ticketDao;
     TicketDatabase ticketDatabase;
 
 
+//      Ticket info
+    private String movieTitle;
     TextView tvTotalPrice;
     TextView tvMovieTitle;
     TextView tvKindOfTicket;
@@ -52,7 +57,6 @@ public class PayActivity extends AppCompatActivity {
     TextView wachtwoord;
 
 //      Applepay Dialog attributen
-
     TextView username;
     TextView wachtwoordApple;
 
@@ -65,27 +69,26 @@ public class PayActivity extends AppCompatActivity {
     TextView creditkaartSecurity;
     private TextView ExpirydateView;
 
-
+//      OnCreate
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(LOG_TAG, "PayActivity geopend ");
         setContentView(R.layout.activity_payticket);
 
-//        Initialiseer de toolbar
-
+    //  Initialiseer de toolbar
         toolbar = findViewById(R.id.Tb_Ticketkopen);
         toolbar.setTitle(R.string.payment_screen);
         setSupportActionBar(toolbar);
 
-        // Terugknop inschakelen
+    //  Terugknop inschakelen
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
-        //Getting tickets from OrderActivity
-        int countSeats = 0; // resets count
-        //Getting information from OrderActivity
+    //  Tickets verkijgen van OrderActivity
+        // reset de count
+        int countSeats = 0;
+    //  Informatie verkrijgen van OrderActivity
         Intent intent = getIntent();
         int totalPrice = getIntent().getIntExtra("totalPrice", 0);
         boolean isAdult = getIntent().getBooleanExtra("isAdult", true);
@@ -107,7 +110,7 @@ public class PayActivity extends AppCompatActivity {
             kindOfTicket = "kinderen";
         }
 
-        //Setting attributes to layout
+//      Attributen koppelen aan Layout
         tvTotalPrice = findViewById(R.id.tv_totalPrice);
         tvMovieTitle = findViewById(R.id.tv_MovieTitle);
         tvKindOfTicket = findViewById(R.id.tv_KindOfTicket);
@@ -116,12 +119,12 @@ public class PayActivity extends AppCompatActivity {
         Creditkaart = findViewById(R.id.CreditCard);
         Ideal = findViewById(R.id.Ideal);
 
-        //Setting text
+//      Text zetten
         tvTotalPrice.setText("€" + totalPrice + ",00");
         tvMovieTitle.setText(movieTitle);
         tvKindOfTicket.setText(countSeats + "x " + kindOfTicket);
 
-    //  Button per betaaloptie
+//      Button per betaaloptie
         Paypal.setOnClickListener(v -> showDialogPaypal());
 
         ApplePay.setOnClickListener(v -> showDialogApplePay());
@@ -134,7 +137,7 @@ public class PayActivity extends AppCompatActivity {
         ticketDao = ticketDatabase.ticketDao();
     }
 
-    //    Dialog per betaaloptie
+//      Dialog per betaaloptie
     private void showDialogPaypal() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_paypal);
@@ -143,10 +146,20 @@ public class PayActivity extends AppCompatActivity {
         betalingcomplete.setOnClickListener(v -> {
             emailadres = dialog.findViewById(R.id.EmailPaypal);
             wachtwoord = dialog.findViewById(R.id.PasswordPaypal);
-            if(!emailadres.getText().toString().isEmpty() && !wachtwoord.getText().toString().isEmpty()){
-                insertTicket();
-            } else {
+
+//      Datacheck
+            if(wachtwoord.getText().toString().isEmpty()) {
                 Toast.makeText(PayActivity.this, "Vul alle velden in om door te gaan!", Toast.LENGTH_SHORT).show();
+
+            }
+            else if(!Datatest.checkEmailAddress(emailadres.getText().toString())) {
+                    Toast.makeText(PayActivity.this, "Gebruik het juiste email format! Voorbeeld johnsmith@gmail.com", Toast.LENGTH_SHORT).show();
+            }else if (Datatest.containsUnicodeCharacter(wachtwoord.getText().toString())) {
+                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_SHORT).show();
+            }else if (Datatest.containsUnicodeCharacter(emailadres.getText().toString())) {
+                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_SHORT).show();
+            } else {
+                insertTicket();
             }
         });
 
@@ -165,10 +178,12 @@ public class PayActivity extends AppCompatActivity {
         username = dialog.findViewById(R.id.GebruikerApple);
         wachtwoordApple = dialog.findViewById(R.id.WachtwoordApple);
 
-        if (!username.getText().toString().isEmpty() && !wachtwoordApple.getText().toString().isEmpty()){
-        insertTicket();
-        }else {
+        if (username.getText().toString().isEmpty() || wachtwoordApple.getText().toString().isEmpty()){
             Toast.makeText(PayActivity.this, "Vul alle velden in om door te gaan!", Toast.LENGTH_SHORT).show();
+        }else if (Datatest.containsUnicodeCharacter(username.getText().toString())){
+            Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_SHORT).show();
+        }else {
+            insertTicket();
         }
         });
 
@@ -183,11 +198,11 @@ public class PayActivity extends AppCompatActivity {
         betalingcomplete = dialog.findViewById(R.id.BetalingvoltooienI);
         betalingcomplete.setOnClickListener(v -> {
         DropdownIdeal = dialog.findViewById(R.id.DropdownIdeal);
-        if (!DropdownIdeal.getSelectedItem().toString().isEmpty()){
-        insertTicket();
-        }else{
-            Toast.makeText(PayActivity.this, "Selecteer een bank om door te gaan!", Toast.LENGTH_SHORT).show();
-        }
+        if (DropdownIdeal.getSelectedItem().toString().isEmpty()){
+        Toast.makeText(PayActivity.this, "Selecteer een bank om door te gaan!", Toast.LENGTH_SHORT).show();
+        } else {
+                insertTicket();
+            }
         });
 
         betalingcancel = dialog.findViewById(R.id.BetalenAnnuleren);
@@ -212,49 +227,48 @@ public class PayActivity extends AppCompatActivity {
             if (checkchars != 16) {
                 Toast.makeText(PayActivity.this, "Creditkaartnummer moet uit 16 karakters bestaan!", Toast.LENGTH_SHORT).show();
             }
+            if(Datatest.containsUnicodeCharacter(ckn)){
+                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_SHORT).show();
+            }
             if(!(checkcharsS >= 3)){
                 Toast.makeText(PayActivity.this, "Veiligheidscode moet uit 3 tot 4 karakters bestaan!", Toast.LENGTH_SHORT).show();
             }
-            if(checkchars == 16 && checkcharsS >= 3 && !ExpirydateView.getText().toString().isEmpty() && !creditkaartHolder.getText().toString().isEmpty()){
-                insertTicket();
+            if(Datatest.containsUnicodeCharacter(cks)){
+                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_SHORT).show();
+            }
+            if(!(checkchars == 16) || !(checkcharsS >= 3) || ExpirydateView.getText().toString().isEmpty() || creditkaartHolder.getText().toString().isEmpty()){
+                Toast.makeText(PayActivity.this, "Vul alle velden in om door te gaan!", Toast.LENGTH_SHORT).show();
+            }
+            if(Datatest.containsUnicodeCharacter(ExpirydateView.getText().toString())){
+                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_SHORT).show();
+            }
+            if(Datatest.containsUnicodeCharacter(creditkaartHolder.getText().toString())){
+                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_SHORT).show();
+            }
+            if (!Datatest.expiryDate(LocalDate.parse(ExpirydateView.getText().toString()))){
+                Toast.makeText(PayActivity.this, "Vul een geldige datum in! Datum moet later zijn dan huidige datum", Toast.LENGTH_SHORT).show();
             }
             else {
-                Toast.makeText(PayActivity.this, "Vul alle velden in om door te gaan!", Toast.LENGTH_SHORT).show();
+                insertTicket();
             }
         });
 
         betalingcancel = dialog.findViewById(R.id.BetalenAnnuleren);
         betalingcancel.setOnClickListener(v -> dialog.hide());
-        // on below line we are initializing our variables.
+//      Calender voor afloopdatum
         ImageView expiryDateButton = dialog.findViewById(R.id.Expirypicker);
         ExpirydateView = dialog.findViewById(R.id.CreditcardExpire);
-
-        // on below line we are adding click listener for our pick date button
         expiryDateButton.setOnClickListener(v -> {
-            // on below line we are getting
-            // the instance of our calendar.
             final Calendar c = Calendar.getInstance();
-
-            // on below line we are getting
-            // our day, month and year.
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
-
-            // on below line we are creating a variable for date picker dialog.
             DatePickerDialog datePickerDialog = new DatePickerDialog(
-                    // on below line we are passing context.
                     PayActivity.this,
                     (view, year1, monthOfYear, dayOfMonth) -> {
-                        // on below line we are setting date to our text view.
                         ExpirydateView.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year1);
-
                     },
-                    // on below line we are passing year,
-                    // month and day for selected date in our date picker.
                     year, month, day);
-            // at last we are calling show to
-            // display our date picker dialog.
             datePickerDialog.show();
         });
     }
@@ -262,12 +276,14 @@ public class PayActivity extends AppCompatActivity {
 //    Toolbar backbutton functionaliteit
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {// Handle the back button (in this case, finish the activity)
+        if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+//Ticket toevoegen aan database
     private void insertTicket() {
         Log.d(LOG_TAG, "insertTicket");
         new insertPaidTickets().execute();
