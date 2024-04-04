@@ -149,15 +149,15 @@ public class PayActivity extends AppCompatActivity {
 
 //      Datacheck
             if(wachtwoord.getText().toString().isEmpty()) {
-                Toast.makeText(PayActivity.this, "Vul alle velden in om door te gaan!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PayActivity.this, "Vul alle velden in om door te gaan!", Toast.LENGTH_LONG).show();
 
             }
             else if(!Datatest.checkEmailAddress(emailadres.getText().toString())) {
-                    Toast.makeText(PayActivity.this, "Gebruik het juiste email format! Voorbeeld johnsmith@gmail.com", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PayActivity.this, "Gebruik het juiste email format! Voorbeeld johnsmith@gmail.com", Toast.LENGTH_LONG).show();
             }else if (Datatest.containsUnicodeCharacter(wachtwoord.getText().toString())) {
-                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_LONG).show();
             }else if (Datatest.containsUnicodeCharacter(emailadres.getText().toString())) {
-                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_LONG).show();
             } else {
                 insertTicket();
             }
@@ -179,9 +179,9 @@ public class PayActivity extends AppCompatActivity {
         wachtwoordApple = dialog.findViewById(R.id.WachtwoordApple);
 
         if (username.getText().toString().isEmpty() || wachtwoordApple.getText().toString().isEmpty()){
-            Toast.makeText(PayActivity.this, "Vul alle velden in om door te gaan!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(PayActivity.this, "Vul alle velden in om door te gaan!", Toast.LENGTH_LONG).show();
         }else if (Datatest.containsUnicodeCharacter(username.getText().toString())){
-            Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_LONG).show();
         }else {
             insertTicket();
         }
@@ -199,7 +199,7 @@ public class PayActivity extends AppCompatActivity {
         betalingcomplete.setOnClickListener(v -> {
         DropdownIdeal = dialog.findViewById(R.id.DropdownIdeal);
         if (DropdownIdeal.getSelectedItem().toString().isEmpty()){
-        Toast.makeText(PayActivity.this, "Selecteer een bank om door te gaan!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(PayActivity.this, "Selecteer een bank om door te gaan!", Toast.LENGTH_LONG).show();
         } else {
                 insertTicket();
             }
@@ -225,28 +225,28 @@ public class PayActivity extends AppCompatActivity {
             String cks = creditkaartSecurity.getText().toString();
             int checkcharsS = cks.length();
             if (checkchars != 16) {
-                Toast.makeText(PayActivity.this, "Creditkaartnummer moet uit 16 karakters bestaan!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PayActivity.this, "Creditkaartnummer moet uit 16 karakters bestaan!", Toast.LENGTH_LONG).show();
             }
             if(Datatest.containsUnicodeCharacter(ckn)){
-                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_LONG).show();
             }
             if(!(checkcharsS >= 3)){
-                Toast.makeText(PayActivity.this, "Veiligheidscode moet uit 3 tot 4 karakters bestaan!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PayActivity.this, "Veiligheidscode moet uit 3 tot 4 karakters bestaan!", Toast.LENGTH_LONG).show();
             }
             if(Datatest.containsUnicodeCharacter(cks)){
-                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_LONG).show();
             }
             if(!(checkchars == 16) || !(checkcharsS >= 3) || ExpirydateView.getText().toString().isEmpty() || creditkaartHolder.getText().toString().isEmpty()){
-                Toast.makeText(PayActivity.this, "Vul alle velden in om door te gaan!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PayActivity.this, "Vul alle velden in om door te gaan!", Toast.LENGTH_LONG).show();
             }
             if(Datatest.containsUnicodeCharacter(ExpirydateView.getText().toString())){
-                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_LONG).show();
             }
             if(Datatest.containsUnicodeCharacter(creditkaartHolder.getText().toString())){
-                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PayActivity.this, "Gebruik reguliere tekens! ", Toast.LENGTH_LONG).show();
             }
             if (!Datatest.expiryDate(LocalDate.parse(ExpirydateView.getText().toString()))){
-                Toast.makeText(PayActivity.this, "Vul een geldige datum in! Datum moet later zijn dan huidige datum", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PayActivity.this, "Vul een geldige datum in! Datum moet later zijn dan huidige datum", Toast.LENGTH_LONG).show();
             }
             else {
                 insertTicket();
