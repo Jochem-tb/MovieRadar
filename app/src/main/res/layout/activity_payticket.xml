@@ -18,17 +18,68 @@
         android:textSize="30sp" />
 
     <LinearLayout
-        android:id="@+id/fl_totalPrice"
+        android:id="@+id/ly_ticketInformation"
+        android:layout_below="@id/Ticketkopen"
+        android:background="@drawable/border_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/Ticketkopen"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp">
+
+            <TextView
+                android:text="@string/label_movieTitel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/tv_MovieTitle"
+                android:layout_marginStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp">
+
+            <TextView
+                android:text="@string/label_kindOfTickets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/tv_KindOfTicket"
+                android:layout_marginStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ly_totalPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ly_ticketInformation"
         android:background="@drawable/border_background"
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:padding="5dp"
-        android:gravity="center_horizontal"
-        >
+        android:gravity="center_horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,7 +101,7 @@
         android:id="@+id/Betaaloptie"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fl_totalPrice"
+        android:layout_below="@id/ly_totalPrice"
         android:layout_marginTop="25dp"
         android:gravity="center"
         android:text="@string/Payment_choice"

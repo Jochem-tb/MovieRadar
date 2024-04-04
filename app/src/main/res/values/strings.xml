@@ -74,4 +74,6 @@
     <string name="moreButton">Meer...</string>
     <string name="ticketLabel">Ticket(s)</string>
     <string name="labelTotale_prijs">Totale prijs:</string>
+    <string name="label_movieTitel">Titel van film:</string>
+    <string name="label_kindOfTickets">Soort ticket(s):</string>
 </resources>
