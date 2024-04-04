@@ -38,7 +38,8 @@ public class MovieDetailActivity extends AppCompatActivity{
     private final String LOG_TAG = "MovieDetailActivity";
     private String YOUTUBE_VIDEO_ID;
     private Movie mMovie;
-    private final DecimalFormat decimalFormat = new DecimalFormat("#.#");
+    private final DecimalFormat ratingFormat = new DecimalFormat("#.#");
+    private final DecimalFormat bigNumberFormat = new DecimalFormat("#,###");
 
     TextView mMovieGenre;
     TextView mMovieStatus;
@@ -376,7 +377,8 @@ public class MovieDetailActivity extends AppCompatActivity{
             if (mMovie.getRevenue() != null && mMovie.getRevenue() != 0) {
                 mStaticRevenue.setVisibility(View.VISIBLE);
                 mMovieRevenue.setVisibility(View.VISIBLE);
-                mMovieRevenue.setText(String.valueOf(mMovie.getRevenue()));
+                String revenueNumber = bigNumberFormat.format(mMovie.getRevenue());
+                mMovieRevenue.setText(String.valueOf(revenueNumber));
             } else {
                 mStaticRevenue.setVisibility(View.GONE);
                 mMovieRevenue.setVisibility(View.GONE); // Hide the revenue TextView if revenue is not available
@@ -386,7 +388,8 @@ public class MovieDetailActivity extends AppCompatActivity{
             if (mMovie.getBudget() != null && mMovie.getBudget() != 0) {
                 mStaticBudget.setVisibility(View.VISIBLE);
                 mMovieBudget.setVisibility(View.VISIBLE);
-                mMovieBudget.setText(String.valueOf(mMovie.getBudget()));
+                String budgetNumber = bigNumberFormat.format(mMovie.getBudget());
+                mMovieBudget.setText(String.valueOf(budgetNumber));
             } else {
                 mStaticBudget.setVisibility(View.GONE);
                 mMovieBudget.setVisibility(View.GONE); // Hide the budget TextView if budget is not available
@@ -396,8 +399,8 @@ public class MovieDetailActivity extends AppCompatActivity{
             if(mMovie.getVote_average() != null && mMovie.getVote_average() !=0){
                 mStaticRating.setVisibility(View.VISIBLE);
                 mMovieRating.setVisibility(View.VISIBLE);
-                String formattedNumber = decimalFormat.format(mMovie.getVote_average());
-                mMovieRating.setText(String.valueOf(formattedNumber));
+                String ratingNumber = ratingFormat.format(mMovie.getVote_average());
+                mMovieRating.setText(String.valueOf(ratingNumber));
             }else {
                 mStaticRating.setVisibility(View.GONE);
                 mMovieRating.setVisibility(View.GONE); // Hide the rating TextView if rating is not available
