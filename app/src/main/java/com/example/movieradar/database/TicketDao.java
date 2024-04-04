@@ -22,10 +22,18 @@ public interface TicketDao {
     @Delete
     void delete(Ticket ticket);
 
-    // Query om een ticket op te halen op basis van het id
-//    @Query("SELECT * FROM favo_cocktail WHERE id=:idCheck")
-//    Ticket getTicketById(int idCheck);
+    @Query("DELETE FROM tickets WHERE id = :ticketId")
+    void deleteById(int ticketId);
 
-//    @Query("SELECT * FROM favo_cocktail WHERE id=:idCheck")
-//    ArrayList<Ticket> getAllTickets();
+    @Query("SELECT * FROM tickets")
+    List<Ticket> getAllTickets();
+
+    @Query("DELETE FROM tickets")
+    void deleteAll();
+
+    @Query("SELECT * FROM tickets WHERE date_movie >= :todayDate AND time_Movie >= :nowTime ORDER BY date_movie DESC LIMIT :topAantl")
+    List<Ticket> getTopTicketsForToday(String todayDate,String nowTime, int topAantl);
+
+    @Query("SELECT * FROM tickets WHERE date_movie >= :todayDate ORDER BY date_movie DESC LIMIT :topAantl")
+    List<Ticket> getTopTicketsForToday(String todayDate, int topAantl);
 }

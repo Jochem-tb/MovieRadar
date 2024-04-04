@@ -18,11 +18,14 @@ import com.example.movieradar.database.TicketDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class PersonActivity extends AppCompatActivity {
 
     private final String LOG_TAG = "PersonActivity";
+    private final int NUM_TICKETS_LOADED = 5;
 
     TextView nameAccount;
     RecyclerView rvTickets;
@@ -79,32 +82,26 @@ public class PersonActivity extends AppCompatActivity {
 
     private void fillTickets() {
         Log.d(LOG_TAG, "fillTickets");
-        new InsertTicketsTask().execute();
+        new GetAndSetTicketsTask().execute();
     }
 
-    private class InsertTicketsTask extends AsyncTask<Void, Void, Void> {
+    private class GetAndSetTicketsTask extends AsyncTask<Void, Void, Void> {
+        ArrayList<Ticket> list;
         @Override
         protected Void doInBackground(Void... voids) {
-            for (int i = 0; i < 10; i++) {
-                Ticket ticket = new Ticket(
-                        "Movie " + (i + 1), // Title of the movie
-                        "12:00", // Time of the movie
-                        "2024-04-03", // Date of the movie
-                        i + 1, // Chair number
-                        1 // row Number
-                );
-                ticketDao.insert(ticket);
-                Log.d(LOG_TAG, "Added ticket into TicketDatabase");
-                ticketList.add(ticket);
-            }
+//            for (int i=0; i<10; i++){
+//                ticketDao.insert(new Ticket("Dummy "+i, LocalTime.now().toString(),"2024-04-0"+i,i,i));
+//            }
+            ;
+            list = new ArrayList<>(ticketDao.getTopTicketsForToday(LocalDate.now().toString(), NUM_TICKETS_LOADED));
+            Log.d(LOG_TAG, "Fetched tickets from Dao: "+list.size());
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Log.d(LOG_TAG, "setTicketList with: " + ticketList.size());
-            mTicketListAdapter.setTicketList(ticketList);
+            mTicketListAdapter.setTicketList(list);
         }
     }
 }
