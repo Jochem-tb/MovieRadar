@@ -33,7 +33,7 @@
     <string name="roomLabel">Zaal:</string>
     <string name="seatLabel">Stoel:</string>
     <string name="rowLabel">Rij:</string>
-    <string name="moreButton">Meer...</string>
+    <string name="favoButton">Favorieten</string>
     <string name="ticketLabel">Ticket(s)</string>
     <string name="ticket_detail_title">Ticket Detail</string>
 </resources>

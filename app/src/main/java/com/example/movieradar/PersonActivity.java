@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,7 @@ public class PersonActivity extends AppCompatActivity {
     private final int NUM_TICKETS_LOADED = 5;
 
     TextView nameAccount;
+    Button favoButton;
     RecyclerView rvTickets;
     ArrayList<Ticket> ticketList = new ArrayList<Ticket>();
     TicketListAdapter mTicketListAdapter;
@@ -45,6 +48,7 @@ public class PersonActivity extends AppCompatActivity {
         mTicketListAdapter = new TicketListAdapter(this, ticketList);
         rvTickets.setLayoutManager(new LinearLayoutManager(this));
         rvTickets.setAdapter(mTicketListAdapter);
+        favoButton = findViewById(R.id.bt_favo);
         nameAccount.setText("Gast");
 
         ticketDatabase = TicketDatabase.getDatabase(this);
@@ -75,6 +79,13 @@ public class PersonActivity extends AppCompatActivity {
                 } else {
                     return false;
                 }
+            }
+        });
+
+        favoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PersonActivity.this, FavorietenAcitivity.this));
             }
         });
 
