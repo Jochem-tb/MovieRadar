@@ -1,5 +1,7 @@
 package com.example.movieradar;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -7,6 +9,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 public class TicketDetailActivity extends AppCompatActivity {
     private final String LOG_TAG = "TicketDetailActivity";
@@ -16,6 +24,7 @@ public class TicketDetailActivity extends AppCompatActivity {
     private TextView tvDateTime;
     private ImageView ivQR;
     private ImageView ivPrint;
+    private Ticket mTicket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,5 +48,29 @@ public class TicketDetailActivity extends AppCompatActivity {
 
         ivQR = findViewById(R.id.iv_ticket_detail_QR);
         ivPrint = findViewById(R.id.iv_ticket_detail_print);
+
+        //Data uit intent halen
+        Intent intent = getIntent();
+        mTicket = (Ticket) intent.getSerializableExtra(Ticket.getShareKey());
+
+        setupUI();
+
+    }
+
+    private void setupUI() {
+        tvTitle.setText(mTicket.getTitleMovie());
+        tvRowSeat.setText("Rij: "+mTicket.getRowNr()+"     StoelNr: "+mTicket.getChairNr());
+        tvDateTime.setText("Datum: "+mTicket.getDatumMovie()+"     Tijd: "+mTicket.getTimeMovie());
+        String text = mTicket.getTitleMovie()+mTicket.getTimeMovie()+mTicket.getDatumMovie()+mTicket.getChairNr()+mTicket.getRoomNr();
+        MultiFormatWriter writer = new MultiFormatWriter();
+        try {
+            BitMatrix matrix = writer.encode(text, BarcodeFormat.QR_CODE,800,800);
+
+            BarcodeEncoder encoder = new BarcodeEncoder();
+            Bitmap bitmap = encoder.createBitmap(matrix);
+            ivQR.setImageBitmap(bitmap);
+        } catch (WriterException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

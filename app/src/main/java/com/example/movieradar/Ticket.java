@@ -5,9 +5,11 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 
 @Entity(tableName = "tickets")
-public class Ticket {
+public class Ticket implements Serializable {
 
     @Ignore
     public static final String SHARE_KEY = "TicketKey";
