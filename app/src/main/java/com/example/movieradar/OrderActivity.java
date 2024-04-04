@@ -291,6 +291,7 @@ public class OrderActivity extends AppCompatActivity {
                 Intent payActivity = new Intent(OrderActivity.this, PayActivity.class);
                 payActivity.putExtra(Ticket.getShareKey(),tickets);
                 payActivity.putExtra("totalPrice", totalPrice);
+                payActivity.putExtra("isAdult", isAdult);
                 startActivity(payActivity);
                 } else {
                     Toast.makeText(OrderActivity.this, "Selecteer eerst een stoel", Toast.LENGTH_SHORT).show();
