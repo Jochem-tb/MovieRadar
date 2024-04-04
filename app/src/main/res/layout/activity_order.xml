@@ -76,7 +76,7 @@
             android:id="@+id/row1Seat1"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="0"
             app:layout_row="0" />
 
@@ -84,7 +84,7 @@
             android:id="@+id/row1Seat2"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="1"
             app:layout_row="0" />
 
@@ -92,7 +92,7 @@
             android:id="@+id/row1Seat3"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="2"
             app:layout_row="0" />
 
@@ -100,7 +100,7 @@
             android:id="@+id/row1Seat4"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="5"
             app:layout_row="0"/>
 
@@ -108,7 +108,7 @@
             android:id="@+id/row1Seat5"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="6"
             app:layout_row="0" />
 
@@ -116,7 +116,7 @@
             android:id="@+id/row1Seat6"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="7"
             app:layout_row="0" />
 
@@ -126,7 +126,7 @@
             android:id="@+id/row2Seat1"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="0"
             app:layout_row="1" />
 
@@ -134,7 +134,7 @@
             android:id="@+id/row2Seat2"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="1"
             app:layout_row="1" />
 
@@ -142,7 +142,7 @@
             android:id="@+id/row2Seat3"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="2"
             app:layout_row="1" />
 
@@ -150,7 +150,7 @@
             android:id="@+id/row2Seat4"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="3"
             app:layout_row="1" />
 
@@ -158,7 +158,7 @@
             android:id="@+id/row2Seat5"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="4"
             app:layout_row="1" />
 
@@ -166,7 +166,7 @@
             android:id="@+id/row2Seat6"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="5"
             app:layout_row="1"/>
 
@@ -174,7 +174,7 @@
             android:id="@+id/row2Seat7"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="6"
             app:layout_row="1" />
 
@@ -182,7 +182,7 @@
             android:id="@+id/row2Seat8"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="7"
             app:layout_row="1" />
 
@@ -191,7 +191,7 @@
             android:id="@+id/row3Seat1"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="0"
             app:layout_row="2" />
 
@@ -199,7 +199,7 @@
             android:id="@+id/row3Seat2"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="1"
             app:layout_row="2" />
 
@@ -207,7 +207,7 @@
             android:id="@+id/row3Seat3"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="2"
             app:layout_row="2" />
 
@@ -215,7 +215,7 @@
             android:id="@+id/row3Seat4"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="3"
             app:layout_row="2" />
 
@@ -223,7 +223,7 @@
             android:id="@+id/row3Seat5"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="4"
             app:layout_row="2" />
 
@@ -231,7 +231,7 @@
             android:id="@+id/row3Seat6"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="5"
             app:layout_row="2"/>
 
@@ -239,7 +239,7 @@
             android:id="@+id/row3Seat7"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="6"
             app:layout_row="2" />
 
@@ -247,7 +247,7 @@
             android:id="@+id/row3Seat8"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="7"
             app:layout_row="2" />
 
@@ -256,7 +256,7 @@
             android:id="@+id/row4Seat1"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="0"
             app:layout_row="3" />
 
@@ -264,7 +264,7 @@
             android:id="@+id/row4Seat2"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="1"
             app:layout_row="3"  />
 
@@ -272,7 +272,7 @@
             android:id="@+id/row4Seat3"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="2"
             app:layout_row="3"  />
 
@@ -280,7 +280,7 @@
             android:id="@+id/row4Seat4"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="3"
             app:layout_row="3"  />
 
@@ -288,7 +288,7 @@
             android:id="@+id/row4Seat5"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="4"
             app:layout_row="3"  />
 
@@ -296,7 +296,7 @@
             android:id="@+id/row4Seat6"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="5"
             app:layout_row="3"/>
 
@@ -304,7 +304,7 @@
             android:id="@+id/row4Seat7"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="6"
             app:layout_row="3"/>
 
@@ -312,7 +312,7 @@
             android:id="@+id/row4Seat8"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="7"
             app:layout_row="3" />
 
@@ -321,7 +321,7 @@
             android:id="@+id/row5Seat1"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="0"
             app:layout_row="4" />
 
@@ -329,7 +329,7 @@
             android:id="@+id/row5Seat2"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="1"
             app:layout_row="4" />
 
@@ -337,7 +337,7 @@
             android:id="@+id/row5Seat3"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="2"
             app:layout_row="4" />
 
@@ -345,7 +345,7 @@
             android:id="@+id/row5Seat4"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="3"
             app:layout_row="4" />
 
@@ -353,7 +353,7 @@
             android:id="@+id/row5Seat5"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="4"
             app:layout_row="4" />
 
@@ -361,7 +361,7 @@
             android:id="@+id/row5Seat6"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="5"
             app:layout_row="4" />
 
@@ -369,7 +369,7 @@
             android:id="@+id/row5Seat7"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="6"
             app:layout_row="4" />
 
@@ -377,7 +377,7 @@
             android:id="@+id/row5Seat8"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="7"
             app:layout_row="4" />
 
@@ -386,7 +386,7 @@
             android:id="@+id/row6Seat1"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="0"
             app:layout_row="5" />
 
@@ -394,7 +394,7 @@
             android:id="@+id/row6Seat2"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="1"
             app:layout_row="5" />
 
@@ -402,7 +402,7 @@
             android:id="@+id/row6Seat3"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="2"
             app:layout_row="5" />
 
@@ -410,7 +410,7 @@
             android:id="@+id/row6Seat4"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="3"
             app:layout_row="5" />
 
@@ -418,7 +418,7 @@
             android:id="@+id/row6Seat5"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="4"
             app:layout_row="5" />
 
@@ -426,7 +426,7 @@
             android:id="@+id/row6Seat6"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="5"
             app:layout_row="5" />
 
@@ -434,7 +434,7 @@
             android:id="@+id/row6Seat7"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="6"
             app:layout_row="5" />
 
@@ -442,7 +442,7 @@
             android:id="@+id/row6Seat8"
             android:layout_width="120px"
             android:layout_height="100px"
-            android:src="@drawable/available_chair_foreground"
+            android:src="@drawable/ic_available_chair_foreground"
             app:layout_column="7"
             app:layout_row="5" />
 

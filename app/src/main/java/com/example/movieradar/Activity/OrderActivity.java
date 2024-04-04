@@ -393,12 +393,12 @@ public class OrderActivity extends AppCompatActivity {
             Toast.makeText(this, "Deze stoel is al bezet", Toast.LENGTH_SHORT).show();
             Log.i(LOG_TAG, "unavailable chair pushed");
         } else if (tag != null && tag.equals("selected")) {
-            imageView.setImageResource(R.drawable.available_chair_foreground);
+            imageView.setImageResource(R.drawable.ic_available_chair_foreground);
             imageView.setTag(null);
             selectedChairsCount--;
             Log.i(LOG_TAG, "selected chair changed to available");
         } else {
-            imageView.setImageResource(R.drawable.selected_chair_foreground);
+            imageView.setImageResource(R.drawable.ic_selected_chair_foreground);
             imageView.setTag("selected");
             selectedChairsCount++;
             Log.i(LOG_TAG, "available chair changed to selected");
@@ -538,7 +538,7 @@ public class OrderActivity extends AppCompatActivity {
                 if (markedSeats.contains(randomSeatIndex)) {
                     continue;
                 }
-                row[randomSeatIndex].setImageResource(R.drawable.unavailable_chair_foreground);
+                row[randomSeatIndex].setImageResource(R.drawable.ic_unavailable_chair_foreground);
                 row[randomSeatIndex].setTag("unavailable");
                 markedSeats.add(randomSeatIndex);
             }
@@ -561,7 +561,7 @@ public class OrderActivity extends AppCompatActivity {
         for (ImageView[] row : seatImageViews) {
             for (ImageView seat : row) {
                 // resets imageView to standard imageview
-                seat.setImageResource(R.drawable.available_chair_foreground);
+                seat.setImageResource(R.drawable.ic_available_chair_foreground);
                 // deletes possible tags
                 seat.setTag(null);
             }
