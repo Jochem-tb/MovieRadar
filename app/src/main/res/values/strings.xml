@@ -77,4 +77,5 @@
     <string name="labelTotale_prijs">Totale prijs:</string>
     <string name="label_movieTitel">Titel van film:</string>
     <string name="label_kindOfTickets">Soort ticket(s):</string>
+    <string name="ticket_detail_title">Ticket Detail</string>
 </resources>
